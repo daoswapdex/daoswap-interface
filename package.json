@@ -1,5 +1,5 @@
 {
-  "name": "@daoswapdex-bsc-testnet/daoswap-interface",
+  "name": "@daoswapdex/daoswap-interface",
   "description": "Daoswap Interface",
   "homepage": ".",
   "private": true,
