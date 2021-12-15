@@ -1,4 +1,4 @@
-import { ChainId } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ChainId, CURRENCY_SYMBOL } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import React from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -231,7 +231,6 @@ const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
   [ChainId.HECO_TESTNET]: 'HecoTest'
 }
 
-// TODO:Daoswap UNI -> DAO
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
@@ -294,7 +293,7 @@ export default function Header() {
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} HT
+                {userEthBalance?.toSignificant(4)} {chainId ? CURRENCY_SYMBOL[chainId] : 'HT'}
               </BalanceText>
             ) : null}
             <Web3Status />

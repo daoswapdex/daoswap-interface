@@ -3,7 +3,7 @@ import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import { JSBI, TokenAmount, ETHER, Price } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { JSBI, TokenAmount, ETHER, CURRENCY_SYMBOL } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import { RouteComponentProps } from 'react-router-dom'
 import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { useCurrency } from '../../hooks/Tokens'
@@ -27,9 +27,8 @@ import { currencyId } from '../../utils/currencyId'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { usePair } from '../../data/Reserves'
 import usePrevious from '../../hooks/usePrevious'
-// import useUSDCPrice from '../../utils/useUSDCPrice'
+import useUSDCPrice from '../../utils/useUSDCPrice'
 import { BIG_INT_ZERO } from '../../constants'
-import { USDC_BSC_TESTNET } from '../../constants'
 import { useTranslation } from 'react-i18next'
 
 const PageWrapper = styled(AutoColumn)`
@@ -142,8 +141,7 @@ export default function Manage({
   const countUpAmountPrevious = usePrevious(countUpAmount) ?? '0'
 
   // get the USD value of staked WETH
-  // const USDPrice = useUSDCPrice(WETH)
-  const USDPrice = new Price(WETH ? WETH : USDC_BSC_TESTNET, WETH ? WETH : USDC_BSC_TESTNET, '1', '3')
+  const USDPrice = useUSDCPrice(WETH)
   const valueOfTotalStakedAmountInUSDC =
     valueOfTotalStakedAmountInWETH && USDPrice?.quote(valueOfTotalStakedAmountInWETH)
 
@@ -173,7 +171,9 @@ export default function Manage({
             <TYPE.body fontSize={24} fontWeight={500}>
               {valueOfTotalStakedAmountInUSDC
                 ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })}`
-                : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} HT`}
+                : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} ${
+                    chainId ? CURRENCY_SYMBOL[chainId] : 'HT'
+                  }`}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
@@ -273,7 +273,6 @@ export default function Manage({
             <AutoColumn gap="sm">
               <RowBetween>
                 <div>
-                  {/* // TODO:Daoswap UNI -> DAO */}
                   <TYPE.black>{t('Your unclaimed DAO')}</TYPE.black>
                 </div>
                 {stakingInfo?.earnedAmount && JSBI.notEqual(BIG_INT_ZERO, stakingInfo?.earnedAmount?.raw) && (
@@ -319,7 +318,7 @@ export default function Manage({
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
-          {/* // TODO:Daoswap UNI -> DAO */}
+
           {t('When you withdraw, the contract will automagically claim DAO on your behalf!')}
         </TYPE.main>
 

@@ -1,4 +1,4 @@
-import { ChainId, JSBI, Percent, Token, WETH } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ChainId, JSBI, Percent, Token, WETH, USDT, USDC } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { injected, walletconnect } from '../connectors'
@@ -10,71 +10,20 @@ type ChainTokenList = {
   readonly [chainId in ChainId]: Token[]
 }
 
-// export const DAI = new Token(ChainId.MAINNET, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'Dai Stablecoin')
-export const USDC = new Token(ChainId.BSC_TESTNET, '0x9362Bbef4B8313A8Aa9f0c9808B80577Aa26B73B', 6, 'USDC', 'USD//C')
-export const USDT = new Token(
-  ChainId.BSC_TESTNET,
-  '0xa71EdC38d189767582C38A3145b5873052c3e47a',
-  18,
-  'USDT',
-  'Tether USD'
-)
-export const DAO_BSC_TESTNET = new Token(
-  ChainId.BSC_TESTNET,
-  '0xdb5D970F03bfD19c1E51D57BcEd114BC35A0808f',
-  18,
-  'DAO',
-  'Daoswap'
-)
-export const DAI_BSC_TESTNET = new Token(
-  ChainId.BSC_TESTNET,
-  '0x60d64Ef311a4F0E288120543A14e7f90E76304c6',
-  18,
-  'DAI',
-  'Dai Stablecoin'
-)
-export const DTC1_BSC_TESTNET = new Token(
-  ChainId.BSC_TESTNET,
+export const DTC1_HECO_TESTNET = new Token(
+  ChainId.HECO_TESTNET,
   '0x5A78963afB7555658Cb53A9D1e0A26252CBd26b6',
   18,
   'DTC1',
   'Daoswap Test Coin 1'
 )
-export const DTC2_BSC_TESTNET = new Token(
-  ChainId.BSC_TESTNET,
+export const DTC2_HECO_TESTNET = new Token(
+  ChainId.HECO_TESTNET,
   '0xE88E4ad38E1532BD05fBbdC1a4b464cE741c6FF0',
   18,
   'DTC2',
   'Daoswap Test Coin 2'
 )
-export const USDC_BSC_TESTNET = new Token(
-  ChainId.BSC_TESTNET,
-  '0x94f22515aDE71ea7e0D439B730421a64b14bd2C8',
-  18,
-  'USDC',
-  'USD//C'
-)
-
-// Block time here is slightly higher (~1s) than average in order to avoid ongoing proposals past the displayed time
-export const AVERAGE_BLOCK_TIME_IN_SECS = 14
-export const PROPOSAL_LENGTH_IN_BLOCKS = 40_320
-export const PROPOSAL_LENGTH_IN_SECS = AVERAGE_BLOCK_TIME_IN_SECS * PROPOSAL_LENGTH_IN_BLOCKS
-
-// export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
-
-const UNI_ADDRESS = '0xdb5D970F03bfD19c1E51D57BcEd114BC35A0808f'
-export const DAO_ADDRESS = UNI_ADDRESS
-export const UNI: { [chainId in ChainId]: Token } = {
-  [ChainId.BSC_MAINNET]: new Token(ChainId.BSC_MAINNET, UNI_ADDRESS, 18, 'DAO', 'Daoswap'),
-  [ChainId.BSC_TESTNET]: new Token(ChainId.BSC_TESTNET, UNI_ADDRESS, 18, 'DAO', 'Daoswap'),
-  [ChainId.HECO_MAINNET]: new Token(ChainId.HECO_MAINNET, UNI_ADDRESS, 18, 'DAO', 'Daoswap'),
-  [ChainId.HECO_TESTNET]: new Token(ChainId.HECO_TESTNET, UNI_ADDRESS, 18, 'DAO', 'Daoswap')
-}
-
-// export const COMMON_CONTRACT_NAMES: { [address: string]: string } = {
-//   [UNI_ADDRESS]: 'UNI',
-//   [TIMELOCK_ADDRESS]: 'Timelock'
-// }
 
 const WETH_ONLY: ChainTokenList = {
   [ChainId.BSC_MAINNET]: [WETH[ChainId.BSC_MAINNET]],
@@ -101,17 +50,17 @@ export const CUSTOM_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: To
 // used for display in the default list when adding liquidity
 export const SUGGESTED_BASES: ChainTokenList = {
   ...WETH_ONLY,
-  [ChainId.BSC_TESTNET]: [...WETH_ONLY[ChainId.BSC_TESTNET], USDC, USDT]
+  [ChainId.BSC_TESTNET]: [...WETH_ONLY[ChainId.BSC_TESTNET], USDC[ChainId.BSC_TESTNET], USDT[ChainId.BSC_TESTNET]]
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   ...WETH_ONLY,
-  [ChainId.BSC_TESTNET]: [...WETH_ONLY[ChainId.BSC_TESTNET], USDC, USDT]
+  [ChainId.BSC_TESTNET]: [...WETH_ONLY[ChainId.BSC_TESTNET], USDC[ChainId.BSC_TESTNET], USDT[ChainId.BSC_TESTNET]]
 }
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
-  [ChainId.BSC_TESTNET]: [[USDC, USDT]]
+  [ChainId.BSC_TESTNET]: [[USDC[ChainId.BSC_TESTNET], USDT[ChainId.BSC_TESTNET]]]
 }
 
 export interface WalletInfo {

@@ -99,7 +99,6 @@ const MenuItemHref = styled.a`
   }
 `
 
-// TODO:Daoswap UNI -> DAO
 export default function Menu() {
   const { t } = useTranslation()
 

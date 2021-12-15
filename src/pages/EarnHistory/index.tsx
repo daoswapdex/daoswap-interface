@@ -31,7 +31,6 @@ const PoolSection = styled.div`
   justify-self: center;
 `
 
-// TODO:Daoswap UNI -> DAO
 export default function Earn() {
   const { t } = useTranslation()
   const { chainId } = useActiveWeb3React()

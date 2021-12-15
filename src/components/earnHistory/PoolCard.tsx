@@ -4,8 +4,7 @@ import { RowBetween } from '../Row'
 import styled from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
 import DoubleCurrencyLogo from '../DoubleLogo'
-import { ETHER, JSBI, TokenAmount, Price } from '@daoswapdex-bsc-testnet/daoswap-sdk'
-import { USDC_BSC_TESTNET } from '../../constants'
+import { ETHER, JSBI, TokenAmount, CURRENCY_SYMBOL } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import { ButtonPrimary } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
 import { useColor } from '../../hooks/useColor'
@@ -14,7 +13,7 @@ import { Break, CardNoise, CardBGImage } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { usePair } from '../../data/Reserves'
-// import useUSDCPrice from '../../utils/useUSDCPrice'
+import useUSDCPrice from '../../utils/useUSDCPrice'
 import { useTranslation } from 'react-i18next'
 
 const StatContainer = styled.div`
@@ -74,7 +73,6 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   z-index: 1;
 `
 
-// TODO:Daoswap UNI -> DAO
 export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) {
   const { t } = useTranslation()
   const token0 = stakingInfo.tokens[0]
@@ -110,13 +108,12 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
   }
 
   // get the USD value of staked WETH
-  // const USDPrice = useUSDCPrice(WETH)
-  const USDPrice = new Price(WETH, WETH, '1', '3') // useUSDCPrice(stakingInfo.earnedAmount.currency)
+  const USDPrice = useUSDCPrice(WETH)
   const valueOfTotalStakedAmountInUSDC =
     valueOfTotalStakedAmountInWETH && USDPrice?.quote(valueOfTotalStakedAmountInWETH)
 
   // TODO: 修改价格 get ths USD value the Reward Token
-  const USDPriceForRewardToken = new Price(USDC_BSC_TESTNET, USDC_BSC_TESTNET, '1', '1') // useUSDCPrice(stakingInfo.earnedAmount.currency)
+  const USDPriceForRewardToken = useUSDCPrice(stakingInfo.earnedAmount.currency)
   const USDPriceForRewardTokenMultiply1000 = USDPriceForRewardToken?.raw.multiply(JSBI.BigInt(1000))
 
   // totalRewardRate of Year
@@ -159,7 +156,9 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
           <TYPE.white>
             {valueOfTotalStakedAmountInUSDC
               ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })}`
-              : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} HT`}
+              : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} ${
+                  CURRENCY_SYMBOL[token0.chainId]
+                }`}
           </TYPE.white>
         </RowBetween>
         <RowBetween>

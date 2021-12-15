@@ -43,7 +43,6 @@ interface StakingModalProps {
   userLiquidityUnstaked: TokenAmount | undefined
 }
 
-// TODO:Daoswap UNI -> DAO
 export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiquidityUnstaked }: StakingModalProps) {
   const { t } = useTranslation()
   const { account, chainId, library } = useActiveWeb3React()

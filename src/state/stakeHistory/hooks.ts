@@ -1,9 +1,8 @@
 // import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, WETH, Pair } from '@daoswapdex-bsc-testnet/daoswap-sdk'
-import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair, DAO } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { UNI } from '../../constants'
-// import { DTC1_BSC_TESTNET, DTC2_BSC_TESTNET } from '../../constants'
+import { DTC1_HECO_TESTNET, DTC2_HECO_TESTNET } from '../../constants'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -23,11 +22,11 @@ export const STAKING_REWARDS_INFO: {
     stakingRewardAddress: string
   }[]
 } = {
-  [ChainId.BSC_TESTNET]: [
-    // {
-    //   tokens: [DTC1_BSC_TESTNET, DTC2_BSC_TESTNET],
-    //   stakingRewardAddress: '0xf4e1B5A0E99260c8f7096524811711542A5C3A56'
-    // }
+  [ChainId.HECO_TESTNET]: [
+    {
+      tokens: [DTC1_HECO_TESTNET, DTC2_HECO_TESTNET],
+      stakingRewardAddress: '0xf4e1B5A0E99260c8f7096524811711542A5C3A56'
+    }
   ]
 }
 
@@ -76,7 +75,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
     [chainId, pairToFilterBy]
   )
 
-  const uni = chainId ? UNI[chainId] : undefined
+  const uni = chainId ? DAO[chainId] : undefined
 
   const rewardsAddresses = useMemo(() => info.map(({ stakingRewardAddress }) => stakingRewardAddress), [info])
 
@@ -185,7 +184,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
 
 export function useTotalUniEarned(): TokenAmount | undefined {
   const { chainId } = useActiveWeb3React()
-  const uni = chainId ? UNI[chainId] : undefined
+  const uni = chainId ? DAO[chainId] : undefined
   const stakingInfos = useStakingInfo()
 
   return useMemo(() => {
