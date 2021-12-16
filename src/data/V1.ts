@@ -5,6 +5,7 @@ import {
   CurrencyAmount,
   currencyEquals,
   ETHER,
+  ETHER_CHAIN,
   JSBI,
   Pair,
   Percent,
@@ -104,12 +105,13 @@ export function useV1Trade(
   outputCurrency?: Currency,
   exactAmount?: CurrencyAmount
 ): Trade | undefined {
+  const { chainId } = useActiveWeb3React()
   // get the mock v1 pairs
   const inputPair = useMockV1Pair(inputCurrency)
   const outputPair = useMockV1Pair(outputCurrency)
 
-  const inputIsETH = inputCurrency === ETHER
-  const outputIsETH = outputCurrency === ETHER
+  const inputIsETH = inputCurrency === (chainId ? ETHER_CHAIN[chainId] : ETHER)
+  const outputIsETH = outputCurrency === (chainId ? ETHER_CHAIN[chainId] : ETHER)
 
   // construct a direct or through ETH v1 route
   let pairs: Pair[] = []

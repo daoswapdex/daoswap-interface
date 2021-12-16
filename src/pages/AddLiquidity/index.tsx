@@ -1,6 +1,13 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { TransactionResponse } from '@ethersproject/providers'
-import { Currency, currencyEquals, ETHER, TokenAmount, WETH, ROUTER_ADDRESS } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import {
+  Currency,
+  currencyEquals,
+  ETHER_CHAIN,
+  TokenAmount,
+  WETH,
+  ROUTER_ADDRESS
+} from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import React, { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 // import ReactGA from 'react-ga'
@@ -101,7 +108,7 @@ export default function AddLiquidity({
     (accumulator, field) => {
       return {
         ...accumulator,
-        [field]: maxAmountSpend(currencyBalances[field])
+        [field]: maxAmountSpend(chainId, currencyBalances[field])
       }
     },
     {}
@@ -147,8 +154,8 @@ export default function AddLiquidity({
       method: (...args: any) => Promise<TransactionResponse>,
       args: Array<string | string[] | number>,
       value: BigNumber | null
-    if (currencyA === ETHER || currencyB === ETHER) {
-      const tokenBIsETH = currencyB === ETHER
+    if (currencyA === ETHER_CHAIN[chainId] || currencyB === ETHER_CHAIN[chainId]) {
+      const tokenBIsETH = currencyB === ETHER_CHAIN[chainId]
       estimate = router.estimateGas.addLiquidityETH
       method = router.addLiquidityETH
       args = [
@@ -276,18 +283,18 @@ export default function AddLiquidity({
 
   const handleCurrencyASelect = useCallback(
     (currencyA: Currency) => {
-      const newCurrencyIdA = currencyId(currencyA)
+      const newCurrencyIdA = currencyId(chainId, currencyA)
       if (newCurrencyIdA === currencyIdB) {
         history.push(`/add/${currencyIdB}/${currencyIdA}`)
       } else {
         history.push(`/add/${newCurrencyIdA}/${currencyIdB}`)
       }
     },
-    [currencyIdB, history, currencyIdA]
+    [chainId, currencyIdB, history, currencyIdA]
   )
   const handleCurrencyBSelect = useCallback(
     (currencyB: Currency) => {
-      const newCurrencyIdB = currencyId(currencyB)
+      const newCurrencyIdB = currencyId(chainId, currencyB)
       if (currencyIdA === newCurrencyIdB) {
         if (currencyIdB) {
           history.push(`/add/${currencyIdB}/${newCurrencyIdB}`)
@@ -298,7 +305,7 @@ export default function AddLiquidity({
         history.push(`/add/${currencyIdA ? currencyIdA : 'HT'}/${newCurrencyIdB}`)
       }
     },
-    [currencyIdA, history, currencyIdB]
+    [chainId, currencyIdA, history, currencyIdB]
   )
 
   const handleDismissConfirmation = useCallback(() => {

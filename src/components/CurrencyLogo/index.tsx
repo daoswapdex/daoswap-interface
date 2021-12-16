@@ -1,4 +1,4 @@
-import { Currency, ETHER, Token } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency, ETHER, ETHER_CHAIN, Token } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 
@@ -6,6 +6,7 @@ import EthereumLogo from '../../assets/images/ethereum-logo.png'
 import useHttpLocations from '../../hooks/useHttpLocations'
 import { WrappedTokenInfo } from '../../state/lists/hooks'
 import Logo from '../Logo'
+import { useActiveWeb3React } from '../../hooks/index'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getTokenLogoURL = (address: string) => `https://tokenlists.heco.daoswap.cc/daoswap.svg`
@@ -35,10 +36,12 @@ export default function CurrencyLogo({
   size?: string
   style?: React.CSSProperties
 }) {
+  const { chainId } = useActiveWeb3React()
+
   const uriLocations = useHttpLocations(currency instanceof WrappedTokenInfo ? currency.logoURI : undefined)
 
   const srcs: string[] = useMemo(() => {
-    if (currency === ETHER) return []
+    if (currency === (chainId ? ETHER_CHAIN[chainId] : ETHER)) return []
 
     if (currency instanceof Token) {
       if (currency instanceof WrappedTokenInfo) {
@@ -48,9 +51,9 @@ export default function CurrencyLogo({
       return [getTokenLogoURL(currency.address)]
     }
     return []
-  }, [currency, uriLocations])
+  }, [chainId, currency, uriLocations])
 
-  if (currency === ETHER) {
+  if (currency === (chainId ? ETHER_CHAIN[chainId] : ETHER)) {
     return <StyledEthereumLogo src={EthereumLogo} size={size} style={style} />
   }
 

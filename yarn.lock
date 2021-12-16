@@ -1252,10 +1252,10 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@daoswapdex-bsc-testnet/daoswap-sdk@^1.0.19":
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/@daoswapdex-bsc-testnet/daoswap-sdk/-/daoswap-sdk-1.0.19.tgz#fdd2f17458e8f6ae8879398eb2a657a3709bf5e8"
-  integrity sha512-fexRxnNW5ii9xDM/jmnjZpBP9LKOTVwL72gKxAjiX5wSudBi1Q4W6I3apdhuNIgovHkfg/4n5dgczBg5bE7M/Q==
+"@daoswapdex-bsc-testnet/daoswap-sdk@^1.0.23":
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/@daoswapdex-bsc-testnet/daoswap-sdk/-/daoswap-sdk-1.0.23.tgz#51d27c3916672a353ce4e5fa1778049a8d1c6f3a"
+  integrity sha512-meHiHBgttB3kJEpP93a2Q7+lU4S8+/Om5DyNpG/n8utASwam6q8iD8zvTVSk4+InVHo3tnHuzLHfVpQxvLdZBA==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"

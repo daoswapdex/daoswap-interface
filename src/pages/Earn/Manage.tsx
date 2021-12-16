@@ -3,7 +3,7 @@ import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import { JSBI, TokenAmount, ETHER, CURRENCY_SYMBOL } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { JSBI, TokenAmount, ETHER, ETHER_CHAIN, CURRENCY_SYMBOL } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import { RouteComponentProps } from 'react-router-dom'
 import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { useCurrency } from '../../hooks/Tokens'
@@ -116,8 +116,8 @@ export default function Manage({
   // fade cards if nothing staked or nothing earned yet
   const disableTop = !stakingInfo?.stakedAmount || stakingInfo.stakedAmount.equalTo(JSBI.BigInt(0))
 
-  const token = currencyA === ETHER ? tokenB : tokenA
-  const WETH = currencyA === ETHER ? tokenA : tokenB
+  const token = currencyA === (chainId ? ETHER_CHAIN[chainId] : ETHER) ? tokenB : tokenA
+  const WETH = currencyA === (chainId ? ETHER_CHAIN[chainId] : ETHER) ? tokenA : tokenB
   const backgroundColor = useColor(token)
 
   // get WETH value of staked LP tokens
@@ -211,7 +211,8 @@ export default function Manage({
                 borderRadius="8px"
                 width={'fit-content'}
                 as={Link}
-                to={`/add/${currencyA && currencyId(currencyA)}/${currencyB && currencyId(currencyB)}`}
+                to={`/add/${currencyA && currencyId(chainId, currencyA)}/${currencyB &&
+                  currencyId(chainId, currencyB)}`}
               >
                 {`${t('Add')} ${currencyA?.symbol}-${currencyB?.symbol} ${t('liquidity')}`}
               </ButtonPrimary>

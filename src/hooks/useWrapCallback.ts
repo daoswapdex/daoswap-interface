@@ -1,4 +1,4 @@
-import { Currency, currencyEquals, CURRENCY_SYMBOL, ETHER, WETH } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency, currencyEquals, CURRENCY_SYMBOL, ETHER_CHAIN, WETH } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import { useMemo } from 'react'
 import { tryParseAmount } from '../state/swap/hooks'
 import { useTransactionAdder } from '../state/transactions/hooks'
@@ -30,7 +30,11 @@ export default function useWrapCallback(
   const wethContract = useWETHContract()
   const balance = useCurrencyBalance(account ?? undefined, inputCurrency)
   // we can always parse the amount typed as the input currency, since wrapping is 1:1
-  const inputAmount = useMemo(() => tryParseAmount(typedValue, inputCurrency), [inputCurrency, typedValue])
+  const inputAmount = useMemo(() => tryParseAmount(chainId, typedValue, inputCurrency), [
+    chainId,
+    inputCurrency,
+    typedValue
+  ])
   const addTransaction = useTransactionAdder()
 
   return useMemo(() => {
@@ -38,7 +42,7 @@ export default function useWrapCallback(
 
     const sufficientBalance = inputAmount && balance && !balance.lessThan(inputAmount)
 
-    if (inputCurrency === ETHER && currencyEquals(WETH[chainId], outputCurrency)) {
+    if (inputCurrency === ETHER_CHAIN[chainId] && currencyEquals(WETH[chainId], outputCurrency)) {
       return {
         wrapType: WrapType.WRAP,
         execute:
@@ -58,7 +62,7 @@ export default function useWrapCallback(
             : undefined,
         inputError: sufficientBalance ? undefined : t(`Insufficient ${CURRENCY_SYMBOL[chainId]} balance`)
       }
-    } else if (currencyEquals(WETH[chainId], inputCurrency) && outputCurrency === ETHER) {
+    } else if (currencyEquals(WETH[chainId], inputCurrency) && outputCurrency === ETHER_CHAIN[chainId]) {
       return {
         wrapType: WrapType.UNWRAP,
         execute:

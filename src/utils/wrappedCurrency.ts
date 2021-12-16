@@ -1,7 +1,15 @@
-import { ChainId, Currency, CurrencyAmount, ETHER, Token, TokenAmount, WETH } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import {
+  ChainId,
+  Currency,
+  CurrencyAmount,
+  ETHER_CHAIN,
+  Token,
+  TokenAmount,
+  WETH
+} from '@daoswapdex-bsc-testnet/daoswap-sdk'
 
 export function wrappedCurrency(currency: Currency | undefined, chainId: ChainId | undefined): Token | undefined {
-  return chainId && currency === ETHER ? WETH[chainId] : currency instanceof Token ? currency : undefined
+  return chainId && currency === ETHER_CHAIN[chainId] ? WETH[chainId] : currency instanceof Token ? currency : undefined
 }
 
 export function wrappedCurrencyAmount(
@@ -13,6 +21,6 @@ export function wrappedCurrencyAmount(
 }
 
 export function unwrappedToken(token: Token): Currency {
-  if (token.equals(WETH[token.chainId])) return ETHER
+  if (token.equals(WETH[token.chainId])) return ETHER_CHAIN[token.chainId]
   return token
 }

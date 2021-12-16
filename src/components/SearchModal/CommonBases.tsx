@@ -1,6 +1,14 @@
 import React from 'react'
 import { Text } from 'rebass'
-import { ChainId, Currency, currencyEquals, CURRENCY_SYMBOL, ETHER, Token } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import {
+  ChainId,
+  Currency,
+  currencyEquals,
+  CURRENCY_SYMBOL,
+  ETHER,
+  ETHER_CHAIN,
+  Token
+} from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import styled from 'styled-components'
 
 import { SUGGESTED_BASES } from '../../constants'
@@ -47,13 +55,13 @@ export default function CommonBases({
       <AutoRow gap="4px">
         <BaseWrapper
           onClick={() => {
-            if (!selectedCurrency || !currencyEquals(selectedCurrency, ETHER)) {
-              onSelect(ETHER)
+            if (!selectedCurrency || !currencyEquals(selectedCurrency, chainId ? ETHER_CHAIN[chainId] : ETHER)) {
+              onSelect(chainId ? ETHER_CHAIN[chainId] : ETHER)
             }
           }}
-          disable={selectedCurrency === ETHER}
+          disable={selectedCurrency === (chainId ? ETHER_CHAIN[chainId] : ETHER)}
         >
-          <CurrencyLogo currency={ETHER} style={{ marginRight: 8 }} />
+          <CurrencyLogo currency={chainId ? ETHER_CHAIN[chainId] : ETHER} style={{ marginRight: 8 }} />
           <Text fontWeight={500} fontSize={16}>
             {chainId ? CURRENCY_SYMBOL[chainId] : 'HT'}
           </Text>

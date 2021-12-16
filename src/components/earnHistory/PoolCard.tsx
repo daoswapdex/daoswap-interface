@@ -4,7 +4,7 @@ import { RowBetween } from '../Row'
 import styled from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
 import DoubleCurrencyLogo from '../DoubleLogo'
-import { ETHER, JSBI, TokenAmount, CURRENCY_SYMBOL } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ETHER_CHAIN, JSBI, TokenAmount, CURRENCY_SYMBOL } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import { ButtonPrimary } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
 import { useColor } from '../../hooks/useColor'
@@ -84,8 +84,8 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
   const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
 
   // get the color of the token
-  const token = currency0 === ETHER ? token1 : token0
-  const WETH = currency0 === ETHER ? token0 : token1
+  const token = currency0 === ETHER_CHAIN[token0.chainId] ? token1 : token0
+  const WETH = currency0 === ETHER_CHAIN[token0.chainId] ? token0 : token1
   const backgroundColor = useColor(token)
 
   const totalSupplyOfStakingToken = useTotalSupply(stakingInfo.stakedAmount.token)
@@ -141,7 +141,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
         </TYPE.white>
 
         <StyledInternalLink
-          to={`/dao-history/${currencyId(currency0)}/${currencyId(currency1)}`}
+          to={`/dao-history/${currencyId(token0.chainId, currency0)}/${currencyId(token0.chainId, currency1)}`}
           style={{ width: '100%' }}
         >
           <ButtonPrimary padding="8px" borderRadius="8px">

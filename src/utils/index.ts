@@ -12,6 +12,7 @@ import {
   CurrencyAmount,
   Currency,
   ETHER,
+  ETHER_CHAIN,
   ROUTER_ADDRESS
 } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
@@ -128,6 +129,6 @@ export function escapeRegExp(string: string): string {
 }
 
 export function isTokenOnList(defaultTokens: TokenAddressMap, currency?: Currency): boolean {
-  if (currency === ETHER) return true
+  if (currency === (currency instanceof Token ? ETHER_CHAIN[currency.chainId] : ETHER)) return true
   return Boolean(currency instanceof Token && defaultTokens[currency.chainId]?.[currency.address])
 }

@@ -1,4 +1,4 @@
-import { Currency, ETHER, Token } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency, ETHER, ETHER_CHAIN, Token } from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import React, { KeyboardEvent, RefObject, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 // import ReactGA from 'react-ga'
 import { useTranslation } from 'react-i18next'
@@ -121,7 +121,7 @@ export function CurrencySearch({
       if (e.key === 'Enter') {
         const s = searchQuery.toLowerCase().trim()
         if (s === 'eth') {
-          handleCurrencySelect(ETHER)
+          handleCurrencySelect(chainId ? ETHER_CHAIN[chainId] : ETHER)
         } else if (filteredSortedTokens.length > 0) {
           if (
             filteredSortedTokens[0].symbol?.toLowerCase() === searchQuery.trim().toLowerCase() ||
@@ -132,7 +132,7 @@ export function CurrencySearch({
         }
       }
     },
-    [filteredSortedTokens, handleCurrencySelect, searchQuery]
+    [chainId, filteredSortedTokens, handleCurrencySelect, searchQuery]
   )
 
   const selectedListInfo = useSelectedListInfo()

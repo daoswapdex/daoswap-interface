@@ -1,6 +1,13 @@
 import { MaxUint256 } from '@ethersproject/constants'
 import { TransactionResponse } from '@ethersproject/providers'
-import { Trade, TokenAmount, CurrencyAmount, ETHER, ROUTER_ADDRESS } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import {
+  Trade,
+  TokenAmount,
+  CurrencyAmount,
+  ETHER,
+  ETHER_CHAIN,
+  ROUTER_ADDRESS
+} from '@daoswapdex-bsc-testnet/daoswap-sdk'
 import { useCallback, useMemo } from 'react'
 import { useTokenAllowance } from '../data/Allowances'
 import { getTradeVersion, useV1TradeExchangeAddress } from '../data/V1'
@@ -24,7 +31,7 @@ export function useApproveCallback(
   amountToApprove?: CurrencyAmount,
   spender?: string
 ): [ApprovalState, () => Promise<void>] {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const token = amountToApprove instanceof TokenAmount ? amountToApprove.token : undefined
   const currentAllowance = useTokenAllowance(token, account ?? undefined, spender)
   const pendingApproval = useHasPendingApproval(token?.address, spender)
@@ -32,7 +39,7 @@ export function useApproveCallback(
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     if (!amountToApprove || !spender) return ApprovalState.UNKNOWN
-    if (amountToApprove.currency === ETHER) return ApprovalState.APPROVED
+    if (amountToApprove.currency === (chainId ? ETHER_CHAIN[chainId] : ETHER)) return ApprovalState.APPROVED
     // we might not have enough data to know whether or not we need to approve
     if (!currentAllowance) return ApprovalState.UNKNOWN
 
@@ -42,7 +49,7 @@ export function useApproveCallback(
         ? ApprovalState.PENDING
         : ApprovalState.NOT_APPROVED
       : ApprovalState.APPROVED
-  }, [amountToApprove, currentAllowance, pendingApproval, spender])
+  }, [chainId, amountToApprove, currentAllowance, pendingApproval, spender])
 
   const tokenContract = useTokenContract(token?.address)
   const addTransaction = useTransactionAdder()

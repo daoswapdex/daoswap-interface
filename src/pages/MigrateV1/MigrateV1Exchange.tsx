@@ -88,7 +88,11 @@ export function V1LiquidityInfo({
           <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
             <FormattedCurrencyAmount currencyAmount={ethWorth} />
           </Text>
-          <CurrencyLogo size="20px" style={{ marginLeft: '8px' }} currency={Currency.ETHER} />
+          <CurrencyLogo
+            size="20px"
+            style={{ marginLeft: '8px' }}
+            currency={chainId ? Currency.ETHER_CHAIN[chainId] : Currency.ETHER}
+          />
         </RowFixed>
       </RowBetween>
     </>
@@ -112,8 +116,8 @@ function V1PairMigration({ liquidityTokenAmount, token }: { liquidityTokenAmount
   const shareFraction: Fraction = totalSupply ? new Percent(liquidityTokenAmount.raw, totalSupply.raw) : ZERO_FRACTION
 
   const ethWorth: CurrencyAmount = exchangeETHBalance
-    ? CurrencyAmount.ether(exchangeETHBalance.multiply(shareFraction).multiply(WEI_DENOM).quotient)
-    : CurrencyAmount.ether(ZERO)
+    ? CurrencyAmount.etherByChainId(chainId, exchangeETHBalance.multiply(shareFraction).multiply(WEI_DENOM).quotient)
+    : CurrencyAmount.etherByChainId(chainId, ZERO)
 
   const tokenWorth: TokenAmount = exchangeTokenBalance
     ? new TokenAmount(token, shareFraction.multiply(exchangeTokenBalance.raw).quotient)
