@@ -43,7 +43,7 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
  */
 export const CUSTOM_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: Token[] } } = {
   [ChainId.BSC_TESTNET]: {
-    // [AMPL.address]: [DAI, WETH[ChainId.MAINNET]]
+    [USDT[ChainId.BSC_MAINNET].address]: [USDT[ChainId.BSC_MAINNET]]
   }
 }
 

@@ -55,15 +55,15 @@ export function CurrencySearch({
   const isAddressSearch = isAddress(searchQuery)
   const searchToken = useToken(searchQuery)
 
-  useEffect(() => {
-    // if (isAddressSearch) {
-    //   ReactGA.event({
-    //     category: 'Currency Select',
-    //     action: 'Search by address',
-    //     label: isAddressSearch
-    //   })
-    // }
-  }, [isAddressSearch])
+  // useEffect(() => {
+  // if (isAddressSearch) {
+  //   ReactGA.event({
+  //     category: 'Currency Select',
+  //     action: 'Search by address',
+  //     label: isAddressSearch
+  //   })
+  // }
+  // }, [isAddressSearch])
 
   const showETH: boolean = useMemo(() => {
     const s = searchQuery.toLowerCase().trim()
