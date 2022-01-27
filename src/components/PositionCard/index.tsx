@@ -1,4 +1,4 @@
-import { JSBI, Pair, Percent } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { JSBI, Pair, Percent } from '@daoswapdex/daoswap-dex-sdk'
 import { darken } from 'polished'
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
@@ -193,7 +193,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
   const backgroundColor = useColor(pair?.token0)
 
   return (
-    <StyledPositionCard border={border} bgColor={backgroundColor}>
+    <StyledPositionCard border={border} bgColor={backgroundColor} borderRadius="12px">
       <CardNoise />
       <AutoColumn gap="12px">
         <FixedHeightRow>
@@ -296,7 +296,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
                 padding="8px"
                 borderRadius="8px"
                 as={Link}
-                to={`/add/${currencyId(pair.chainId, currency0)}/${currencyId(pair.chainId, currency1)}`}
+                to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}
                 width="48%"
               >
                 {t('Add')}
@@ -306,7 +306,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
                 borderRadius="8px"
                 as={Link}
                 width="48%"
-                to={`/remove/${currencyId(pair.chainId, currency0)}/${currencyId(pair.chainId, currency1)}`}
+                to={`/remove/${currencyId(currency0)}/${currencyId(currency1)}`}
               >
                 {t('Remove')}
               </ButtonPrimary>

@@ -1,4 +1,4 @@
-import { ChainId } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 import { createStore, Store } from 'redux'
 import { addPopup, ApplicationModal, removePopup, setOpenModal, updateBlockNumber } from './actions'
 import reducer, { ApplicationState } from './reducer'

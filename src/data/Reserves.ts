@@ -1,5 +1,6 @@
-import { TokenAmount, Pair, Currency } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { TokenAmount, Pair, Currency } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
+// import { abi as IUniswapV2PairABI } from '@daoswap-heco/daoswap-core/build/IUniswapV2Pair.json'
 import { abi as IUniswapV2PairABI } from '../constants/contractJson/IUniswapV2Pair.json'
 import { Interface } from '@ethersproject/abi'
 import { useActiveWeb3React } from '../hooks'

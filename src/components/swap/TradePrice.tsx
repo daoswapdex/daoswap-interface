@@ -1,5 +1,5 @@
 import React from 'react'
-import { Price } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Price } from '@daoswapdex/daoswap-dex-sdk'
 import { useContext } from 'react'
 import { Repeat } from 'react-feather'
 import { Text } from 'rebass'

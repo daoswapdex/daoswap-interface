@@ -2,13 +2,12 @@ import {
   Currency,
   CurrencyAmount,
   ETHER,
-  ETHER_CHAIN,
   JSBI,
   Pair,
   Percent,
   Price,
   TokenAmount
-} from '@daoswapdex-bsc-testnet/daoswap-sdk'
+} from '@daoswapdex/daoswap-dex-sdk'
 import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { PairState, usePair } from '../../data/Reserves'
@@ -78,15 +77,11 @@ export function useDerivedMintInfo(
   }
 
   // amounts
-  const independentAmount: CurrencyAmount | undefined = tryParseAmount(
-    chainId,
-    typedValue,
-    currencies[independentField]
-  )
+  const independentAmount: CurrencyAmount | undefined = tryParseAmount(typedValue, currencies[independentField])
   const dependentAmount: CurrencyAmount | undefined = useMemo(() => {
     if (noLiquidity) {
       if (otherTypedValue && currencies[dependentField]) {
-        return tryParseAmount(chainId, otherTypedValue, currencies[dependentField])
+        return tryParseAmount(otherTypedValue, currencies[dependentField])
       }
       return undefined
     } else if (independentAmount) {
@@ -99,9 +94,7 @@ export function useDerivedMintInfo(
           dependentField === Field.CURRENCY_B
             ? pair.priceOf(tokenA).quote(wrappedIndependentAmount)
             : pair.priceOf(tokenB).quote(wrappedIndependentAmount)
-        return dependentCurrency === (chainId ? ETHER_CHAIN[chainId] : ETHER)
-          ? CurrencyAmount.etherByChainId(chainId, dependentTokenAmount.raw)
-          : dependentTokenAmount
+        return dependentCurrency === ETHER ? CurrencyAmount.ether(dependentTokenAmount.raw) : dependentTokenAmount
       }
       return undefined
     } else {

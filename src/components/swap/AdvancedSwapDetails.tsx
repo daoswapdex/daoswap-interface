@@ -1,4 +1,4 @@
-import { Trade, TradeType } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Trade, TradeType } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Field } from '../../state/swap/actions'

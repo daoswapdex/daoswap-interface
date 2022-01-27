@@ -3,7 +3,7 @@ import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import { JSBI, TokenAmount, ETHER, ETHER_CHAIN, CURRENCY_SYMBOL } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { JSBI, TokenAmount, ETHER } from '@daoswapdex/daoswap-dex-sdk'
 import { RouteComponentProps } from 'react-router-dom'
 import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { useCurrency } from '../../hooks/Tokens'
@@ -11,12 +11,12 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import { TYPE } from '../../theme'
 
 import { RowBetween } from '../../components/Row'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earnHistory/styled'
+import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earnHistory2/styled'
 import { ButtonPrimary, ButtonEmpty } from '../../components/Button'
-import StakingModal from '../../components/earnHistory/StakingModal'
-import { useStakingInfo } from '../../state/stakeHistory/hooks'
-import UnstakingModal from '../../components/earnHistory/UnstakingModal'
-import ClaimRewardModal from '../../components/earnHistory/ClaimRewardModal'
+import StakingModal from '../../components/earnHistory2/StakingModal'
+import { useStakingInfo } from '../../state/stakeHistory2/hooks'
+import UnstakingModal from '../../components/earnHistory2/UnstakingModal'
+import ClaimRewardModal from '../../components/earnHistory2/ClaimRewardModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { useColor } from '../../hooks/useColor'
@@ -27,7 +27,7 @@ import { currencyId } from '../../utils/currencyId'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { usePair } from '../../data/Reserves'
 import usePrevious from '../../hooks/usePrevious'
-import useUSDCPrice from '../../utils/useUSDCPrice'
+import useUSDTPrice from '../../utils/useUSDTPrice'
 import { BIG_INT_ZERO } from '../../constants'
 import { useTranslation } from 'react-i18next'
 
@@ -116,8 +116,8 @@ export default function Manage({
   // fade cards if nothing staked or nothing earned yet
   const disableTop = !stakingInfo?.stakedAmount || stakingInfo.stakedAmount.equalTo(JSBI.BigInt(0))
 
-  const token = currencyA === (chainId ? ETHER_CHAIN[chainId] : ETHER) ? tokenB : tokenA
-  const WETH = currencyA === (chainId ? ETHER_CHAIN[chainId] : ETHER) ? tokenA : tokenB
+  const token = currencyA === ETHER ? tokenB : tokenA
+  const WETH = currencyA === ETHER ? tokenA : tokenB
   const backgroundColor = useColor(token)
 
   // get WETH value of staked LP tokens
@@ -141,8 +141,8 @@ export default function Manage({
   const countUpAmountPrevious = usePrevious(countUpAmount) ?? '0'
 
   // get the USD value of staked WETH
-  const USDPrice = useUSDCPrice(WETH)
-  const valueOfTotalStakedAmountInUSDC =
+  const USDPrice = useUSDTPrice(WETH)
+  const valueOfTotalStakedAmountInUSDT =
     valueOfTotalStakedAmountInWETH && USDPrice?.quote(valueOfTotalStakedAmountInWETH)
 
   const toggleWalletModal = useWalletModalToggle()
@@ -169,18 +169,15 @@ export default function Manage({
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>{t('Total deposits')}</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
-              {valueOfTotalStakedAmountInUSDC
-                ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })}`
-                : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} ${
-                    chainId ? CURRENCY_SYMBOL[chainId] : 'HT'
-                  }`}
+              {valueOfTotalStakedAmountInUSDT
+                ? `$${valueOfTotalStakedAmountInUSDT.toFixed(0, { groupSeparator: ',' })}`
+                : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} HT`}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
-        <PoolData>
+        {/* <PoolData>
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>{t('Pool Rate')}</TYPE.body>
-
             <TYPE.body fontSize={24} fontWeight={500}>
               {stakingInfo?.totalRewardRate
                 ?.multiply((60 * 60 * 24 * 7).toString())
@@ -188,7 +185,7 @@ export default function Manage({
               {` DAO / ${t('week')}`}
             </TYPE.body>
           </AutoColumn>
-        </PoolData>
+        </PoolData> */}
       </DataRow>
 
       {showAddLiquidityButton && (
@@ -212,8 +209,7 @@ export default function Manage({
                 borderRadius="8px"
                 width={'fit-content'}
                 as={Link}
-                to={`/add/${currencyA && currencyId(chainId, currencyA)}/${currencyB &&
-                  currencyId(chainId, currencyB)}`}
+                to={`/add/${currencyA && currencyId(currencyA)}/${currencyB && currencyId(currencyB)}`}
               >
                 {`${t('Add')} ${currencyA?.symbol}-${currencyB?.symbol} ${t('liquidity')}`}
               </ButtonPrimary>
@@ -275,6 +271,7 @@ export default function Manage({
             <AutoColumn gap="sm">
               <RowBetween>
                 <div>
+                  {/* // TODO:Daoswap UNI -> DAO */}
                   <TYPE.black>{t('Your unclaimed DAO')}</TYPE.black>
                 </div>
                 {stakingInfo?.earnedAmount && JSBI.notEqual(BIG_INT_ZERO, stakingInfo?.earnedAmount?.raw) && (
@@ -302,18 +299,17 @@ export default function Manage({
                   />
                 </TYPE.largeHeader>
               </RowBetween>
-              <RowBetween style={{ alignItems: 'baseline' }}>
+              {/* <RowBetween style={{ alignItems: 'baseline' }}>
                 <TYPE.black fontSize={16} fontWeight={500}>
                   <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px ' }}>
                     ⚡
                   </span>
-
                   {stakingInfo?.rewardRate
                     ?.multiply((60 * 60 * 24 * 7).toString())
                     ?.toSignificant(4, { groupSeparator: ',' }) ?? '-'}
                   {` DAO / ${t('week')}`}
                 </TYPE.black>
-              </RowBetween>
+              </RowBetween> */}
             </AutoColumn>
           </StyledBottomCard>
         </BottomSection>
@@ -321,7 +317,7 @@ export default function Manage({
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
-
+          {/* // TODO:Daoswap UNI -> DAO */}
           {t('When you withdraw, the contract will automagically claim DAO on your behalf!')}
         </TYPE.main>
 

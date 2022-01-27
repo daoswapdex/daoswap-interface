@@ -1,13 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { TransactionResponse } from '@ethersproject/providers'
-import {
-  Currency,
-  currencyEquals,
-  ETHER_CHAIN,
-  TokenAmount,
-  WETH,
-  ROUTER_ADDRESS
-} from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency, currencyEquals, ETHER, TokenAmount, WETH } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 // import ReactGA from 'react-ga'
@@ -24,6 +17,7 @@ import { AddRemoveTabs } from '../../components/NavigationTabs'
 import { MinimalPositionCard } from '../../components/PositionCard'
 import Row, { RowBetween, RowFlat } from '../../components/Row'
 
+import { ROUTER_ADDRESS } from '../../constants'
 import { PairState } from '../../data/Reserves'
 import { useActiveWeb3React } from '../../hooks'
 import { useCurrency } from '../../hooks/Tokens'
@@ -108,7 +102,7 @@ export default function AddLiquidity({
     (accumulator, field) => {
       return {
         ...accumulator,
-        [field]: maxAmountSpend(chainId, currencyBalances[field])
+        [field]: maxAmountSpend(currencyBalances[field])
       }
     },
     {}
@@ -125,14 +119,8 @@ export default function AddLiquidity({
   )
 
   // check whether the user has approved the router on the tokens
-  const [approvalA, approveACallback] = useApproveCallback(
-    parsedAmounts[Field.CURRENCY_A],
-    chainId ? ROUTER_ADDRESS[chainId] : undefined
-  )
-  const [approvalB, approveBCallback] = useApproveCallback(
-    parsedAmounts[Field.CURRENCY_B],
-    chainId ? ROUTER_ADDRESS[chainId] : undefined
-  )
+  const [approvalA, approveACallback] = useApproveCallback(parsedAmounts[Field.CURRENCY_A], ROUTER_ADDRESS)
+  const [approvalB, approveBCallback] = useApproveCallback(parsedAmounts[Field.CURRENCY_B], ROUTER_ADDRESS)
 
   const addTransaction = useTransactionAdder()
 
@@ -154,8 +142,8 @@ export default function AddLiquidity({
       method: (...args: any) => Promise<TransactionResponse>,
       args: Array<string | string[] | number>,
       value: BigNumber | null
-    if (currencyA === ETHER_CHAIN[chainId] || currencyB === ETHER_CHAIN[chainId]) {
-      const tokenBIsETH = currencyB === ETHER_CHAIN[chainId]
+    if (currencyA === ETHER || currencyB === ETHER) {
+      const tokenBIsETH = currencyB === ETHER
       estimate = router.estimateGas.addLiquidityETH
       method = router.addLiquidityETH
       args = [
@@ -283,18 +271,18 @@ export default function AddLiquidity({
 
   const handleCurrencyASelect = useCallback(
     (currencyA: Currency) => {
-      const newCurrencyIdA = currencyId(chainId, currencyA)
+      const newCurrencyIdA = currencyId(currencyA)
       if (newCurrencyIdA === currencyIdB) {
         history.push(`/add/${currencyIdB}/${currencyIdA}`)
       } else {
         history.push(`/add/${newCurrencyIdA}/${currencyIdB}`)
       }
     },
-    [chainId, currencyIdB, history, currencyIdA]
+    [currencyIdB, history, currencyIdA]
   )
   const handleCurrencyBSelect = useCallback(
     (currencyB: Currency) => {
-      const newCurrencyIdB = currencyId(chainId, currencyB)
+      const newCurrencyIdB = currencyId(currencyB)
       if (currencyIdA === newCurrencyIdB) {
         if (currencyIdB) {
           history.push(`/add/${currencyIdB}/${newCurrencyIdB}`)
@@ -305,7 +293,7 @@ export default function AddLiquidity({
         history.push(`/add/${currencyIdA ? currencyIdA : 'HT'}/${newCurrencyIdB}`)
       }
     },
-    [chainId, currencyIdA, history, currencyIdB]
+    [currencyIdA, history, currencyIdB]
   )
 
   const handleDismissConfirmation = useCallback(() => {

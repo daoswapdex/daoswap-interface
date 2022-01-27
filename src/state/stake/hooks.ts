@@ -1,6 +1,9 @@
-// import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, WETH, Pair } from '@daoswapdex-bsc-testnet/daoswap-sdk'
-import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair, DAO } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+// import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, WETH, Pair } from '@daoswapdex/daoswap-dex-sdk'
+import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
+// TODO:Daoswap ERC20
+import { UNI } from '../../constants'
+import { USDT, ETH, HFIL, HT, HECO_UNI, MDX, HBCH, HLTC, MANA, HDOT, LINK } from '../../constants'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -8,10 +11,10 @@ import { tryParseAmount } from '../swap/hooks'
 import { useTranslation } from 'react-i18next'
 
 // TODO:Daoswap Start Time
-export const STAKING_GENESIS = 1635991800
+export const STAKING_GENESIS = 1642215600
 
 // TODO:Daoswap Rewards Duration : unit - day
-export const REWARDS_DURATION_DAYS = 14
+export const REWARDS_DURATION_DAYS = 28
 
 // TODO add staking rewards addresses here
 export const STAKING_REWARDS_INFO: {
@@ -20,12 +23,52 @@ export const STAKING_REWARDS_INFO: {
     stakingRewardAddress: string
   }[]
 } = {
-  // [ChainId.BSC_TESTNET]: [
-  //   {
-  //     tokens: [DTC1_BSC_TESTNET, DTC2_BSC_TESTNET],
-  //     stakingRewardAddress: '0xF43e9274e625F5Ae811dc91d143F717207470894'
-  //   }
-  // ]
+  [ChainId.HECO_MAINNET]: [
+    {
+      tokens: [USDT, UNI[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x79438C8e9660C98845E7Fc8A136D1ff92a75F3Ec'
+    },
+    {
+      tokens: [USDT, ETH],
+      stakingRewardAddress: '0xfE15Eb30C4f7b9a954A606BD57E4E027f63594e4'
+    },
+    {
+      tokens: [USDT, HFIL],
+      stakingRewardAddress: '0x0e5844d40c5896E349b1d8Ba152BA2978D023932'
+    },
+    {
+      tokens: [USDT, HT],
+      stakingRewardAddress: '0xB2dAB73324e0AE818cfDDA456DECAb367Cdec924'
+    },
+    {
+      tokens: [USDT, HECO_UNI],
+      stakingRewardAddress: '0x93C9C4b40b5551a01dbB02D7D7D05f6Ff4585e43'
+    },
+    {
+      tokens: [USDT, MDX],
+      stakingRewardAddress: '0x29390aAcd0F32E18E6a98b84C0ac14d41c85d085'
+    },
+    {
+      tokens: [USDT, HBCH],
+      stakingRewardAddress: '0x78F55552e0892ff4c31d04f2C14f20D3c3F1776E'
+    },
+    {
+      tokens: [USDT, HLTC],
+      stakingRewardAddress: '0x5cD637f1d277165ca3ee3fbF97c00a1f25D37a1D'
+    },
+    {
+      tokens: [USDT, MANA],
+      stakingRewardAddress: '0x840Da5d561e59B05d7414B0d6Cf207171d73a527'
+    },
+    {
+      tokens: [USDT, HDOT],
+      stakingRewardAddress: '0xd8c904aAf8C724b4d6F1c851c6C1F3c2530D746a'
+    },
+    {
+      tokens: [USDT, LINK],
+      stakingRewardAddress: '0x312630f2ddDe30919e39c531187f8fD7a93d3B76'
+    }
+  ]
 }
 
 export interface StakingInfo {
@@ -73,7 +116,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
     [chainId, pairToFilterBy]
   )
 
-  const uni = chainId ? DAO[chainId] : undefined
+  const uni = chainId ? UNI[chainId] : undefined
 
   const rewardsAddresses = useMemo(() => info.map(({ stakingRewardAddress }) => stakingRewardAddress), [info])
 
@@ -182,7 +225,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
 
 export function useTotalUniEarned(): TokenAmount | undefined {
   const { chainId } = useActiveWeb3React()
-  const uni = chainId ? DAO[chainId] : undefined
+  const uni = chainId ? UNI[chainId] : undefined
   const stakingInfos = useStakingInfo()
 
   return useMemo(() => {
@@ -206,9 +249,9 @@ export function useDerivedStakeInfo(
   error?: string
 } {
   const { t } = useTranslation()
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
 
-  const parsedInput: CurrencyAmount | undefined = tryParseAmount(chainId, typedValue, stakingToken)
+  const parsedInput: CurrencyAmount | undefined = tryParseAmount(typedValue, stakingToken)
 
   const parsedAmount =
     parsedInput && userLiquidityUnstaked && JSBI.lessThanOrEqual(parsedInput.raw, userLiquidityUnstaked.raw)
@@ -238,9 +281,9 @@ export function useDerivedUnstakeInfo(
   error?: string
 } {
   const { t } = useTranslation()
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
 
-  const parsedInput: CurrencyAmount | undefined = tryParseAmount(chainId, typedValue, stakingAmount.token)
+  const parsedInput: CurrencyAmount | undefined = tryParseAmount(typedValue, stakingAmount.token)
 
   const parsedAmount = parsedInput && JSBI.lessThanOrEqual(parsedInput.raw, stakingAmount.raw) ? parsedInput : undefined
 

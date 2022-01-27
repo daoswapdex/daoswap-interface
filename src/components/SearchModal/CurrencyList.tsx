@@ -1,11 +1,4 @@
-import {
-  Currency,
-  CurrencyAmount,
-  currencyEquals,
-  ETHER_CHAIN,
-  ChainId,
-  Token
-} from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency, CurrencyAmount, currencyEquals, ETHER, Token } from '@daoswapdex/daoswap-dex-sdk'
 import React, { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
@@ -24,8 +17,8 @@ import { FadedSpan, MenuItem } from './styleds'
 import Loader from '../Loader'
 import { isTokenOnList } from '../../utils'
 
-function currencyKey(chainId: ChainId, currency: Currency): string {
-  return currency instanceof Token ? currency.address : currency === ETHER_CHAIN[chainId] ? 'ETHER' : ''
+function currencyKey(currency: Currency): string {
+  return currency instanceof Token ? currency.address : currency === ETHER ? 'ETHER' : ''
 }
 
 const StyledBalanceText = styled(Text)`
@@ -101,7 +94,7 @@ function CurrencyRow({
   style: CSSProperties
 }) {
   const { account, chainId } = useActiveWeb3React()
-  const key = currencyKey(chainId ? chainId : ChainId.BSC_MAINNET, currency)
+  const key = currencyKey(currency)
   const selectedTokenList = useSelectedTokenList()
   const isOnSelectedList = isTokenOnList(selectedTokenList, currency)
   const customAdded = useIsUserAddedToken(currency)
@@ -178,11 +171,7 @@ export default function CurrencyList({
   fixedListRef?: MutableRefObject<FixedSizeList | undefined>
   showETH: boolean
 }) {
-  const { chainId } = useActiveWeb3React()
-  const itemData = useMemo(
-    () => (showETH ? [chainId ? Currency.ETHER_CHAIN[chainId] : Currency.ETHER, ...currencies] : currencies),
-    [chainId, currencies, showETH]
-  )
+  const itemData = useMemo(() => (showETH ? [Currency.ETHER, ...currencies] : currencies), [currencies, showETH])
 
   const Row = useCallback(
     ({ data, index, style }) => {
@@ -203,10 +192,7 @@ export default function CurrencyList({
     [onCurrencySelect, otherCurrency, selectedCurrency]
   )
 
-  const itemKey = useCallback(
-    (index: number, data: any) => currencyKey(chainId ? chainId : ChainId.BSC_MAINNET, data[index]),
-    [chainId]
-  )
+  const itemKey = useCallback((index: number, data: any) => currencyKey(data[index]), [])
 
   return (
     <FixedSizeList

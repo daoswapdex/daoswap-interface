@@ -1,4 +1,4 @@
-import { currencyEquals, Trade } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { currencyEquals, Trade } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useMemo } from 'react'
 import TransactionConfirmationModal, {
   ConfirmationModalContent,

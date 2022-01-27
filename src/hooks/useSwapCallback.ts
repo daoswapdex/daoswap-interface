@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
-import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 import { BIPS_BASE, INITIAL_ALLOWED_SLIPPAGE } from '../constants'
 import { getTradeVersion, useV1TradeExchangeAddress } from '../data/V1'
@@ -72,7 +72,7 @@ function useSwapCallArguments(
     switch (tradeVersion) {
       case Version.v2:
         swapMethods.push(
-          Router.swapCallParametersByChainId(chainId, trade, {
+          Router.swapCallParameters(trade, {
             feeOnTransfer: false,
             allowedSlippage: new Percent(JSBI.BigInt(allowedSlippage), BIPS_BASE),
             recipient,
@@ -82,7 +82,7 @@ function useSwapCallArguments(
 
         if (trade.tradeType === TradeType.EXACT_INPUT) {
           swapMethods.push(
-            Router.swapCallParametersByChainId(chainId, trade, {
+            Router.swapCallParameters(trade, {
               feeOnTransfer: true,
               allowedSlippage: new Percent(JSBI.BigInt(allowedSlippage), BIPS_BASE),
               recipient,

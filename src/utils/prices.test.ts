@@ -1,4 +1,4 @@
-import { ChainId, JSBI, Pair, Route, Token, TokenAmount, Trade, TradeType } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ChainId, JSBI, Pair, Route, Token, TokenAmount, Trade, TradeType } from '@daoswapdex/daoswap-dex-sdk'
 import { computeTradePriceBreakdown } from './prices'
 
 describe('prices', () => {

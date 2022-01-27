@@ -9,7 +9,7 @@ import {
   Token,
   TokenAmount,
   WETH
-} from '@daoswapdex-bsc-testnet/daoswap-sdk'
+} from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useMemo, useState } from 'react'
 // import ReactGA from 'react-ga'
 import { Redirect, RouteComponentProps } from 'react-router'
@@ -88,11 +88,7 @@ export function V1LiquidityInfo({
           <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
             <FormattedCurrencyAmount currencyAmount={ethWorth} />
           </Text>
-          <CurrencyLogo
-            size="20px"
-            style={{ marginLeft: '8px' }}
-            currency={chainId ? Currency.ETHER_CHAIN[chainId] : Currency.ETHER}
-          />
+          <CurrencyLogo size="20px" style={{ marginLeft: '8px' }} currency={Currency.ETHER} />
         </RowFixed>
       </RowBetween>
     </>
@@ -116,8 +112,8 @@ function V1PairMigration({ liquidityTokenAmount, token }: { liquidityTokenAmount
   const shareFraction: Fraction = totalSupply ? new Percent(liquidityTokenAmount.raw, totalSupply.raw) : ZERO_FRACTION
 
   const ethWorth: CurrencyAmount = exchangeETHBalance
-    ? CurrencyAmount.etherByChainId(chainId, exchangeETHBalance.multiply(shareFraction).multiply(WEI_DENOM).quotient)
-    : CurrencyAmount.etherByChainId(chainId, ZERO)
+    ? CurrencyAmount.ether(exchangeETHBalance.multiply(shareFraction).multiply(WEI_DENOM).quotient)
+    : CurrencyAmount.ether(ZERO)
 
   const tokenWorth: TokenAmount = exchangeTokenBalance
     ? new TokenAmount(token, shareFraction.multiply(exchangeTokenBalance.raw).quotient)

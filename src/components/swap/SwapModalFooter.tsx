@@ -1,4 +1,4 @@
-import { Trade, TradeType } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Trade, TradeType } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useContext, useMemo, useState } from 'react'
 import { Repeat } from 'react-feather'
 import { Text } from 'rebass'

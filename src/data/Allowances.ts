@@ -1,4 +1,4 @@
-import { Token, TokenAmount } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Token, TokenAmount } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 
 import { useTokenContract } from '../hooks/useContract'

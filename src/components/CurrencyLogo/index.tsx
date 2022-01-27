@@ -1,4 +1,4 @@
-import { Currency, ETHER, ETHER_CHAIN, Token } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency, ETHER, Token } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 
@@ -6,12 +6,9 @@ import EthereumLogo from '../../assets/images/ethereum-logo.png'
 import useHttpLocations from '../../hooks/useHttpLocations'
 import { WrappedTokenInfo } from '../../state/lists/hooks'
 import Logo from '../Logo'
-import { useActiveWeb3React } from '../../hooks/index'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getTokenLogoURL = (address: string) => `https://tokenlists.heco.daoswap.cc/daoswap.svg`
-// const getTokenLogoURL = (address: string) =>
-//   `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`
+const getTokenLogoURL = (address: string) => `https://app.heco.daoswap.cc/daoswap.svg`
+// `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`
 
 const StyledEthereumLogo = styled.img<{ size: string }>`
   width: ${({ size }) => size};
@@ -36,12 +33,10 @@ export default function CurrencyLogo({
   size?: string
   style?: React.CSSProperties
 }) {
-  const { chainId } = useActiveWeb3React()
-
   const uriLocations = useHttpLocations(currency instanceof WrappedTokenInfo ? currency.logoURI : undefined)
 
   const srcs: string[] = useMemo(() => {
-    if (currency === (chainId ? ETHER_CHAIN[chainId] : ETHER)) return []
+    if (currency === ETHER) return []
 
     if (currency instanceof Token) {
       if (currency instanceof WrappedTokenInfo) {
@@ -51,9 +46,9 @@ export default function CurrencyLogo({
       return [getTokenLogoURL(currency.address)]
     }
     return []
-  }, [chainId, currency, uriLocations])
+  }, [currency, uriLocations])
 
-  if (currency === (chainId ? ETHER_CHAIN[chainId] : ETHER)) {
+  if (currency === ETHER) {
     return <StyledEthereumLogo src={EthereumLogo} size={size} style={style} />
   }
 

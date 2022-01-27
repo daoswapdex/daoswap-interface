@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { STAKING_GENESIS, REWARDS_DURATION_DAYS } from '../../state/stakeHistory/hooks'
+import { STAKING_GENESIS, REWARDS_DURATION_DAYS } from '../../state/stakeHistory2/hooks'
 import { TYPE } from '../../theme'
 import { useTranslation } from 'react-i18next'
 
@@ -42,8 +42,8 @@ export function Countdown({ exactEnd }: { exactEnd?: Date }) {
       message = t('Rewards end in')
       timeRemaining = timeUntilEnd
     } else {
-      // message = t('Rewards have ended!')
-      message = t('Rewards not started yet.')
+      message = t('Rewards have ended!')
+      // message = t('Rewards not started yet.')
       timeRemaining = Infinity
     }
   }

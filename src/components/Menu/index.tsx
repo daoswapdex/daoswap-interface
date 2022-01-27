@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { BookOpen, Info, MessageCircle, PieChart, Link, Gift, Layers } from 'react-feather'
+import { BookOpen, Info, MessageCircle, PieChart, Link, Gift, Layers, DollarSign } from 'react-feather'
 import styled from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
@@ -66,7 +66,7 @@ const MenuFlyout = styled.span`
   z-index: 100;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
-    top: -18.25rem;
+    top: -21.25rem;
   `};
 `
 
@@ -99,6 +99,7 @@ const MenuItemHref = styled.a`
   }
 `
 
+// TODO:Daoswap UNI -> DAO
 export default function Menu() {
   const { t } = useTranslation()
 
@@ -117,11 +118,11 @@ export default function Menu() {
 
       {open && (
         <MenuFlyout>
-          <MenuItem id="link" href="https://test.www.daoswap.cc/">
+          <MenuItem id="link" href="https://www.daoswap.cc/">
             <Info size={14} />
             {t('Daoswap')}
           </MenuItem>
-          <MenuItem id="link" href="https://test.www.daoswap.cc/Whitepaper.pdf">
+          <MenuItem id="link" href="https://www.daoswap.cc/Whitepaper.pdf">
             <BookOpen size={14} />
             {t('Docs')}
           </MenuItem>
@@ -137,13 +138,17 @@ export default function Menu() {
             <Link size={14} />
             {t('Bridge')}
           </MenuItemHref>
-          <MenuItemHref id="link" href="https://test.www.daoswap.cc/hash-mining" target="_self">
+          <MenuItemHref id="link" href="https://www.daoswap.cc/hash-mining" target="_self">
             <Layers size={14} />
             {t('Hash Mining')}
           </MenuItemHref>
-          <MenuItemHref id="link" href="https://test.www.daoswap.cc/competition-mining" target="_self">
+          <MenuItemHref id="link" href="https://www.daoswap.cc/competition-mining" target="_self">
             <Gift size={14} />
             {t('Competition Mining')}
+          </MenuItemHref>
+          <MenuItemHref id="link" href="https://fee.heco.daoswap.cc" target="_self">
+            <DollarSign size={14} />
+            {t('Fee')}
           </MenuItemHref>
         </MenuFlyout>
       )}

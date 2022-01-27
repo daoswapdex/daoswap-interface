@@ -1,4 +1,4 @@
-import { ChainId, CURRENCY_SYMBOL } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 import React from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -225,12 +225,11 @@ const StyledHrefLink = styled.a`
 `
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  [ChainId.BSC_MAINNET]: 'BSC',
   [ChainId.BSC_TESTNET]: 'BscTest',
-  [ChainId.HECO_MAINNET]: 'HECO',
   [ChainId.HECO_TESTNET]: 'HecoTest'
 }
 
+// TODO:Daoswap UNI -> DAO
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
@@ -272,9 +271,12 @@ export default function Header() {
           <StyledNavLink id={`stake-nav-link`} to={'/dao'}>
             DAO
           </StyledNavLink>
-          <StyledNavLink id={`governace-nav-link`} to={'/governace'}>
-            {t('Governace')}
+          <StyledNavLink id={`staking-lp-nav-link`} to={'/staking-lp'}>
+            {t('Node')}
           </StyledNavLink>
+          {/* <StyledNavLink id={`governace-nav-link`} to={'/governace'}>
+            {t('Governace')}
+          </StyledNavLink> */}
           <StyledHrefLink href="https://info.heco.daoswap.cc" target="_self">
             {t('Charts')}
           </StyledHrefLink>
@@ -293,7 +295,7 @@ export default function Header() {
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} {chainId ? CURRENCY_SYMBOL[chainId] : 'HT'}
+                {userEthBalance?.toSignificant(4)} HT
               </BalanceText>
             ) : null}
             <Web3Status />

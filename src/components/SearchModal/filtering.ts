@@ -1,5 +1,5 @@
 import { isAddress } from '../../utils'
-import { Token } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Token } from '@daoswapdex/daoswap-dex-sdk'
 
 export function filterTokens(tokens: Token[], search: string): Token[] {
   if (search.length === 0) return tokens

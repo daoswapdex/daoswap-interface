@@ -3,18 +3,10 @@ import { getAddress } from '@ethersproject/address'
 import { AddressZero } from '@ethersproject/constants'
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { BigNumber } from '@ethersproject/bignumber'
+// import { abi as IUniswapV2Router02ABI } from '@daoswap-heco/daoswap-periphery/build/IUniswapV2Router02.json'
 import { abi as IUniswapV2Router02ABI } from '../constants/contractJson/IUniswapV2Router02.json'
-import {
-  ChainId,
-  JSBI,
-  Percent,
-  Token,
-  CurrencyAmount,
-  Currency,
-  ETHER,
-  ETHER_CHAIN,
-  ROUTER_ADDRESS
-} from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ROUTER_ADDRESS } from '../constants'
+import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from '@daoswapdex/daoswap-dex-sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
 
 // returns the checksummed address if the address is valid, otherwise returns false
@@ -112,16 +104,9 @@ export function getContract(address: string, ABI: any, library: Web3Provider, ac
   return new Contract(address, ABI, getProviderOrSigner(library, account) as any)
 }
 
-export function getRouterAddress(chainId?: ChainId) {
-  if (!chainId) {
-    throw Error(`Undefined 'chainId' parameter '${chainId}'.`)
-  }
-  return ROUTER_ADDRESS[chainId]
-}
-
 // account is optional
-export function getRouterContract(chainId: number, library: Web3Provider, account?: string): Contract {
-  return getContract(getRouterAddress(chainId), IUniswapV2Router02ABI, library, account)
+export function getRouterContract(_: number, library: Web3Provider, account?: string): Contract {
+  return getContract(ROUTER_ADDRESS, IUniswapV2Router02ABI, library, account)
 }
 
 export function escapeRegExp(string: string): string {
@@ -129,6 +114,6 @@ export function escapeRegExp(string: string): string {
 }
 
 export function isTokenOnList(defaultTokens: TokenAddressMap, currency?: Currency): boolean {
-  if (currency === (currency instanceof Token ? ETHER_CHAIN[currency.chainId] : ETHER)) return true
+  if (currency === ETHER) return true
   return Boolean(currency instanceof Token && defaultTokens[currency.chainId]?.[currency.address])
 }

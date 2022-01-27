@@ -1,4 +1,4 @@
-import { Currency, ETHER, ETHER_CHAIN, JSBI, TokenAmount } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency, ETHER, JSBI, TokenAmount } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Plus } from 'react-feather'
 import { Text } from 'rebass'
@@ -27,12 +27,12 @@ enum Fields {
 
 export default function PoolFinder() {
   const { t } = useTranslation()
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
 
   const [showSearch, setShowSearch] = useState<boolean>(false)
   const [activeField, setActiveField] = useState<number>(Fields.TOKEN1)
 
-  const [currency0, setCurrency0] = useState<Currency | null>(chainId ? ETHER_CHAIN[chainId] : ETHER)
+  const [currency0, setCurrency0] = useState<Currency | null>(ETHER)
   const [currency1, setCurrency1] = useState<Currency | null>(null)
 
   const [pairState, pair] = usePair(currency0 ?? undefined, currency1 ?? undefined)
@@ -147,7 +147,7 @@ export default function PoolFinder() {
               <LightCard padding="45px 10px">
                 <AutoColumn gap="sm" justify="center">
                   <Text textAlign="center">{t('You don’t have liquidity in this pool yet.')}</Text>
-                  <StyledInternalLink to={`/add/${currencyId(chainId, currency0)}/${currencyId(chainId, currency1)}`}>
+                  <StyledInternalLink to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
                     <Text textAlign="center">{t('Add liquidity')}.</Text>
                   </StyledInternalLink>
                 </AutoColumn>
@@ -157,7 +157,7 @@ export default function PoolFinder() {
             <LightCard padding="45px 10px">
               <AutoColumn gap="sm" justify="center">
                 <Text textAlign="center">{t('No pool found.')}</Text>
-                <StyledInternalLink to={`/add/${currencyId(chainId, currency0)}/${currencyId(chainId, currency1)}`}>
+                <StyledInternalLink to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
                   {t('Create pool.')}
                 </StyledInternalLink>
               </AutoColumn>

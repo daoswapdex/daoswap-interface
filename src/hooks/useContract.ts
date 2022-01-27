@@ -1,6 +1,8 @@
 import { Contract } from '@ethersproject/contracts'
+// import { abi as STAKING_REWARDS_ABI } from '@daoswap-heco/liquidity-staker/build/StakingRewards.json'
 import { abi as STAKING_REWARDS_ABI } from '../constants/contractJson/StakingRewards.json'
-import { ChainId, WETH } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ChainId, WETH } from '@daoswapdex/daoswap-dex-sdk'
+// import { abi as IUniswapV2PairABI } from '@daoswap-heco/daoswap-core/build/IUniswapV2Pair.json'
 import { abi as IUniswapV2PairABI } from '../constants/contractJson/IUniswapV2Pair.json'
 import { useMemo } from 'react'
 import {
@@ -59,7 +61,7 @@ export function useWETHContract(withSignerIfPossible?: boolean): Contract | null
 export function useArgentWalletDetectorContract(): Contract | null {
   const { chainId } = useActiveWeb3React()
   return useContract(
-    chainId === ChainId.BSC_MAINNET ? ARGENT_WALLET_DETECTOR_MAINNET_ADDRESS : undefined,
+    chainId === ChainId.HECO_MAINNET ? ARGENT_WALLET_DETECTOR_MAINNET_ADDRESS : undefined,
     ARGENT_WALLET_DETECTOR_ABI,
     false
   )
@@ -105,7 +107,7 @@ export function useStakingContract(stakingAddress?: string, withSignerIfPossible
 export function useSocksController(): Contract | null {
   const { chainId } = useActiveWeb3React()
   return useContract(
-    chainId === ChainId.BSC_MAINNET ? '0x65770b5283117639760beA3F867b69b3697a91dd' : undefined,
+    chainId === ChainId.HECO_MAINNET ? '0x65770b5283117639760beA3F867b69b3697a91dd' : undefined,
     UNISOCKS_ABI,
     false
   )

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { RowBetween } from '../Row'
 import { TYPE, CloseIcon } from '../../theme'
 import { ButtonError } from '../Button'
-import { StakingInfo } from '../../state/stakeHistory/hooks'
+import { StakingInfo } from '../../state/stakeHistory3/hooks'
 import { useStakingContract } from '../../hooks/useContract'
 import { SubmittedView, LoadingView } from '../ModalViews'
 import { TransactionResponse } from '@ethersproject/providers'
@@ -25,6 +25,7 @@ interface StakingModalProps {
   stakingInfo: StakingInfo
 }
 
+// TODO:Daoswap UNI -> DAO
 export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: StakingModalProps) {
   const { t } = useTranslation()
   const { account } = useActiveWeb3React()

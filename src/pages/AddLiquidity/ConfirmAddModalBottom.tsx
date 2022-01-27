@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Fraction, Percent } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency, CurrencyAmount, Fraction, Percent } from '@daoswapdex/daoswap-dex-sdk'
 import React from 'react'
 import { Text } from 'rebass'
 import { ButtonPrimary } from '../../components/Button'

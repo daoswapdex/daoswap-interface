@@ -1,4 +1,4 @@
-import { JSBI, Token } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { JSBI, Token } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useContext, useMemo, useState, useEffect } from 'react'
 import { ThemeContext } from 'styled-components'
 import { AutoColumn } from '../../components/Column'

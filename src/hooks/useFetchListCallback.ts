@@ -1,5 +1,5 @@
 import { nanoid } from '@reduxjs/toolkit'
-import { ChainId } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 import { TokenList } from '@uniswap/token-lists'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
@@ -16,8 +16,8 @@ export function useFetchListCallback(): (listUrl: string) => Promise<TokenList> 
 
   const ensResolver = useCallback(
     (ensName: string) => {
-      if (!library || chainId !== ChainId.BSC_MAINNET) {
-        if (NETWORK_CHAIN_ID === ChainId.BSC_MAINNET) {
+      if (!library || chainId !== ChainId.HECO_MAINNET) {
+        if (NETWORK_CHAIN_ID === ChainId.HECO_MAINNET) {
           const networkLibrary = getNetworkLibrary()
           if (networkLibrary) {
             return resolveENSContentHash(ensName, networkLibrary)

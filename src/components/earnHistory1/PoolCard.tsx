@@ -4,16 +4,16 @@ import { RowBetween } from '../Row'
 import styled from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
 import DoubleCurrencyLogo from '../DoubleLogo'
-import { ETHER_CHAIN, JSBI, TokenAmount, CURRENCY_SYMBOL } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ETHER, JSBI, TokenAmount } from '@daoswapdex/daoswap-dex-sdk'
 import { ButtonPrimary } from '../Button'
-import { StakingInfo } from '../../state/stake/hooks'
+import { StakingInfo } from '../../state/stakeHistory1/hooks'
 import { useColor } from '../../hooks/useColor'
 import { currencyId } from '../../utils/currencyId'
 import { Break, CardNoise, CardBGImage } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { usePair } from '../../data/Reserves'
-import useUSDCPrice from '../../utils/useUSDCPrice'
+import useUSDTPrice from '../../utils/useUSDTPrice'
 import { useTranslation } from 'react-i18next'
 
 const StatContainer = styled.div`
@@ -73,6 +73,7 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   z-index: 1;
 `
 
+// TODO:Daoswap UNI -> DAO
 export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) {
   const { t } = useTranslation()
   const token0 = stakingInfo.tokens[0]
@@ -84,8 +85,8 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
   const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
 
   // get the color of the token
-  const token = currency0 === ETHER_CHAIN[token0.chainId] ? token1 : token0
-  const WETH = currency0 === ETHER_CHAIN[token0.chainId] ? token0 : token1
+  const token = currency0 === ETHER ? token1 : token0
+  const WETH = currency0 === ETHER ? token0 : token1
   const backgroundColor = useColor(token)
 
   const totalSupplyOfStakingToken = useTotalSupply(stakingInfo.stakedAmount.token)
@@ -108,12 +109,12 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
   }
 
   // get the USD value of staked WETH
-  const USDPrice = useUSDCPrice(WETH)
-  const valueOfTotalStakedAmountInUSDC =
+  const USDPrice = useUSDTPrice(WETH)
+  const valueOfTotalStakedAmountInUSDT =
     valueOfTotalStakedAmountInWETH && USDPrice?.quote(valueOfTotalStakedAmountInWETH)
 
-  // TODO: 修改价格 get ths USD value the Reward Token
-  const USDPriceForRewardToken = useUSDCPrice(stakingInfo.earnedAmount.currency)
+  // get ths USD value the Reward Token
+  const USDPriceForRewardToken = useUSDTPrice(stakingInfo.earnedAmount.currency)
   const USDPriceForRewardTokenMultiply1000 = USDPriceForRewardToken?.raw.multiply(JSBI.BigInt(1000))
 
   // totalRewardRate of Year
@@ -125,7 +126,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
 
   const annualRateUp = Number(JSBI.divide(yearRewardValue, JSBI.BigInt(1000)).toString())
   const annualRateDown = Number(
-    valueOfTotalStakedAmountInUSDC?.raw ? valueOfTotalStakedAmountInUSDC.raw : JSBI.BigInt(1).toString()
+    valueOfTotalStakedAmountInUSDT?.raw ? valueOfTotalStakedAmountInUSDT.raw : JSBI.BigInt(1).toString()
   )
   const annualRatePercent = annualRateDown > 0 ? ((annualRateUp / annualRateDown) * 100).toFixed(2) : 0
 
@@ -141,7 +142,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
         </TYPE.white>
 
         <StyledInternalLink
-          to={`/dao-history/${currencyId(token0.chainId, currency0)}/${currencyId(token0.chainId, currency1)}`}
+          to={`/dao-history-1/${currencyId(currency0)}/${currencyId(currency1)}`}
           style={{ width: '100%' }}
         >
           <ButtonPrimary padding="8px" borderRadius="8px">
@@ -154,24 +155,22 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
         <RowBetween>
           <TYPE.white> {t('Total deposited')}</TYPE.white>
           <TYPE.white>
-            {valueOfTotalStakedAmountInUSDC
-              ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })}`
-              : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} ${
-                  CURRENCY_SYMBOL[token0.chainId]
-                }`}
+            {valueOfTotalStakedAmountInUSDT
+              ? `$${valueOfTotalStakedAmountInUSDT.toFixed(0, { groupSeparator: ',' })}`
+              : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} HT`}
           </TYPE.white>
         </RowBetween>
-        <RowBetween>
+        {/* <RowBetween>
           <TYPE.white> {t('Pool rate')} </TYPE.white>
           <TYPE.white>{`${stakingInfo.totalRewardRate
             ?.multiply(`${60 * 60 * 24 * 7}`)
             ?.toFixed(0, { groupSeparator: ',' })} DAO / ${t('week')}`}</TYPE.white>
-        </RowBetween>
+        </RowBetween> */}
       </StatContainer>
 
       <Break />
 
-      {isStaking && (
+      {/* {isStaking && (
         <>
           <BottomSection showBackground={true}>
             <TYPE.black color={'white'} fontWeight={500}>
@@ -188,7 +187,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
             </TYPE.black>
           </BottomSection>
         </>
-      )}
+      )} */}
 
       <>
         <BottomSection showBackground={true}>

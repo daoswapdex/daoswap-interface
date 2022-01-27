@@ -1,4 +1,4 @@
-import { CurrencyAmount, JSBI, Token, Trade } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { CurrencyAmount, JSBI, Token, Trade } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { ArrowDown } from 'react-feather'
 // import ReactGA from 'react-ga'
@@ -179,7 +179,7 @@ export default function Swap() {
     }
   }, [approval, approvalSubmitted])
 
-  const maxAmountInput: CurrencyAmount | undefined = maxAmountSpend(route?.chainId, currencyBalances[Field.INPUT])
+  const maxAmountInput: CurrencyAmount | undefined = maxAmountSpend(currencyBalances[Field.INPUT])
   const atMaxAmountInput = Boolean(maxAmountInput && parsedAmounts[Field.INPUT]?.equalTo(maxAmountInput))
 
   // the callback to execute the swap

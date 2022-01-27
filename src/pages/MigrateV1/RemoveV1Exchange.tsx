@@ -1,5 +1,5 @@
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { JSBI, Token, TokenAmount, WETH, Fraction, Percent, CurrencyAmount } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { JSBI, Token, TokenAmount, WETH, Fraction, Percent, CurrencyAmount } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useMemo, useState } from 'react'
 // import ReactGA from 'react-ga'
 import { Redirect, RouteComponentProps } from 'react-router'
@@ -50,8 +50,8 @@ function V1PairRemoval({
   const shareFraction: Fraction = totalSupply ? new Percent(liquidityTokenAmount.raw, totalSupply.raw) : ZERO_FRACTION
 
   const ethWorth: CurrencyAmount = exchangeETHBalance
-    ? CurrencyAmount.etherByChainId(chainId, exchangeETHBalance.multiply(shareFraction).multiply(WEI_DENOM).quotient)
-    : CurrencyAmount.etherByChainId(chainId, ZERO)
+    ? CurrencyAmount.ether(exchangeETHBalance.multiply(shareFraction).multiply(WEI_DENOM).quotient)
+    : CurrencyAmount.ether(ZERO)
 
   const tokenWorth: TokenAmount = exchangeTokenBalance
     ? new TokenAmount(token, shareFraction.multiply(exchangeTokenBalance.raw).quotient)

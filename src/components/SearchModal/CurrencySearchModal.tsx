@@ -1,4 +1,4 @@
-import { Currency } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useEffect, useState } from 'react'
 // import ReactGA from 'react-ga'
 import useLast from '../../hooks/useLast'

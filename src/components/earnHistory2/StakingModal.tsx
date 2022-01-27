@@ -9,27 +9,27 @@ import { TYPE, CloseIcon } from '../../theme'
 import { ButtonConfirmed, ButtonError } from '../Button'
 import ProgressCircles from '../ProgressSteps'
 import CurrencyInputPanel from '../CurrencyInputPanel'
-import { TokenAmount, Pair } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useActiveWeb3React } from '../../hooks'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
 import { usePairContract, useStakingContract } from '../../hooks/useContract'
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
 import { splitSignature } from 'ethers/lib/utils'
-import { StakingInfo, useDerivedStakeInfo } from '../../state/stakeHistory/hooks'
-import { wrappedCurrencyAmount } from '../../utils/wrappedCurrency'
+import { StakingInfo, useDerivedStakeInfo } from '../../state/stakeHistory2/hooks'
+// import { wrappedCurrencyAmount } from '../../utils/wrappedCurrency'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { LoadingView, SubmittedView } from '../ModalViews'
 import { useTranslation } from 'react-i18next'
 
-const HypotheticalRewardRate = styled.div<{ dim: boolean }>`
-  display: flex;
-  justify-content: space-between;
-  padding-right: 20px;
-  padding-left: 20px;
+// const HypotheticalRewardRate = styled.div<{ dim: boolean }>`
+//   display: flex;
+//   justify-content: space-between;
+//   padding-right: 20px;
+//   padding-left: 20px;
 
-  opacity: ${({ dim }) => (dim ? 0.5 : 1)};
-`
+//   opacity: ${({ dim }) => (dim ? 0.5 : 1)};
+// `
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -43,6 +43,7 @@ interface StakingModalProps {
   userLiquidityUnstaked: TokenAmount | undefined
 }
 
+// TODO:Daoswap UNI -> DAO
 export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiquidityUnstaked }: StakingModalProps) {
   const { t } = useTranslation()
   const { account, chainId, library } = useActiveWeb3React()
@@ -50,16 +51,16 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
   // track and parse user input
   const [typedValue, setTypedValue] = useState('')
   const { parsedAmount, error } = useDerivedStakeInfo(typedValue, stakingInfo.stakedAmount.token, userLiquidityUnstaked)
-  const parsedAmountWrapped = wrappedCurrencyAmount(parsedAmount, chainId)
+  // const parsedAmountWrapped = wrappedCurrencyAmount(parsedAmount, chainId)
 
-  let hypotheticalRewardRate: TokenAmount = new TokenAmount(stakingInfo.rewardRate.token, '0')
-  if (parsedAmountWrapped?.greaterThan('0')) {
-    hypotheticalRewardRate = stakingInfo.getHypotheticalRewardRate(
-      stakingInfo.stakedAmount.add(parsedAmountWrapped),
-      stakingInfo.totalStakedAmount.add(parsedAmountWrapped),
-      stakingInfo.totalRewardRate
-    )
-  }
+  // let hypotheticalRewardRate: TokenAmount = new TokenAmount(stakingInfo.rewardRate.token, '0')
+  // if (parsedAmountWrapped?.greaterThan('0')) {
+  //   hypotheticalRewardRate = stakingInfo.getHypotheticalRewardRate(
+  //     stakingInfo.stakedAmount.add(parsedAmountWrapped),
+  //     stakingInfo.totalStakedAmount.add(parsedAmountWrapped),
+  //     stakingInfo.totalRewardRate
+  //   )
+  // }
 
   // state for pending and submitted txn views
   const addTransaction = useTransactionAdder()
@@ -121,7 +122,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
   }, [])
 
   // used for max input button
-  const maxAmountInput = maxAmountSpend(chainId, userLiquidityUnstaked)
+  const maxAmountInput = maxAmountSpend(userLiquidityUnstaked)
   const atMaxAmount = Boolean(maxAmountInput && parsedAmount?.equalTo(maxAmountInput))
   const handleMax = useCallback(() => {
     maxAmountInput && onUserInput(maxAmountInput.toExact())
@@ -215,7 +216,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
             id="stake-liquidity-token"
           />
 
-          <HypotheticalRewardRate dim={!hypotheticalRewardRate.greaterThan('0')}>
+          {/* <HypotheticalRewardRate dim={!hypotheticalRewardRate.greaterThan('0')}>
             <div>
               <TYPE.black fontWeight={600}>{t('Weekly Rewards')}</TYPE.black>
             </div>
@@ -224,7 +225,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
               {hypotheticalRewardRate.multiply((60 * 60 * 24 * 7).toString()).toSignificant(4, { groupSeparator: ',' })}{' '}
               DAO / {t('week')}
             </TYPE.black>
-          </HypotheticalRewardRate>
+          </HypotheticalRewardRate> */}
 
           <RowBetween>
             <ButtonConfirmed

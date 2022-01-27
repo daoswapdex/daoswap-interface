@@ -1,4 +1,4 @@
-import { ChainId } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import Modal from '../Modal'

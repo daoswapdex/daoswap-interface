@@ -1,4 +1,4 @@
-import { Percent } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Percent } from '@daoswapdex/daoswap-dex-sdk'
 import React from 'react'
 import { ONE_BIPS } from '../../constants'
 import { warningSeverity } from '../../utils/prices'

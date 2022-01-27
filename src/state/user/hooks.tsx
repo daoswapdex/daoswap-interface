@@ -1,4 +1,4 @@
-import { ChainId, Pair, Token } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { ChainId, Pair, Token } from '@daoswapdex/daoswap-dex-sdk'
 import flatMap from 'lodash.flatmap'
 import { useCallback, useMemo } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'

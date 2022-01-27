@@ -1,4 +1,4 @@
-import { Currency, ETHER, ETHER_CHAIN, Token } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency, ETHER, Token } from '@daoswapdex/daoswap-dex-sdk'
 import React, { KeyboardEvent, RefObject, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 // import ReactGA from 'react-ga'
 import { useTranslation } from 'react-i18next'
@@ -55,15 +55,15 @@ export function CurrencySearch({
   const isAddressSearch = isAddress(searchQuery)
   const searchToken = useToken(searchQuery)
 
-  // useEffect(() => {
-  // if (isAddressSearch) {
-  //   ReactGA.event({
-  //     category: 'Currency Select',
-  //     action: 'Search by address',
-  //     label: isAddressSearch
-  //   })
-  // }
-  // }, [isAddressSearch])
+  useEffect(() => {
+    // if (isAddressSearch) {
+    //   ReactGA.event({
+    //     category: 'Currency Select',
+    //     action: 'Search by address',
+    //     label: isAddressSearch
+    //   })
+    // }
+  }, [isAddressSearch])
 
   const showETH: boolean = useMemo(() => {
     const s = searchQuery.toLowerCase().trim()
@@ -121,7 +121,7 @@ export function CurrencySearch({
       if (e.key === 'Enter') {
         const s = searchQuery.toLowerCase().trim()
         if (s === 'eth') {
-          handleCurrencySelect(chainId ? ETHER_CHAIN[chainId] : ETHER)
+          handleCurrencySelect(ETHER)
         } else if (filteredSortedTokens.length > 0) {
           if (
             filteredSortedTokens[0].symbol?.toLowerCase() === searchQuery.trim().toLowerCase() ||
@@ -132,7 +132,7 @@ export function CurrencySearch({
         }
       }
     },
-    [chainId, filteredSortedTokens, handleCurrencySelect, searchQuery]
+    [filteredSortedTokens, handleCurrencySelect, searchQuery]
   )
 
   const selectedListInfo = useSelectedListInfo()

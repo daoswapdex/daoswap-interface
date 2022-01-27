@@ -1,4 +1,4 @@
-import { JSBI } from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { JSBI } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'
 import { useActiveWeb3React } from './index'

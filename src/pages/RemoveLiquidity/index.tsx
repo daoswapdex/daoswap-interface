@@ -1,15 +1,7 @@
 import { splitSignature } from '@ethersproject/bytes'
 import { Contract } from '@ethersproject/contracts'
 import { TransactionResponse } from '@ethersproject/providers'
-import {
-  Currency,
-  currencyEquals,
-  ETHER,
-  ETHER_CHAIN,
-  Percent,
-  WETH,
-  ROUTER_ADDRESS
-} from '@daoswapdex-bsc-testnet/daoswap-sdk'
+import { Currency, currencyEquals, ETHER, Percent, WETH } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 // import ReactGA from 'react-ga'
@@ -28,6 +20,7 @@ import Row, { RowBetween, RowFixed } from '../../components/Row'
 
 import Slider from '../../components/Slider'
 import CurrencyLogo from '../../components/CurrencyLogo'
+import { ROUTER_ADDRESS } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
 import { useCurrency } from '../../hooks/Tokens'
 import { usePairContract } from '../../hooks/useContract'
@@ -109,10 +102,7 @@ export default function RemoveLiquidity({
 
   // allowance handling
   const [signatureData, setSignatureData] = useState<{ v: number; r: string; s: string; deadline: number } | null>(null)
-  const [approval, approveCallback] = useApproveCallback(
-    parsedAmounts[Field.LIQUIDITY],
-    chainId ? ROUTER_ADDRESS[chainId] : undefined
-  )
+  const [approval, approveCallback] = useApproveCallback(parsedAmounts[Field.LIQUIDITY], ROUTER_ADDRESS)
 
   const isArgentWallet = useIsArgentWallet()
 
@@ -149,7 +139,7 @@ export default function RemoveLiquidity({
     ]
     const message = {
       owner: account,
-      spender: chainId ? ROUTER_ADDRESS[chainId] : undefined,
+      spender: ROUTER_ADDRESS,
       value: liquidityAmount.raw.toString(),
       nonce: nonce.toHexString(),
       deadline: deadline.toNumber()
@@ -221,8 +211,8 @@ export default function RemoveLiquidity({
     const liquidityAmount = parsedAmounts[Field.LIQUIDITY]
     if (!liquidityAmount) throw new Error(t('missing liquidity amount'))
 
-    const currencyBIsETH = currencyB === ETHER_CHAIN[chainId]
-    const oneCurrencyIsETH = currencyA === ETHER_CHAIN[chainId] || currencyBIsETH
+    const currencyBIsETH = currencyB === ETHER
+    const oneCurrencyIsETH = currencyA === ETHER || currencyBIsETH
 
     if (!tokenA || !tokenB) throw new Error(t('could not wrap'))
 
@@ -441,8 +431,7 @@ export default function RemoveLiquidity({
     [onUserInput]
   )
 
-  const oneCurrencyIsETH =
-    currencyA === (chainId ? ETHER_CHAIN[chainId] : ETHER) || currencyB === (chainId ? ETHER_CHAIN[chainId] : ETHER)
+  const oneCurrencyIsETH = currencyA === ETHER || currencyB === ETHER
   const oneCurrencyIsWETH = Boolean(
     chainId &&
       ((currencyA && currencyEquals(WETH[chainId], currencyA)) ||
@@ -451,23 +440,23 @@ export default function RemoveLiquidity({
 
   const handleSelectCurrencyA = useCallback(
     (currency: Currency) => {
-      if (currencyIdB && currencyId(chainId, currency) === currencyIdB) {
-        history.push(`/remove/${currencyId(chainId, currency)}/${currencyIdA}`)
+      if (currencyIdB && currencyId(currency) === currencyIdB) {
+        history.push(`/remove/${currencyId(currency)}/${currencyIdA}`)
       } else {
-        history.push(`/remove/${currencyId(chainId, currency)}/${currencyIdB}`)
+        history.push(`/remove/${currencyId(currency)}/${currencyIdB}`)
       }
     },
-    [chainId, currencyIdA, currencyIdB, history]
+    [currencyIdA, currencyIdB, history]
   )
   const handleSelectCurrencyB = useCallback(
     (currency: Currency) => {
-      if (currencyIdA && currencyId(chainId, currency) === currencyIdA) {
-        history.push(`/remove/${currencyIdB}/${currencyId(chainId, currency)}`)
+      if (currencyIdA && currencyId(currency) === currencyIdA) {
+        history.push(`/remove/${currencyIdB}/${currencyId(currency)}`)
       } else {
-        history.push(`/remove/${currencyIdA}/${currencyId(chainId, currency)}`)
+        history.push(`/remove/${currencyIdA}/${currencyId(currency)}`)
       }
     },
-    [chainId, currencyIdA, currencyIdB, history]
+    [currencyIdA, currencyIdB, history]
   )
 
   const handleDismissConfirmation = useCallback(() => {
@@ -578,8 +567,8 @@ export default function RemoveLiquidity({
                       <RowBetween style={{ justifyContent: 'flex-end' }}>
                         {oneCurrencyIsETH ? (
                           <StyledInternalLink
-                            to={`/remove/${currencyA === ETHER_CHAIN[chainId] ? WETH[chainId].address : currencyIdA}/${
-                              currencyB === ETHER_CHAIN[chainId] ? WETH[chainId].address : currencyIdB
+                            to={`/remove/${currencyA === ETHER ? WETH[chainId].address : currencyIdA}/${
+                              currencyB === ETHER ? WETH[chainId].address : currencyIdB
                             }`}
                           >
                             {t('Receive')} WETH
