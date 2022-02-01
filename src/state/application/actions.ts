@@ -1,6 +1,8 @@
 import { createAction } from '@reduxjs/toolkit'
 import { TokenList } from '@uniswap/token-lists'
 
+import { SupportedChainId } from '../../constants/chains'
+
 export type PopupContent =
   | {
       txn: {
@@ -17,6 +19,9 @@ export type PopupContent =
         auto: boolean
       }
     }
+  | {
+      failedSwitchNetwork: SupportedChainId
+    }
 
 export enum ApplicationModal {
   WALLET,
@@ -25,6 +30,7 @@ export enum ApplicationModal {
   ADDRESS_CLAIM,
   CLAIM_POPUP,
   MENU,
+  NETWORK_SELECTOR,
   DELEGATE,
   VOTE
 }

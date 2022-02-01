@@ -1,4 +1,3 @@
-import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 import React from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -13,7 +12,6 @@ import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
 import { useETHBalances } from '../../state/wallet/hooks'
 
-import { YellowCard } from '../Card'
 import Settings from '../Settings'
 import Menu from '../Menu'
 
@@ -22,6 +20,7 @@ import Web3Status from '../Web3Status'
 // import ClaimModal from '../claim/ClaimModal'
 // import Modal from '../Modal'
 // import UniBalanceContent from './UniBalanceContent'
+import NetworkSelector from './NetworkSelector'
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -120,25 +119,6 @@ const AccountElement = styled.div<{ active: boolean }>`
   } */
 `
 
-const HideSmall = styled.span`
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    display: none;
-  `};
-`
-
-const NetworkCard = styled(YellowCard)`
-  border-radius: 12px;
-  padding: 8px 12px;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    margin: 0;
-    margin-right: 0.5rem;
-    width: initial;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-shrink: 1;
-  `};
-`
-
 const BalanceText = styled(Text)`
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     display: none;
@@ -224,14 +204,8 @@ const StyledHrefLink = styled.a`
   `}
 `
 
-const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  [ChainId.BSC_TESTNET]: 'BscTest',
-  [ChainId.HECO_TESTNET]: 'HecoTest'
-}
-
-// TODO:Daoswap UNI -> DAO
 export default function Header() {
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
   const { t } = useTranslation()
 
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
@@ -287,11 +261,9 @@ export default function Header() {
       </HeaderRow>
       <HeaderControls>
         <HeaderElement>
-          <HideSmall>
-            {chainId && NETWORK_LABELS[chainId] && (
-              <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
-            )}
-          </HideSmall>
+          <HeaderElement>
+            <NetworkSelector />
+          </HeaderElement>
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>

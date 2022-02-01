@@ -189,6 +189,7 @@
   "Error connecting.": "连接时出错。",
   "Try Again": "重试",
   "Initializing...": "正在初始化...",
+  "Select a network": "选择网络",
 
   "Liquidity provider rewards": "流动性提供者奖励",
   "Liquidity providers earn a 0.2% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.": "流动性提供者在所有交易中赚取0.2%的费用，与他们在资金池中的份额成比例。费用在移除流动性前都将被添加到池中，实时累积，并且可以通过提取流动资金来申请。",
