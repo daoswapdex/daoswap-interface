@@ -79,7 +79,7 @@ const FlyoutMenu = styled.div`
   }
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
-    top: -14.75rem;
+    top: -9.5rem;
   `};
 `
 const FlyoutRow = styled.div<{ active: boolean }>`
