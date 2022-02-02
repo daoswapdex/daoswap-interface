@@ -7,7 +7,8 @@ import { CardSection, DataCard, CardNoise, CardBGImage } from './styled'
 import { useTranslation } from 'react-i18next'
 import PoolCard from '../../components/staking/PoolCardForSingle'
 import { NodeTabs } from '../../components/NavigationTabs/node'
-// import { useActiveWeb3React } from '../../hooks'
+import { useActiveWeb3React } from '../../hooks'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -30,7 +31,8 @@ const PoolSection = styled.div`
 
 export default function StakingSingle() {
   const { t } = useTranslation()
-  // const { account } = useActiveWeb3React()
+  const { chainId } = useActiveWeb3React()
+  const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
 
   // // TODO: is display staking rewards info list for specical address
   // const whiteList = [
@@ -95,17 +97,27 @@ export default function StakingSingle() {
         </DataCard>
       </TopSection>
 
-      <NodeTabs active={'staking-single'} />
-
-      <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
-        <PoolSection>
-          {stakingList?.length === 0
-            ? t('No active staking')
-            : stakingList?.map(stakingInfo => {
-                return <PoolCard key={stakingInfo.period} stakingInfo={stakingInfo} />
-              })}
-        </PoolSection>
-      </AutoColumn>
+      {isHecoNetwork ? (
+        <>
+          <NodeTabs active={'staking-single'} />
+          <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
+            <PoolSection>
+              {stakingList?.length === 0
+                ? t('No active staking')
+                : stakingList?.map(stakingInfo => {
+                    return <PoolCard key={stakingInfo.period} stakingInfo={stakingInfo} />
+                  })}
+            </PoolSection>
+          </AutoColumn>
+        </>
+      ) : (
+        <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
+          <PoolSection>{t('Please connect to HECO Network')}</PoolSection>
+          <PoolSection>
+            {t('Node is only available on HECO. Switch your network to HECO Mainnet to view Staking LP and DAO.')}
+          </PoolSection>
+        </AutoColumn>
+      )}
     </PageWrapper>
   )
 }

@@ -11,6 +11,7 @@ import LogoDark from '../../assets/svg/logo_white.svg'
 import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
 import { useETHBalances } from '../../state/wallet/hooks'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 
 import Settings from '../Settings'
 import Menu from '../Menu'
@@ -205,8 +206,10 @@ const StyledHrefLink = styled.a`
 `
 
 export default function Header() {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
+
+  const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
 
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
   const [isDark] = useDarkModeManager()
@@ -245,13 +248,21 @@ export default function Header() {
           <StyledNavLink id={`stake-nav-link`} to={'/dao'}>
             DAO
           </StyledNavLink>
-          <StyledNavLink id={`staking-lp-nav-link`} to={'/staking-lp'}>
+          <StyledNavLink
+            id={`staking-lp-nav-link`}
+            to={'/staking-lp'}
+            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
+          >
             {t('Node')}
           </StyledNavLink>
           {/* <StyledNavLink id={`governace-nav-link`} to={'/governace'}>
             {t('Governace')}
           </StyledNavLink> */}
-          <StyledHrefLink href="https://info.heco.daoswap.cc" target="_self">
+          <StyledHrefLink
+            href="https://info.heco.daoswap.cc"
+            target="_self"
+            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
+          >
             {t('Charts')}
           </StyledHrefLink>
           <StyledHrefLink href="https://bridge.heco.daoswap.cc/token/DAO" target="_self">

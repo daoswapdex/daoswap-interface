@@ -5,6 +5,8 @@ import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleModal } from '../../state/application/hooks'
+import { useActiveWeb3React } from '../../hooks'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 
 import { ExternalLink } from '../../theme'
 import { useTranslation } from 'react-i18next'
@@ -102,6 +104,9 @@ const MenuItemHref = styled.a`
 // TODO:Daoswap UNI -> DAO
 export default function Menu() {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
+
+  const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
 
   const node = useRef<HTMLDivElement>()
   const open = useModalOpen(ApplicationModal.MENU)
@@ -130,7 +135,12 @@ export default function Menu() {
             <MessageCircle size={14} />
             Twitter
           </MenuItem>
-          <MenuItemHref id="link" href="https://info.heco.daoswap.cc" target="_self">
+          <MenuItemHref
+            id="link"
+            href="https://info.heco.daoswap.cc"
+            target="_self"
+            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
+          >
             <PieChart size={14} />
             {t('Charts')}
           </MenuItemHref>
@@ -138,15 +148,30 @@ export default function Menu() {
             <Link size={14} />
             {t('Bridge')}
           </MenuItemHref>
-          <MenuItemHref id="link" href="https://www.daoswap.cc/hash-mining" target="_self">
+          <MenuItemHref
+            id="link"
+            href="https://www.daoswap.cc/hash-mining"
+            target="_self"
+            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
+          >
             <Layers size={14} />
             {t('Hash Mining')}
           </MenuItemHref>
-          <MenuItemHref id="link" href="https://www.daoswap.cc/competition-mining" target="_self">
+          <MenuItemHref
+            id="link"
+            href="https://www.daoswap.cc/competition-mining"
+            target="_self"
+            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
+          >
             <Gift size={14} />
             {t('Competition Mining')}
           </MenuItemHref>
-          <MenuItemHref id="link" href="https://fee.heco.daoswap.cc" target="_self">
+          <MenuItemHref
+            id="link"
+            href="https://fee.heco.daoswap.cc"
+            target="_self"
+            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
+          >
             <DollarSign size={14} />
             {t('Fee')}
           </MenuItemHref>

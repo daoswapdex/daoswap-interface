@@ -220,9 +220,7 @@ export default function NetworkSelector() {
         <FlyoutMenu>
           <FlyoutHeader>{t('Select a network')}</FlyoutHeader>
           <Row onSelectChain={handleChainSwitch} targetChain={ChainId.BSC_MAINNET} />
-          <Row onSelectChain={handleChainSwitch} targetChain={ChainId.BSC_TESTNET} />
           <Row onSelectChain={handleChainSwitch} targetChain={ChainId.HECO_MAINNET} />
-          <Row onSelectChain={handleChainSwitch} targetChain={ChainId.HECO_TESTNET} />
         </FlyoutMenu>
       )}
     </SelectorWrapper>

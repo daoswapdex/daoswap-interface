@@ -340,6 +340,8 @@
   "Pledging DAO to share 0.1% fees of all pool.": "Pledging DAO to share 0.1% fees of all pool.",
   "Function development, please wait patiently...": "Function development, please wait patiently...",
   
+  "Please connect to HECO Network": "Please connect to HECO Network",
+  "Node is only available on HECO. Switch your network to HECO Mainnet to view Staking LP and DAO.": "Node is only available on HECO. Switch your network to HECO Mainnet to view Staking LP and DAO.",
   "Node": "Node",
   "Staking LP": "Staking LP",
   "Staking Single": "Staking DAO",
