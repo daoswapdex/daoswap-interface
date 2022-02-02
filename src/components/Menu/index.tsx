@@ -52,7 +52,7 @@ const StyledMenu = styled.div`
   text-align: left;
 `
 
-const MenuFlyout = styled.span`
+const MenuFlyout = styled.span<{ isHecoNetwork: boolean }>`
   min-width: 13.125rem;
   background-color: ${({ theme }) => theme.bg3};
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
@@ -67,8 +67,8 @@ const MenuFlyout = styled.span`
   right: 0rem;
   z-index: 100;
 
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    top: -21.25rem;
+  ${({ theme }) => theme.mediaWidth.upToMedium<{ isHecoNetwork: boolean }>`
+    top: ${({ isHecoNetwork }) => (isHecoNetwork ? '-21.25rem' : '-12rem')};
   `};
 `
 
@@ -122,7 +122,7 @@ export default function Menu() {
       </StyledMenuButton>
 
       {open && (
-        <MenuFlyout>
+        <MenuFlyout isHecoNetwork={isHecoNetwork}>
           <MenuItem id="link" href="https://www.daoswap.cc/">
             <Info size={14} />
             {t('Daoswap')}
