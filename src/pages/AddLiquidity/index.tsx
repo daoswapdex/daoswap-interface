@@ -7,7 +7,8 @@ import {
   TokenAmount,
   WETH,
   ROUTER_ADDRESS,
-  ChainId
+  ChainId,
+  CURRENCY_SYMBOL
 } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
@@ -135,6 +136,11 @@ export default function AddLiquidity({
     ROUTER_ADDRESS[chainId ? chainId : ChainId.HECO_MAINNET]
   )
 
+  const currencySymbolA =
+    currencies[Field.CURRENCY_A] === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currencies[Field.CURRENCY_A]?.symbol
+  const currencySymbolB =
+    currencies[Field.CURRENCY_B] === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currencies[Field.CURRENCY_B]?.symbol
+
   const addTransaction = useTransactionAdder()
 
   async function onAdd() {
@@ -198,11 +204,11 @@ export default function AddLiquidity({
               'Add ' +
               parsedAmounts[Field.CURRENCY_A]?.toSignificant(3) +
               ' ' +
-              currencies[Field.CURRENCY_A]?.symbol +
+              currencySymbolA +
               ' and ' +
               parsedAmounts[Field.CURRENCY_B]?.toSignificant(3) +
               ' ' +
-              currencies[Field.CURRENCY_B]?.symbol
+              currencySymbolB
           })
 
           setTxHash(response.hash)
@@ -210,7 +216,7 @@ export default function AddLiquidity({
           // ReactGA.event({
           //   category: 'Liquidity',
           //   action: 'Add',
-          //   label: [currencies[Field.CURRENCY_A]?.symbol, currencies[Field.CURRENCY_B]?.symbol].join('/')
+          //   label: [currencySymbolA, currencySymbolB].join('/')
           // })
         })
       )
@@ -229,7 +235,7 @@ export default function AddLiquidity({
         <LightCard mt="20px" borderRadius="20px">
           <RowFlat>
             <Text fontSize="48px" fontWeight={500} lineHeight="42px" marginRight={10}>
-              {currencies[Field.CURRENCY_A]?.symbol + '/' + currencies[Field.CURRENCY_B]?.symbol}
+              {currencySymbolA + '/' + currencySymbolB}
             </Text>
             <DoubleCurrencyLogo
               currency0={currencies[Field.CURRENCY_A]}
@@ -252,9 +258,7 @@ export default function AddLiquidity({
           />
         </RowFlat>
         <Row>
-          <Text fontSize="24px">
-            {currencies[Field.CURRENCY_A]?.symbol + '/' + currencies[Field.CURRENCY_B]?.symbol + ' ' + t('Pool Tokens')}
-          </Text>
+          <Text fontSize="24px">{currencySymbolA + '/' + currencySymbolB + ' ' + t('Pool Tokens')}</Text>
         </Row>
         <TYPE.italic fontSize={12} textAlign="left" padding={'8px 0 0 0 '}>
           {`${t('Output is estimated. If the price changes by more than')} ${allowedSlippage / 100}% ${t(
@@ -278,24 +282,24 @@ export default function AddLiquidity({
     )
   }
 
-  const pendingText = `Supplying ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${
-    currencies[Field.CURRENCY_A]?.symbol
-  } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} ${currencies[Field.CURRENCY_B]?.symbol}`
+  const pendingText = `Supplying ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(
+    6
+  )} ${currencySymbolA} and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} ${currencySymbolB}`
 
   const handleCurrencyASelect = useCallback(
     (currencyA: Currency) => {
-      const newCurrencyIdA = currencyId(currencyA)
+      const newCurrencyIdA = currencyId(chainId, currencyA)
       if (newCurrencyIdA === currencyIdB) {
         history.push(`/add/${currencyIdB}/${currencyIdA}`)
       } else {
         history.push(`/add/${newCurrencyIdA}/${currencyIdB}`)
       }
     },
-    [currencyIdB, history, currencyIdA]
+    [currencyIdB, history, currencyIdA, chainId]
   )
   const handleCurrencyBSelect = useCallback(
     (currencyB: Currency) => {
-      const newCurrencyIdB = currencyId(currencyB)
+      const newCurrencyIdB = currencyId(chainId, currencyB)
       if (currencyIdA === newCurrencyIdB) {
         if (currencyIdB) {
           history.push(`/add/${currencyIdB}/${newCurrencyIdB}`)
@@ -303,10 +307,10 @@ export default function AddLiquidity({
           history.push(`/add/${newCurrencyIdB}`)
         }
       } else {
-        history.push(`/add/${currencyIdA ? currencyIdA : 'HT'}/${newCurrencyIdB}`)
+        history.push(`/add/${currencyIdA ? currencyIdA : chainId ? CURRENCY_SYMBOL[chainId] : 'HT'}/${newCurrencyIdB}`)
       }
     },
-    [currencyIdA, history, currencyIdB]
+    [currencyIdA, history, currencyIdB, chainId]
   )
 
   const handleDismissConfirmation = useCallback(() => {
@@ -424,10 +428,10 @@ export default function AddLiquidity({
                         >
                           {approvalA === ApprovalState.PENDING ? (
                             <Dots>
-                              {t('Approving')} {currencies[Field.CURRENCY_A]?.symbol}
+                              {t('Approving')} {currencySymbolA}
                             </Dots>
                           ) : (
-                            t('Approve') + currencies[Field.CURRENCY_A]?.symbol
+                            t('Approve') + currencySymbolA
                           )}
                         </ButtonPrimary>
                       )}
@@ -439,10 +443,10 @@ export default function AddLiquidity({
                         >
                           {approvalB === ApprovalState.PENDING ? (
                             <Dots>
-                              {t('Approving')} {currencies[Field.CURRENCY_B]?.symbol}
+                              {t('Approving')} {currencySymbolB}
                             </Dots>
                           ) : (
-                            t('Approve') + currencies[Field.CURRENCY_B]?.symbol
+                            t('Approve') + currencySymbolB
                           )}
                         </ButtonPrimary>
                       )}

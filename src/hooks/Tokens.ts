@@ -1,5 +1,5 @@
 import { parseBytes32String } from '@ethersproject/strings'
-import { Currency, ETHER, Token, currencyEquals } from '@daoswapdex/daoswap-dex-sdk'
+import { Currency, ETHER, Token, currencyEquals, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 import { useSelectedTokenList } from '../state/lists/hooks'
 import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'
@@ -102,7 +102,8 @@ export function useToken(tokenAddress?: string): Token | undefined | null {
 }
 
 export function useCurrency(currencyId: string | undefined): Currency | null | undefined {
-  const isETH = currencyId?.toUpperCase() === 'HT'
+  const { chainId } = useActiveWeb3React()
+  const isETH = currencyId?.toUpperCase() === (chainId ? CURRENCY_SYMBOL[chainId] : 'HT')
   const token = useToken(isETH ? undefined : currencyId)
   return isETH ? ETHER : token
 }

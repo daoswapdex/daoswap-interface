@@ -1,7 +1,17 @@
 import useENS from '../../hooks/useENS'
 import { Version } from '../../hooks/useToggledVersion'
 import { parseUnits } from '@ethersproject/units'
-import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade } from '@daoswapdex/daoswap-dex-sdk'
+import {
+  Currency,
+  CurrencyAmount,
+  ETHER,
+  JSBI,
+  Token,
+  TokenAmount,
+  Trade,
+  ChainId,
+  CURRENCY_SYMBOL
+} from '@daoswapdex/daoswap-dex-sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,17 +42,25 @@ export function useSwapActionHandlers(): {
   onUserInput: (field: Field, typedValue: string) => void
   onChangeRecipient: (recipient: string | null) => void
 } {
+  const { chainId } = useActiveWeb3React()
   const dispatch = useDispatch<AppDispatch>()
   const onCurrencySelection = useCallback(
     (field: Field, currency: Currency) => {
       dispatch(
         selectCurrency({
           field,
-          currencyId: currency instanceof Token ? currency.address : currency === ETHER ? 'HT' : ''
+          currencyId:
+            currency instanceof Token
+              ? currency.address
+              : currency === ETHER
+              ? chainId
+                ? CURRENCY_SYMBOL[chainId]
+                : 'HT'
+              : ''
         })
       )
     },
-    [dispatch]
+    [chainId, dispatch]
   )
 
   const onSwitchTokens = useCallback(() => {
@@ -234,14 +252,14 @@ export function useDerivedSwapInfo(): {
   }
 }
 
-function parseCurrencyFromURLParameter(urlParam: any): string {
+function parseCurrencyFromURLParameter(chainId: ChainId, urlParam: any): string {
   if (typeof urlParam === 'string') {
     const valid = isAddress(urlParam)
     if (valid) return valid
-    if (urlParam.toUpperCase() === 'HT') return 'HT'
-    if (valid === false) return 'HT'
+    if (urlParam.toUpperCase() === CURRENCY_SYMBOL[chainId]) return CURRENCY_SYMBOL[chainId]
+    if (valid === false) return CURRENCY_SYMBOL[chainId]
   }
-  return 'HT' ?? ''
+  return CURRENCY_SYMBOL[chainId] ?? ''
 }
 
 function parseTokenAmountURLParameter(urlParam: any): string {
@@ -263,9 +281,9 @@ function validatedRecipient(recipient: any): string | null {
   return null
 }
 
-export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
-  let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency)
-  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
+export function queryParametersToSwapState(chainId: ChainId, parsedQs: ParsedQs): SwapState {
+  let inputCurrency = parseCurrencyFromURLParameter(chainId, parsedQs.inputCurrency)
+  let outputCurrency = parseCurrencyFromURLParameter(chainId, parsedQs.outputCurrency)
   if (inputCurrency === outputCurrency) {
     if (typeof parsedQs.outputCurrency === 'string') {
       inputCurrency = ''
@@ -302,7 +320,7 @@ export function useDefaultsFromURLSearch():
 
   useEffect(() => {
     if (!chainId) return
-    const parsed = queryParametersToSwapState(parsedQs)
+    const parsed = queryParametersToSwapState(chainId, parsedQs)
 
     dispatch(
       replaceSwapState({

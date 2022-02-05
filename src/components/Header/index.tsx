@@ -11,7 +11,7 @@ import LogoDark from '../../assets/svg/logo_white.svg'
 import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
 import { useETHBalances } from '../../state/wallet/hooks'
-import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
+import { ChainId, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 
 import Settings from '../Settings'
 import Menu from '../Menu'
@@ -278,7 +278,7 @@ export default function Header() {
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} HT
+                {userEthBalance?.toSignificant(4)} {chainId ? CURRENCY_SYMBOL[chainId] : 'HT'}
               </BalanceText>
             ) : null}
             <Web3Status />

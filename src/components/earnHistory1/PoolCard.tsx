@@ -4,7 +4,7 @@ import { RowBetween } from '../Row'
 import styled from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
 import DoubleCurrencyLogo from '../DoubleLogo'
-import { ETHER, JSBI, TokenAmount } from '@daoswapdex/daoswap-dex-sdk'
+import { ETHER, JSBI, TokenAmount, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import { ButtonPrimary } from '../Button'
 import { StakingInfo } from '../../state/stakeHistory1/hooks'
 import { useColor } from '../../hooks/useColor'
@@ -142,7 +142,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
         </TYPE.white>
 
         <StyledInternalLink
-          to={`/dao-history-1/${currencyId(currency0)}/${currencyId(currency1)}`}
+          to={`/dao-history-1/${currencyId(token0.chainId, currency0)}/${currencyId(token0.chainId, currency1)}`}
           style={{ width: '100%' }}
         >
           <ButtonPrimary padding="8px" borderRadius="8px">
@@ -157,7 +157,9 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
           <TYPE.white>
             {valueOfTotalStakedAmountInUSDT
               ? `$${valueOfTotalStakedAmountInUSDT.toFixed(0, { groupSeparator: ',' })}`
-              : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} HT`}
+              : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} ${
+                  CURRENCY_SYMBOL[token0.chainId]
+                }`}
           </TYPE.white>
         </RowBetween>
         {/* <RowBetween>

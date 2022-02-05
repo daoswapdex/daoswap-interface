@@ -3,7 +3,7 @@ import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import { JSBI, TokenAmount, ETHER } from '@daoswapdex/daoswap-dex-sdk'
+import { JSBI, TokenAmount, ETHER, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import { RouteComponentProps } from 'react-router-dom'
 import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { useCurrency } from '../../hooks/Tokens'
@@ -171,7 +171,9 @@ export default function Manage({
             <TYPE.body fontSize={24} fontWeight={500}>
               {valueOfTotalStakedAmountInUSDT
                 ? `$${valueOfTotalStakedAmountInUSDT.toFixed(0, { groupSeparator: ',' })}`
-                : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} HT`}
+                : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} ${
+                    chainId ? CURRENCY_SYMBOL[chainId] : 'HT'
+                  }`}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
@@ -209,7 +211,8 @@ export default function Manage({
                 borderRadius="8px"
                 width={'fit-content'}
                 as={Link}
-                to={`/add/${currencyA && currencyId(currencyA)}/${currencyB && currencyId(currencyB)}`}
+                to={`/add/${currencyA && currencyId(chainId, currencyA)}/${currencyB &&
+                  currencyId(chainId, currencyB)}`}
               >
                 {`${t('Add')} ${currencyA?.symbol}-${currencyB?.symbol} ${t('liquidity')}`}
               </ButtonPrimary>

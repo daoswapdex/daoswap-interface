@@ -1,4 +1,4 @@
-import { Trade, TradeType } from '@daoswapdex/daoswap-dex-sdk'
+import { Trade, TradeType, ETHER, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useContext, useMemo } from 'react'
 import { ArrowDown, AlertTriangle } from 'react-feather'
 import { Text } from 'rebass'
@@ -13,6 +13,7 @@ import CurrencyLogo from '../CurrencyLogo'
 import { RowBetween, RowFixed } from '../Row'
 import { TruncatedText, SwapShowAcceptChanges } from './styleds'
 import { useTranslation } from 'react-i18next'
+import { useActiveWeb3React } from '../../hooks'
 
 export default function SwapModalHeader({
   trade,
@@ -28,6 +29,7 @@ export default function SwapModalHeader({
   onAcceptChanges: () => void
 }) {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
   const slippageAdjustedAmounts = useMemo(() => computeSlippageAdjustedAmounts(trade, allowedSlippage), [
     trade,
     allowedSlippage
@@ -36,6 +38,11 @@ export default function SwapModalHeader({
   const priceImpactSeverity = warningSeverity(priceImpactWithoutFee)
 
   const theme = useContext(ThemeContext)
+
+  const currencySymbolA =
+    trade.inputAmount.currency === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : trade.inputAmount.currency.symbol
+  const currencySymbolB =
+    trade.outputAmount.currency === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : trade.outputAmount.currency.symbol
 
   return (
     <AutoColumn gap={'md'} style={{ marginTop: '20px' }}>
@@ -52,7 +59,7 @@ export default function SwapModalHeader({
         </RowFixed>
         <RowFixed gap={'0px'}>
           <Text fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
-            {trade.inputAmount.currency.symbol}
+            {currencySymbolA}
           </Text>
         </RowFixed>
       </RowBetween>
@@ -78,7 +85,7 @@ export default function SwapModalHeader({
         </RowFixed>
         <RowFixed gap={'0px'}>
           <Text fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
-            {trade.outputAmount.currency.symbol}
+            {currencySymbolB}
           </Text>
         </RowFixed>
       </RowBetween>
@@ -103,7 +110,7 @@ export default function SwapModalHeader({
           <TYPE.italic textAlign="left" style={{ width: '100%' }}>
             {t('Output is estimated. You will receive at least')}{' '}
             <b>
-              {slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(6)} {trade.outputAmount.currency.symbol}
+              {slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(6)} {currencySymbolB}
             </b>{' '}
             {t('or the transaction will revert.')}
           </TYPE.italic>
@@ -111,7 +118,7 @@ export default function SwapModalHeader({
           <TYPE.italic textAlign="left" style={{ width: '100%' }}>
             {t('Input is estimated. You will sell at most')}{' '}
             <b>
-              {slippageAdjustedAmounts[Field.INPUT]?.toSignificant(6)} {trade.inputAmount.currency.symbol}
+              {slippageAdjustedAmounts[Field.INPUT]?.toSignificant(6)} {currencySymbolA}
             </b>{' '}
             {t('or the transaction will revert.')}
           </TYPE.italic>

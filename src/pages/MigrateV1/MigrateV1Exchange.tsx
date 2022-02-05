@@ -8,7 +8,8 @@ import {
   Percent,
   Token,
   TokenAmount,
-  WETH
+  WETH,
+  CURRENCY_SYMBOL
 } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useMemo, useState } from 'react'
 // import ReactGA from 'react-ga'
@@ -64,14 +65,14 @@ export function V1LiquidityInfo({
         <div style={{ marginLeft: '.75rem' }}>
           <TYPE.mediumHeader>
             {<FormattedCurrencyAmount currencyAmount={liquidityTokenAmount} />}{' '}
-            {chainId && token.equals(WETH[chainId]) ? 'WHT' : token.symbol}/ETH
+            {chainId && token.equals(WETH[chainId]) ? `W${CURRENCY_SYMBOL[chainId]}` : token.symbol}/ETH
           </TYPE.mediumHeader>
         </div>
       </AutoRow>
 
       <RowBetween my="1rem">
         <Text fontSize={16} fontWeight={500}>
-          Pooled {chainId && token.equals(WETH[chainId]) ? 'WHT' : token.symbol}:
+          Pooled {chainId && token.equals(WETH[chainId]) ? `W${CURRENCY_SYMBOL[chainId]}` : token.symbol}:
         </Text>
         <RowFixed>
           <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>

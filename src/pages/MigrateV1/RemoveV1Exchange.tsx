@@ -1,5 +1,14 @@
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { JSBI, Token, TokenAmount, WETH, Fraction, Percent, CurrencyAmount } from '@daoswapdex/daoswap-dex-sdk'
+import {
+  JSBI,
+  Token,
+  TokenAmount,
+  WETH,
+  Fraction,
+  Percent,
+  CurrencyAmount,
+  CURRENCY_SYMBOL
+} from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useMemo, useState } from 'react'
 // import ReactGA from 'react-ga'
 import { Redirect, RouteComponentProps } from 'react-router'
@@ -79,7 +88,9 @@ function V1PairRemoval({
         // })
 
         addTransaction(response, {
-          summary: `Remove ${chainId && token.equals(WETH[chainId]) ? 'WHT' : token.symbol}/ETH V1 liquidity`
+          summary: `Remove ${
+            chainId && token.equals(WETH[chainId]) ? `W${CURRENCY_SYMBOL[chainId]}` : token.symbol
+          }/ETH V1 liquidity`
         })
         setPendingRemovalHash(response.hash)
       })
@@ -118,9 +129,9 @@ function V1PairRemoval({
         </div>
       </LightCard>
       <TYPE.darkGray style={{ textAlign: 'center' }}>
-        {`Your Uniswap V1 ${
-          chainId && token.equals(WETH[chainId]) ? 'WHT' : token.symbol
-        }/HT liquidity will be redeemed for underlying assets.`}
+        {`Your Uniswap V1 ${chainId && token.equals(WETH[chainId]) ? `W${CURRENCY_SYMBOL[chainId]}` : token.symbol}/${
+          chainId ? CURRENCY_SYMBOL[chainId] : 'HT'
+        } liquidity will be redeemed for underlying assets.`}
       </TYPE.darkGray>
     </AutoColumn>
   )

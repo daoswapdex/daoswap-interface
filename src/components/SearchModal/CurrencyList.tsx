@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, currencyEquals, ETHER, Token } from '@daoswapdex/daoswap-dex-sdk'
+import { Currency, CurrencyAmount, currencyEquals, ETHER, Token, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import React, { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
@@ -95,6 +95,7 @@ function CurrencyRow({
 }) {
   const { account, chainId } = useActiveWeb3React()
   const key = currencyKey(currency)
+  const currencySymbol = chainId && key === 'ETHER' ? CURRENCY_SYMBOL[chainId] : currency.symbol
   const selectedTokenList = useSelectedTokenList()
   const isOnSelectedList = isTokenOnList(selectedTokenList, currency)
   const customAdded = useIsUserAddedToken(currency)
@@ -115,7 +116,7 @@ function CurrencyRow({
       <CurrencyLogo currency={currency} size={'24px'} />
       <Column>
         <Text title={currency.name} fontWeight={500}>
-          {currency.symbol}
+          {currencySymbol}
         </Text>
         <FadedSpan>
           {!isOnSelectedList && customAdded ? (

@@ -1,4 +1,4 @@
-import { Trade, TradeType } from '@daoswapdex/daoswap-dex-sdk'
+import { Trade, TradeType, ETHER, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useContext, useMemo, useState } from 'react'
 import { Repeat } from 'react-feather'
 import { Text } from 'rebass'
@@ -18,6 +18,7 @@ import { AutoRow, RowBetween, RowFixed } from '../Row'
 import FormattedPriceImpact from './FormattedPriceImpact'
 import { StyledBalanceMaxMini, SwapCallbackError } from './styleds'
 import { useTranslation } from 'react-i18next'
+import { useActiveWeb3React } from '../../hooks'
 
 export default function SwapModalFooter({
   trade,
@@ -33,6 +34,7 @@ export default function SwapModalFooter({
   disabledConfirm: boolean
 }) {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
   const [showInverted, setShowInverted] = useState<boolean>(false)
   const theme = useContext(ThemeContext)
   const slippageAdjustedAmounts = useMemo(() => computeSlippageAdjustedAmounts(trade, allowedSlippage), [
@@ -41,6 +43,11 @@ export default function SwapModalFooter({
   ])
   const { priceImpactWithoutFee, realizedLPFee } = useMemo(() => computeTradePriceBreakdown(trade), [trade])
   const severity = warningSeverity(priceImpactWithoutFee)
+
+  const currencySymbolA =
+    trade.inputAmount.currency === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : trade.inputAmount.currency.symbol
+  const currencySymbolB =
+    trade.outputAmount.currency === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : trade.outputAmount.currency.symbol
 
   return (
     <>
@@ -61,7 +68,7 @@ export default function SwapModalFooter({
               paddingLeft: '10px'
             }}
           >
-            {formatExecutionPrice(trade, showInverted)}
+            {formatExecutionPrice(chainId, trade, showInverted)}
             <StyledBalanceMaxMini onClick={() => setShowInverted(!showInverted)}>
               <Repeat size={14} />
             </StyledBalanceMaxMini>
@@ -86,9 +93,7 @@ export default function SwapModalFooter({
                 : slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4) ?? '-'}
             </TYPE.black>
             <TYPE.black fontSize={14} marginLeft={'4px'}>
-              {trade.tradeType === TradeType.EXACT_INPUT
-                ? trade.outputAmount.currency.symbol
-                : trade.inputAmount.currency.symbol}
+              {trade.tradeType === TradeType.EXACT_INPUT ? currencySymbolB : currencySymbolA}
             </TYPE.black>
           </RowFixed>
         </RowBetween>
@@ -111,7 +116,7 @@ export default function SwapModalFooter({
             />
           </RowFixed>
           <TYPE.black fontSize={14}>
-            {realizedLPFee ? realizedLPFee?.toSignificant(6) + ' ' + trade.inputAmount.currency.symbol : '-'}
+            {realizedLPFee ? realizedLPFee?.toSignificant(6) + ' ' + currencySymbolA : '-'}
           </TYPE.black>
         </RowBetween>
       </AutoColumn>

@@ -1,4 +1,4 @@
-import { Trade, TradeType } from '@daoswapdex/daoswap-dex-sdk'
+import { Trade, TradeType, ETHER, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Field } from '../../state/swap/actions'
@@ -12,6 +12,7 @@ import FormattedPriceImpact from './FormattedPriceImpact'
 import { SectionBreak } from './styleds'
 import SwapRoute from './SwapRoute'
 import { useTranslation } from 'react-i18next'
+import { useActiveWeb3React } from '../../hooks'
 
 const InfoLink = styled(ExternalLink)`
   width: 100%;
@@ -25,10 +26,16 @@ const InfoLink = styled(ExternalLink)`
 
 function TradeSummary({ trade, allowedSlippage }: { trade: Trade; allowedSlippage: number }) {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
   const theme = useContext(ThemeContext)
   const { priceImpactWithoutFee, realizedLPFee } = computeTradePriceBreakdown(trade)
   const isExactIn = trade.tradeType === TradeType.EXACT_INPUT
   const slippageAdjustedAmounts = computeSlippageAdjustedAmounts(trade, allowedSlippage)
+
+  const currencySymbolA =
+    trade.inputAmount.currency === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : trade.inputAmount.currency.symbol
+  const currencySymbolB =
+    trade.outputAmount.currency === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : trade.outputAmount.currency.symbol
 
   return (
     <>
@@ -47,10 +54,8 @@ function TradeSummary({ trade, allowedSlippage }: { trade: Trade; allowedSlippag
           <RowFixed>
             <TYPE.black color={theme.text1} fontSize={14}>
               {isExactIn
-                ? `${slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(4)} ${trade.outputAmount.currency.symbol}` ??
-                  '-'
-                : `${slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4)} ${trade.inputAmount.currency.symbol}` ??
-                  '-'}
+                ? `${slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(4)} ${currencySymbolB}` ?? '-'
+                : `${slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4)} ${currencySymbolA}` ?? '-'}
             </TYPE.black>
           </RowFixed>
         </RowBetween>
@@ -76,7 +81,7 @@ function TradeSummary({ trade, allowedSlippage }: { trade: Trade; allowedSlippag
             />
           </RowFixed>
           <TYPE.black fontSize={14} color={theme.text1}>
-            {realizedLPFee ? `${realizedLPFee.toSignificant(4)} ${trade.inputAmount.currency.symbol}` : '-'}
+            {realizedLPFee ? `${realizedLPFee.toSignificant(4)} ${currencySymbolA}` : '-'}
           </TYPE.black>
         </RowBetween>
       </AutoColumn>

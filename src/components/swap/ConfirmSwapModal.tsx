@@ -1,4 +1,4 @@
-import { currencyEquals, Trade } from '@daoswapdex/daoswap-dex-sdk'
+import { currencyEquals, Trade, ETHER, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import React, { useCallback, useMemo } from 'react'
 import TransactionConfirmationModal, {
   ConfirmationModalContent,
@@ -7,6 +7,7 @@ import TransactionConfirmationModal, {
 import SwapModalFooter from './SwapModalFooter'
 import SwapModalHeader from './SwapModalHeader'
 import { useTranslation } from 'react-i18next'
+import { useActiveWeb3React } from '../../hooks'
 
 /**
  * Returns true if the trade requires a confirmation of details before we can submit it
@@ -49,10 +50,16 @@ export default function ConfirmSwapModal({
   onDismiss: () => void
 }) {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
   const showAcceptChanges = useMemo(
     () => Boolean(trade && originalTrade && tradeMeaningfullyDiffers(trade, originalTrade)),
     [originalTrade, trade]
   )
+
+  const currencySymbolA =
+    trade?.inputAmount?.currency === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : trade?.inputAmount?.currency.symbol
+  const currencySymbolB =
+    trade?.outputAmount?.currency === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : trade?.outputAmount?.currency.symbol
 
   const modalHeader = useCallback(() => {
     return trade ? (
@@ -79,9 +86,9 @@ export default function ConfirmSwapModal({
   }, [allowedSlippage, onConfirm, showAcceptChanges, swapErrorMessage, trade])
 
   // text to show while loading
-  const pendingText = `${t('Swapping')} ${trade?.inputAmount?.toSignificant(6)} ${
-    trade?.inputAmount?.currency?.symbol
-  } ${t('for')} ${trade?.outputAmount?.toSignificant(6)} ${trade?.outputAmount?.currency?.symbol}`
+  const pendingText = `${t('Swapping')} ${trade?.inputAmount?.toSignificant(6)} ${currencySymbolA} ${t(
+    'for'
+  )} ${trade?.outputAmount?.toSignificant(6)} ${currencySymbolB}`
 
   const confirmationContent = useCallback(
     () =>

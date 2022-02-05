@@ -98,7 +98,6 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
 
   if (tokenVestingBalances.length > 0) {
     tokenVestingBalances.map(balance => {
-      console.info(balance)
       userLiquidityPoolOfStakingLP = JSBI.add(userLiquidityPoolOfStakingLP, JSBI.BigInt(balance?.result?.[0] ?? 0))
       return balance
     })

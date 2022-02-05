@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Fraction, Percent } from '@daoswapdex/daoswap-dex-sdk'
+import { Currency, CurrencyAmount, Fraction, Percent, ETHER, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import React from 'react'
 import { Text } from 'rebass'
 import { ButtonPrimary } from '../../components/Button'
@@ -7,6 +7,7 @@ import CurrencyLogo from '../../components/CurrencyLogo'
 import { Field } from '../../state/mint/actions'
 import { TYPE } from '../../theme'
 import { useTranslation } from 'react-i18next'
+import { useActiveWeb3React } from '../../hooks'
 
 export function ConfirmAddModalBottom({
   noLiquidity,
@@ -24,17 +25,23 @@ export function ConfirmAddModalBottom({
   onAdd: () => void
 }) {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
+  const currencySymbolA =
+    currencies[Field.CURRENCY_A] === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currencies[Field.CURRENCY_A]?.symbol
+  const currencySymbolB =
+    currencies[Field.CURRENCY_B] === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currencies[Field.CURRENCY_B]?.symbol
+
   return (
     <>
       <RowBetween>
-        <TYPE.body>{currencies[Field.CURRENCY_A]?.symbol} Deposited</TYPE.body>
+        <TYPE.body>{currencySymbolA} Deposited</TYPE.body>
         <RowFixed>
           <CurrencyLogo currency={currencies[Field.CURRENCY_A]} style={{ marginRight: '8px' }} />
           <TYPE.body>{parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)}</TYPE.body>
         </RowFixed>
       </RowBetween>
       <RowBetween>
-        <TYPE.body>{currencies[Field.CURRENCY_B]?.symbol} Deposited</TYPE.body>
+        <TYPE.body>{currencySymbolB} Deposited</TYPE.body>
         <RowFixed>
           <CurrencyLogo currency={currencies[Field.CURRENCY_B]} style={{ marginRight: '8px' }} />
           <TYPE.body>{parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)}</TYPE.body>
@@ -42,18 +49,10 @@ export function ConfirmAddModalBottom({
       </RowBetween>
       <RowBetween>
         <TYPE.body>{t('Rates')}</TYPE.body>
-        <TYPE.body>
-          {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSignificant(4)} ${
-            currencies[Field.CURRENCY_B]?.symbol
-          }`}
-        </TYPE.body>
+        <TYPE.body>{`1 ${currencySymbolA} = ${price?.toSignificant(4)} ${currencySymbolB}`}</TYPE.body>
       </RowBetween>
       <RowBetween style={{ justifyContent: 'flex-end' }}>
-        <TYPE.body>
-          {`1 ${currencies[Field.CURRENCY_B]?.symbol} = ${price?.invert().toSignificant(4)} ${
-            currencies[Field.CURRENCY_A]?.symbol
-          }`}
-        </TYPE.body>
+        <TYPE.body>{`1 ${currencySymbolB} = ${price?.invert().toSignificant(4)} ${currencySymbolA}`}</TYPE.body>
       </RowBetween>
       <RowBetween>
         <TYPE.body>{t('Share of Pool')}:</TYPE.body>

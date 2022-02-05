@@ -1,4 +1,4 @@
-import { Currency, currencyEquals, ETHER, WETH } from '@daoswapdex/daoswap-dex-sdk'
+import { Currency, currencyEquals, ETHER, WETH, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 import { tryParseAmount } from '../state/swap/hooks'
 import { useTransactionAdder } from '../state/transactions/hooks'
@@ -46,13 +46,17 @@ export default function useWrapCallback(
             ? async () => {
                 try {
                   const txReceipt = await wethContract.deposit({ value: `0x${inputAmount.raw.toString(16)}` })
-                  addTransaction(txReceipt, { summary: `Wrap ${inputAmount.toSignificant(6)} HT to WHT` })
+                  addTransaction(txReceipt, {
+                    summary: `Wrap ${inputAmount.toSignificant(6)} ${CURRENCY_SYMBOL[chainId]} to W${
+                      CURRENCY_SYMBOL[chainId]
+                    }`
+                  })
                 } catch (error) {
                   console.error('Could not deposit', error)
                 }
               }
             : undefined,
-        inputError: sufficientBalance ? undefined : t('Insufficient HT balance')
+        inputError: sufficientBalance ? undefined : t(`Insufficient ${CURRENCY_SYMBOL[chainId]} balance`)
       }
     } else if (currencyEquals(WETH[chainId], inputCurrency) && outputCurrency === ETHER) {
       return {
@@ -62,7 +66,9 @@ export default function useWrapCallback(
             ? async () => {
                 try {
                   const txReceipt = await wethContract.withdraw(`0x${inputAmount.raw.toString(16)}`)
-                  addTransaction(txReceipt, { summary: `Unwrap ${inputAmount.toSignificant(6)} WETH to HT` })
+                  addTransaction(txReceipt, {
+                    summary: `Unwrap ${inputAmount.toSignificant(6)} WETH to ${CURRENCY_SYMBOL[chainId]}`
+                  })
                 } catch (error) {
                   console.error('Could not withdraw', error)
                 }

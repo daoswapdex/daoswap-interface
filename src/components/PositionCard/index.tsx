@@ -1,4 +1,4 @@
-import { JSBI, Pair, Percent } from '@daoswapdex/daoswap-dex-sdk'
+import { JSBI, Pair, Percent, ETHER, CURRENCY_SYMBOL } from '@daoswapdex/daoswap-dex-sdk'
 import { darken } from 'polished'
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
@@ -52,7 +52,7 @@ interface PositionCardProps {
 
 export function MinimalPositionCard({ pair, showUnwrapped = false, border }: PositionCardProps) {
   const { t } = useTranslation()
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
 
   const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0)
   const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1)
@@ -79,6 +79,9 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
         ]
       : [undefined, undefined]
 
+  const currencySymbolA = currency0 === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currency0.symbol
+  const currencySymbolB = currency1 === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currency1.symbol
+
   return (
     <>
       {userPoolBalance && JSBI.greaterThan(userPoolBalance.raw, JSBI.BigInt(0)) ? (
@@ -95,7 +98,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
               <RowFixed>
                 <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin={true} size={20} />
                 <Text fontWeight={500} fontSize={20}>
-                  {currency0.symbol}/{currency1.symbol}
+                  {currencySymbolA}/{currencySymbolB}
                 </Text>
               </RowFixed>
               <RowFixed>
@@ -115,7 +118,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
               </FixedHeightRow>
               <FixedHeightRow>
                 <Text fontSize={16} fontWeight={500}>
-                  {currency0.symbol}:
+                  {currencySymbolA}:
                 </Text>
                 {token0Deposited ? (
                   <RowFixed>
@@ -129,7 +132,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
               </FixedHeightRow>
               <FixedHeightRow>
                 <Text fontSize={16} fontWeight={500}>
-                  {currency1.symbol}:
+                  {currencySymbolB}:
                 </Text>
                 {token1Deposited ? (
                   <RowFixed>
@@ -163,7 +166,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
 // TODO: Daoswap hide link
 export default function FullPositionCard({ pair, border }: PositionCardProps) {
   const { t } = useTranslation()
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
 
   const currency0 = unwrappedToken(pair.token0)
   const currency1 = unwrappedToken(pair.token1)
@@ -192,15 +195,18 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
 
   const backgroundColor = useColor(pair?.token0)
 
+  const currencySymbolA = currency0 === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currency0.symbol
+  const currencySymbolB = currency1 === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currency1.symbol
+
   return (
-    <StyledPositionCard border={border} bgColor={backgroundColor} borderRadius="12px">
+    <StyledPositionCard border={border} bgColor={backgroundColor}>
       <CardNoise />
       <AutoColumn gap="12px">
         <FixedHeightRow>
           <RowFixed>
             <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin={true} size={20} />
             <Text fontWeight={500} fontSize={20}>
-              {!currency0 || !currency1 ? <Dots>Loading</Dots> : `${currency0.symbol}/${currency1.symbol}`}
+              {!currency0 || !currency1 ? <Dots>Loading</Dots> : `${currencySymbolA}/${currencySymbolB}`}
             </Text>
           </RowFixed>
 
@@ -240,7 +246,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
             <FixedHeightRow>
               <RowFixed>
                 <Text fontSize={16} fontWeight={500}>
-                  {t('Pooled')} {currency0.symbol}:
+                  {t('Pooled')} {currencySymbolA}:
                 </Text>
               </RowFixed>
               {token0Deposited ? (
@@ -258,7 +264,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
             <FixedHeightRow>
               <RowFixed>
                 <Text fontSize={16} fontWeight={500}>
-                  {t('Pooled')} {currency1.symbol}:
+                  {t('Pooled')} {currencySymbolB}:
                 </Text>
               </RowFixed>
               {token1Deposited ? (
@@ -294,19 +300,17 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
             <RowBetween marginTop="10px">
               <ButtonPrimary
                 padding="8px"
-                borderRadius="8px"
                 as={Link}
-                to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}
+                to={`/add/${currencyId(pair.chainId, currency0)}/${currencyId(pair.chainId, currency1)}`}
                 width="48%"
               >
                 {t('Add')}
               </ButtonPrimary>
               <ButtonPrimary
                 padding="8px"
-                borderRadius="8px"
                 as={Link}
                 width="48%"
-                to={`/remove/${currencyId(currency0)}/${currencyId(currency1)}`}
+                to={`/remove/${currencyId(pair.chainId, currency0)}/${currencyId(pair.chainId, currency1)}`}
               >
                 {t('Remove')}
               </ButtonPrimary>
