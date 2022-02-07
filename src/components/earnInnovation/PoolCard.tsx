@@ -16,7 +16,6 @@ import { usePair } from '../../data/Reserves'
 import useUSDTPrice from '../../utils/useUSDTPrice'
 import { useTranslation } from 'react-i18next'
 
-import { useStakingInfo } from '../../state/stakeInnovation/hooks'
 import { Countdown } from '../../pages/EarnInnovation/Countdown'
 
 const StatContainer = styled.div`
@@ -133,8 +132,6 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
   )
   const annualRatePercent = annualRateDown > 0 ? ((annualRateUp / annualRateDown) * 100).toFixed(2) : 0
 
-  const stakingInfos = useStakingInfo()
-
   return (
     <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
       <CardBGImage desaturate />
@@ -209,9 +206,9 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
 
         <BottomSection showBackground={true} style={{ textAlign: 'center', paddingTop: 0 }}>
           <Countdown
-            stakingGenesis={stakingInfos?.[0]?.stakingGenesis}
-            rewardsDurationDays={stakingInfos?.[0]?.rewardsDurationDays}
-            exactEnd={stakingInfos?.[0]?.periodFinish}
+            stakingGenesis={stakingInfo.stakingGenesis}
+            rewardsDurationDays={stakingInfo.rewardsDurationDays}
+            exactEnd={stakingInfo.periodFinish}
           />
         </BottomSection>
       </>

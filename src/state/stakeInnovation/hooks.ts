@@ -1,7 +1,7 @@
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { DAO, USDT } from '../../constants/tokensInfo'
+import { DAO, DTC1, DTC2, DTC3, DTC4 } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -13,16 +13,25 @@ export const STAKING_REWARDS_INFO: {
   [chainId in ChainId]?: {
     stakingGenesis: number
     rewardsDurationDays: number
+    rewardsTokenSymbol: string
     tokens: [Token, Token]
     stakingRewardAddress: string
   }[]
 } = {
-  [ChainId.HECO_MAINNET]: [
+  [ChainId.HECO_TESTNET]: [
     {
-      stakingGenesis: 1642115600,
-      rewardsDurationDays: 14,
-      tokens: [USDT[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
-      stakingRewardAddress: '0x79438C8e9660C98845E7Fc8A136D1ff92a75F3Ec'
+      stakingGenesis: 1644214200,
+      rewardsDurationDays: 3,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [DTC1[ChainId.HECO_TESTNET], DTC2[ChainId.HECO_TESTNET]],
+      stakingRewardAddress: '0x2f0d2Df6E790529B599035AFF217DF15e697e668'
+    },
+    {
+      stakingGenesis: 1644214800,
+      rewardsDurationDays: 3,
+      rewardsTokenSymbol: 'DAT',
+      tokens: [DTC3[ChainId.HECO_TESTNET], DTC4[ChainId.HECO_TESTNET]],
+      stakingRewardAddress: '0xdd92C3E837126C18de8A76440CB50AF93AF5e4D6'
     }
   ]
 }
@@ -30,6 +39,7 @@ export const STAKING_REWARDS_INFO: {
 export interface StakingInfo {
   stakingGenesis: number
   rewardsDurationDays: number
+  rewardsTokenSymbol: string
   // the address of the reward contract
   stakingRewardAddress: string
   // the tokens involved in this pair
@@ -167,6 +177,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
         memo.push({
           stakingGenesis: info[index].stakingGenesis,
           rewardsDurationDays: info[index].rewardsDurationDays,
+          rewardsTokenSymbol: info[index].rewardsTokenSymbol,
           stakingRewardAddress: rewardsAddress,
           tokens: info[index].tokens,
           periodFinish: periodFinishMs > 0 ? new Date(periodFinishMs) : undefined,

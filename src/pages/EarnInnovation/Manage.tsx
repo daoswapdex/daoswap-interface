@@ -273,8 +273,9 @@ export default function Manage({
             <AutoColumn gap="sm">
               <RowBetween>
                 <div>
-                  {/* // TODO:Daoswap UNI -> DAO */}
-                  <TYPE.black>{t('Your unclaimed DAO')}</TYPE.black>
+                  <TYPE.black>
+                    {t('Your unclaimed')} {stakingInfo?.rewardsTokenSymbol}
+                  </TYPE.black>
                 </div>
                 {stakingInfo?.earnedAmount && JSBI.notEqual(BIG_INT_ZERO, stakingInfo?.earnedAmount?.raw) && (
                   <ButtonEmpty
@@ -315,13 +316,12 @@ export default function Manage({
             </AutoColumn>
           </StyledBottomCard>
         </BottomSection>
-        <TYPE.main style={{ textAlign: 'center' }} fontSize={14}>
+        {/* <TYPE.main style={{ textAlign: 'center' }} fontSize={14}>
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
-          {/* // TODO:Daoswap UNI -> DAO */}
           {t('When you withdraw, the contract will automagically claim DAO on your behalf!')}
-        </TYPE.main>
+        </TYPE.main> */}
 
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem' }}>

@@ -365,3 +365,125 @@ export const LINK: TokenMap = {
     'Heco-Peg LINK Token'
   )
 }
+
+// 测试
+export const DTC1: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0x5A78963afB7555658Cb53A9D1e0A26252CBd26b6',
+    18,
+    'DTC1',
+    'Daoswap Test Coin 1'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0x5A78963afB7555658Cb53A9D1e0A26252CBd26b6',
+    18,
+    'DTC1',
+    'Daoswap Test Coin 1'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0x5A78963afB7555658Cb53A9D1e0A26252CBd26b6',
+    18,
+    'DTC1',
+    'Daoswap Test Coin 1'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0x5A78963afB7555658Cb53A9D1e0A26252CBd26b6',
+    18,
+    'DTC1',
+    'Daoswap Test Coin 1'
+  )
+}
+export const DTC2: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0xE88E4ad38E1532BD05fBbdC1a4b464cE741c6FF0',
+    18,
+    'DTC2',
+    'Daoswap Test Coin 2'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0xE88E4ad38E1532BD05fBbdC1a4b464cE741c6FF0',
+    18,
+    'DTC2',
+    'Daoswap Test Coin 2'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0xE88E4ad38E1532BD05fBbdC1a4b464cE741c6FF0',
+    18,
+    'DTC2',
+    'Daoswap Test Coin 2'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0xE88E4ad38E1532BD05fBbdC1a4b464cE741c6FF0',
+    18,
+    'DTC2',
+    'Daoswap Test Coin 2'
+  )
+}
+export const DTC3: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0x7908e858E2769923bB9eb75221765656D8B8E9AC',
+    18,
+    'DTC3',
+    'Daoswap Test Coin 3'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0x7908e858E2769923bB9eb75221765656D8B8E9AC',
+    18,
+    'DTC3',
+    'Daoswap Test Coin 3'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0x7908e858E2769923bB9eb75221765656D8B8E9AC',
+    18,
+    'DTC3',
+    'Daoswap Test Coin 3'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0x7908e858E2769923bB9eb75221765656D8B8E9AC',
+    18,
+    'DTC3',
+    'Daoswap Test Coin 3'
+  )
+}
+export const DTC4: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0x921DA610Ae4ED9957C1ed1A7FbbF474B7eD77993',
+    18,
+    'DTC4',
+    'Daoswap Test Coin 4'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0x921DA610Ae4ED9957C1ed1A7FbbF474B7eD77993',
+    18,
+    'DTC4',
+    'Daoswap Test Coin 4'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0x921DA610Ae4ED9957C1ed1A7FbbF474B7eD77993',
+    18,
+    'DTC4',
+    'Daoswap Test Coin 4'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0x921DA610Ae4ED9957C1ed1A7FbbF474B7eD77993',
+    18,
+    'DTC4',
+    'Daoswap Test Coin 4'
+  )
+}

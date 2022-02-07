@@ -25,7 +25,6 @@ interface StakingModalProps {
   stakingInfo: StakingInfo
 }
 
-// TODO:Daoswap UNI -> DAO
 export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: StakingModalProps) {
   const { t } = useTranslation()
   const { account } = useActiveWeb3React()
@@ -90,12 +89,14 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
               <TYPE.body fontWeight={600} fontSize={36}>
                 {<FormattedCurrencyAmount currencyAmount={stakingInfo?.earnedAmount} />}
               </TYPE.body>
-              <TYPE.body>{t('Unclaimed')} DAO</TYPE.body>
+              <TYPE.body>
+                {t('Unclaimed')} {stakingInfo?.rewardsTokenSymbol}
+              </TYPE.body>
             </AutoColumn>
           )}
-          <TYPE.subHeader style={{ textAlign: 'center' }}>
+          {/* <TYPE.subHeader style={{ textAlign: 'center' }}>
             {t('When you withdraw, your DAO is claimed and your liquidity is removed from the mining pool.')}
-          </TYPE.subHeader>
+          </TYPE.subHeader> */}
           <ButtonError disabled={!!error} error={!!error && !!stakingInfo?.stakedAmount} onClick={onWithdraw}>
             {error ?? t('Withdraw & Claim')}
           </ButtonError>
@@ -108,7 +109,7 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
               {t('Withdrawing')} {stakingInfo?.stakedAmount?.toSignificant(4)} DLT
             </TYPE.body>
             <TYPE.body fontSize={20}>
-              {t('Claiming')} {stakingInfo?.earnedAmount?.toSignificant(4)} DAO
+              {t('Claiming')} {stakingInfo?.earnedAmount?.toSignificant(4)} {stakingInfo?.rewardsTokenSymbol}
             </TYPE.body>
           </AutoColumn>
         </LoadingView>
@@ -118,7 +119,9 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>{t('Transaction Submitted')}</TYPE.largeHeader>
             <TYPE.body fontSize={20}>{t('Withdrew')} DLT!</TYPE.body>
-            <TYPE.body fontSize={20}>{t('Claimed')} DAO!</TYPE.body>
+            <TYPE.body fontSize={20}>
+              {t('Claimed')} {stakingInfo?.rewardsTokenSymbol}!
+            </TYPE.body>
           </AutoColumn>
         </SubmittedView>
       )}

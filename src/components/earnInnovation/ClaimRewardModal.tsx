@@ -24,7 +24,6 @@ interface StakingModalProps {
   stakingInfo: StakingInfo
 }
 
-// TODO:Daoswap UNI -> DAO
 export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: StakingModalProps) {
   const { t } = useTranslation()
   const { account } = useActiveWeb3React()
@@ -49,7 +48,7 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
         .getReward({ gasLimit: 350000 })
         .then((response: TransactionResponse) => {
           addTransaction(response, {
-            summary: t('Claim accumulated DAO rewards')
+            summary: t('Claim accumulated rewards')
           })
           setHash(response.hash)
         })
@@ -81,7 +80,9 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
               <TYPE.body fontWeight={600} fontSize={36}>
                 {stakingInfo?.earnedAmount?.toSignificant(6)}
               </TYPE.body>
-              <TYPE.body>{t('Unclaimed')} DAO</TYPE.body>
+              <TYPE.body>
+                {t('Unclaimed')} {stakingInfo?.rewardsTokenSymbol}
+              </TYPE.body>
             </AutoColumn>
           )}
           <TYPE.subHeader style={{ textAlign: 'center' }}>
@@ -96,7 +97,7 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.body fontSize={20}>
-              {t('Claiming')} {stakingInfo?.earnedAmount?.toSignificant(6)} DAO
+              {t('Claiming')} {stakingInfo?.earnedAmount?.toSignificant(6)} {stakingInfo?.rewardsTokenSymbol}
             </TYPE.body>
           </AutoColumn>
         </LoadingView>
@@ -105,7 +106,9 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>{t('Transaction Submitted')}</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{t('Claimed')} DAO!</TYPE.body>
+            <TYPE.body fontSize={20}>
+              {t('Claimed')} {stakingInfo?.rewardsTokenSymbol}!
+            </TYPE.body>
           </AutoColumn>
         </SubmittedView>
       )}
