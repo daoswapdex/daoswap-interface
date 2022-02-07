@@ -14,7 +14,7 @@ import {
   NODE_TYPE_STELLAR_MIN_USD_VALUE,
   NODE_TYPE_PLANETARY_MIN_USD_VALUE,
   STAKING_LIMIT_FOR_LP_CONTRACT_ADDRESS
-} from '../../constants/index'
+} from '../../constants/nodeInfo'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useMultipleContractSingleData, useSingleContractMultipleData } from '../../state/multicall/hooks'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
