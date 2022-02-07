@@ -10,7 +10,8 @@ import {
   TokenAmount,
   Trade,
   ChainId,
-  CURRENCY_SYMBOL
+  CURRENCY_SYMBOL,
+  DAO_ADDRESS
 } from '@daoswapdex/daoswap-dex-sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
@@ -27,10 +28,9 @@ import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies
 import { SwapState } from './reducer'
 import useToggledVersion from '../../hooks/useToggledVersion'
 import { useUserSlippageTolerance } from '../user/hooks'
-// import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity } from '../../utils/prices'
-import { computeSlippageAdjustedAmounts } from '../../utils/prices'
+import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity } from '../../utils/prices'
+// import { computeSlippageAdjustedAmounts } from '../../utils/prices'
 import { useTranslation } from 'react-i18next'
-// import { DAO_ADDRESS } from '../../constants'
 
 export function useSwapState(): AppState['swap'] {
   return useSelector<AppState, AppState['swap']>(state => state.swap)
@@ -137,7 +137,7 @@ export function useDerivedSwapInfo(): {
   v1Trade: Trade | undefined
 } {
   const { t } = useTranslation()
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
 
   const toggledVersion = useToggledVersion()
 
@@ -194,17 +194,18 @@ export function useDerivedSwapInfo(): {
   }
 
   // 禁用DAO交易
-  // if (DAO_ADDRESS === inputCurrencyId) {
-  //   inputError = inputError ?? t('DAO is not tradable')
-  // }
+  const DAOAddressStr = chainId ? DAO_ADDRESS[chainId] : DAO_ADDRESS[ChainId.HECO_MAINNET]
+  if (DAOAddressStr === inputCurrencyId) {
+    inputError = inputError ?? t('DAO is not tradable')
+  }
 
-  // if (v2Trade && DAO_ADDRESS === inputCurrencyId) {
-  //   const { priceImpactWithoutFee } = computeTradePriceBreakdown(v2Trade)
-  //   const priceImpactSeverity = warningSeverity(priceImpactWithoutFee)
-  //   if (priceImpactSeverity >= 1) {
-  //     inputError = inputError ?? t('Price Impact High')
-  //   }
-  // }
+  if (v2Trade && DAOAddressStr === inputCurrencyId) {
+    const { priceImpactWithoutFee } = computeTradePriceBreakdown(v2Trade)
+    const priceImpactSeverity = warningSeverity(priceImpactWithoutFee)
+    if (priceImpactSeverity >= 1) {
+      inputError = inputError ?? t('Price Impact High')
+    }
+  }
 
   const formattedTo = isAddress(to)
   if (!to || !formattedTo) {

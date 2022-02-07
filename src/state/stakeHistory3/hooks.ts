@@ -1,9 +1,7 @@
-// import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, WETH, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { UNI } from '../../constants'
-import { USDT, ETH, HFIL, HT, HECO_UNI, MDX, HBCH, HLTC, MANA, HDOT, LINK } from '../../constants'
+import { DAO, USDT, ETH, HFIL, HT, UNI, MDX, HBCH, HLTC, MANA, HDOT, LINK } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -25,47 +23,47 @@ export const STAKING_REWARDS_INFO: {
 } = {
   [ChainId.HECO_MAINNET]: [
     {
-      tokens: [USDT, UNI[ChainId.HECO_MAINNET]],
+      tokens: [USDT[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0x64521114F1d6cc11443A3323D62B78C1a6f219De'
     },
     {
-      tokens: [USDT, ETH],
+      tokens: [USDT[ChainId.HECO_MAINNET], ETH[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0xCd0735E70130527A8be4B350282EfF7F7C81493F'
     },
     {
-      tokens: [USDT, HFIL],
+      tokens: [USDT[ChainId.HECO_MAINNET], HFIL[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0x4CAf830A2409819Fd305db6a6ee65256ddeEFb70'
     },
     {
-      tokens: [USDT, HT],
+      tokens: [USDT[ChainId.HECO_MAINNET], HT[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0x064b19554Ea3129502f75ED6604CAa41A3907D50'
     },
     {
-      tokens: [USDT, HECO_UNI],
+      tokens: [USDT[ChainId.HECO_MAINNET], UNI[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0x527a40F20a851319E98C2E054f73F96ed2840d50'
     },
     {
-      tokens: [USDT, MDX],
+      tokens: [USDT[ChainId.HECO_MAINNET], MDX[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0x8D788f53Dd56000A12Ab22D9fAb163Bf45Ff3E04'
     },
     {
-      tokens: [USDT, HBCH],
+      tokens: [USDT[ChainId.HECO_MAINNET], HBCH[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0xf0428f4dD1748f97E04C44fd153ebE73Eb710A67'
     },
     {
-      tokens: [USDT, HLTC],
+      tokens: [USDT[ChainId.HECO_MAINNET], HLTC[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0xb08F88a4979F8E1F6269394081e9C334d7337E82'
     },
     {
-      tokens: [USDT, MANA],
+      tokens: [USDT[ChainId.HECO_MAINNET], MANA[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0x23600d396BFb9EAedBAfBAe35223f96A2fa1D143'
     },
     {
-      tokens: [USDT, HDOT],
+      tokens: [USDT[ChainId.HECO_MAINNET], HDOT[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0x89Ab83a6494b910083E16E4458bCACb6FBcF9F20'
     },
     {
-      tokens: [USDT, LINK],
+      tokens: [USDT[ChainId.HECO_MAINNET], LINK[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0x08023E64C73A7a09073c6Fe395Cb64c7628722c0'
     }
   ]
@@ -116,7 +114,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
     [chainId, pairToFilterBy]
   )
 
-  const uni = chainId ? UNI[chainId] : undefined
+  const uni = chainId ? DAO[chainId] : undefined
 
   const rewardsAddresses = useMemo(() => info.map(({ stakingRewardAddress }) => stakingRewardAddress), [info])
 
@@ -225,7 +223,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
 
 export function useTotalUniEarned(): TokenAmount | undefined {
   const { chainId } = useActiveWeb3React()
-  const uni = chainId ? UNI[chainId] : undefined
+  const uni = chainId ? DAO[chainId] : undefined
   const stakingInfos = useStakingInfo()
 
   return useMemo(() => {
