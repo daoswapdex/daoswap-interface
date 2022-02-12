@@ -265,7 +265,11 @@ export default function Header() {
           >
             {t('Charts')}
           </StyledHrefLink>
-          <StyledHrefLink href="https://bridge.heco.daoswap.cc/token/DAO" target="_self">
+          <StyledHrefLink
+            href="https://bridge.heco.daoswap.cc/token/DAO"
+            target="_self"
+            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
+          >
             {t('Bridge')}
           </StyledHrefLink>
         </HeaderLinks>
