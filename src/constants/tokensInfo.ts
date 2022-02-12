@@ -366,6 +366,25 @@ export const LINK: TokenMap = {
   )
 }
 
+export const FSS: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(ChainId.BSC_MAINNET, '0x8d106c0F502D1C15E706A6d5e1d9913072e26ED4', 18, 'FSS', 'FSS'),
+  [ChainId.BSC_TESTNET]: new Token(ChainId.BSC_TESTNET, '0x8d106c0F502D1C15E706A6d5e1d9913072e26ED4', 18, 'FSS', 'FSS'),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0x8d106c0F502D1C15E706A6d5e1d9913072e26ED4',
+    18,
+    'FSS',
+    'FSS'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0x8d106c0F502D1C15E706A6d5e1d9913072e26ED4',
+    18,
+    'FSS',
+    'FSS'
+  )
+}
+
 // 测试
 export const DTC1: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(

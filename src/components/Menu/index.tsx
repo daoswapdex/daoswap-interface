@@ -68,7 +68,7 @@ const MenuFlyout = styled.span<{ isHecoNetwork: boolean }>`
   z-index: 100;
 
   ${({ theme }) => theme.mediaWidth.upToMedium<{ isHecoNetwork: boolean }>`
-    top: ${({ isHecoNetwork }) => (isHecoNetwork ? '-21.25rem' : '-12rem')};
+    top: ${({ isHecoNetwork }) => (isHecoNetwork ? '-21.25rem' : '-9.2rem')};
   `};
 `
 
@@ -144,7 +144,12 @@ export default function Menu() {
             <PieChart size={14} />
             {t('Charts')}
           </MenuItemHref>
-          <MenuItemHref id="link" href="https://bridge.heco.daoswap.cc/token/DAO" target="_self">
+          <MenuItemHref
+            id="link"
+            href="https://bridge.heco.daoswap.cc/token/DAO"
+            target="_self"
+            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
+          >
             <Link size={14} />
             {t('Bridge')}
           </MenuItemHref>

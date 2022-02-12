@@ -46,7 +46,8 @@ export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
 }
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
-  [ChainId.HECO_MAINNET]: [[USDC[ChainId.HECO_MAINNET], USDT[ChainId.HECO_MAINNET]]]
+  [ChainId.HECO_MAINNET]: [[USDC[ChainId.HECO_MAINNET], USDT[ChainId.HECO_MAINNET]]],
+  [ChainId.HECO_TESTNET]: [[USDC[ChainId.HECO_TESTNET], USDT[ChainId.HECO_TESTNET]]]
 }
 
 export interface WalletInfo {

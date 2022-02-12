@@ -7,6 +7,8 @@ import { RowBetween } from '../../components/Row'
 import { CardSection, DataCard, CardNoise, CardBGImage } from './styled'
 import { useTranslation } from 'react-i18next'
 import { StakeTabs } from '../../components/NavigationTabs/stake'
+import { useActiveWeb3React } from '../../hooks'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -29,6 +31,9 @@ const PoolSection = styled.div`
 
 export default function Earn() {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
+
+  const isHecoNetwork = chainId === ChainId.HECO_MAINNET
 
   const DataRow = styled(RowBetween)`
     ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -68,21 +73,27 @@ export default function Earn() {
         </DataRow>
 
         <PoolSection>
-          <StyledInternalLink to={`/dao-history-3`} style={{ width: '100%' }}>
-            <ButtonPrimary padding="8px" borderRadius="8px">
-              {t('DAO Stake Period')} 3
-            </ButtonPrimary>
-          </StyledInternalLink>
-          <StyledInternalLink to={`/dao-history-2`} style={{ width: '100%' }}>
-            <ButtonPrimary padding="8px" borderRadius="8px">
-              {t('DAO Stake Period')} 2
-            </ButtonPrimary>
-          </StyledInternalLink>
-          <StyledInternalLink to={`/dao-history-1`} style={{ width: '100%' }}>
-            <ButtonPrimary padding="8px" borderRadius="8px">
-              {t('DAO Stake Period')} 1
-            </ButtonPrimary>
-          </StyledInternalLink>
+          {isHecoNetwork ? (
+            <>
+              <StyledInternalLink to={`/dao-history-3`} style={{ width: '100%' }}>
+                <ButtonPrimary padding="8px" borderRadius="8px">
+                  {t('DAO Stake Period')} 3
+                </ButtonPrimary>
+              </StyledInternalLink>
+              <StyledInternalLink to={`/dao-history-2`} style={{ width: '100%' }}>
+                <ButtonPrimary padding="8px" borderRadius="8px">
+                  {t('DAO Stake Period')} 2
+                </ButtonPrimary>
+              </StyledInternalLink>
+              <StyledInternalLink to={`/dao-history-1`} style={{ width: '100%' }}>
+                <ButtonPrimary padding="8px" borderRadius="8px">
+                  {t('DAO Stake Period')} 1
+                </ButtonPrimary>
+              </StyledInternalLink>
+            </>
+          ) : (
+            t('No active rewards')
+          )}
         </PoolSection>
       </AutoColumn>
     </PageWrapper>
