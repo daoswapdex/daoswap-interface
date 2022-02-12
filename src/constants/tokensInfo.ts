@@ -25,6 +25,68 @@ export const DAO: TokenMap = {
   [ChainId.HECO_TESTNET]: new Token(ChainId.HECO_TESTNET, DAO_ADDRESS[ChainId.HECO_TESTNET], 18, 'DAO', 'Daoswap')
 }
 
+export const DAT: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0x69de6C190755e1398C268ECC440de59B10653166',
+    18,
+    'DAT',
+    'DaoSwap Dex Voucher'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0x69de6C190755e1398C268ECC440de59B10653166',
+    18,
+    'DAT',
+    'DaoSwap Dex Voucher'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0x738B815eaDD06E0041b52B0C9d4F0d0D277B24bA',
+    18,
+    'DAT',
+    'DaoSwap Dex Voucher'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0x36653A4089DEB09A4782bf9EaEE5C8f4381ad010',
+    18,
+    'DAT',
+    'DaoSwap Dex Voucher'
+  )
+}
+
+export const DST: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0xd04808F83419776Cc85b7a1cf516a6dEeaA66F0D',
+    18,
+    'DST',
+    'DST : DAO staking Credential'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0xd04808F83419776Cc85b7a1cf516a6dEeaA66F0D',
+    18,
+    'DST',
+    'DST : DAO staking Credential'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0xae21384FafC42FB8FA25706CB107185a98d5CB57',
+    18,
+    'DST',
+    'DST : DAO staking Credential'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0xd1c3d3cB6CE2D43aaBe8d1A78Dd5ADa60e5166c9',
+    18,
+    'DST',
+    'DST : DAO staking Credential'
+  )
+}
+
 export const DAI: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(
     ChainId.BSC_MAINNET,

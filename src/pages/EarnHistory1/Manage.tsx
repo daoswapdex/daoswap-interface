@@ -208,7 +208,6 @@ export default function Manage({
               </RowBetween>
               <ButtonPrimary
                 padding="8px"
-                borderRadius="8px"
                 width={'fit-content'}
                 as={Link}
                 to={`/add/${currencyA && currencyId(chainId, currencyA)}/${currencyB &&
@@ -280,7 +279,6 @@ export default function Manage({
                 {stakingInfo?.earnedAmount && JSBI.notEqual(BIG_INT_ZERO, stakingInfo?.earnedAmount?.raw) && (
                   <ButtonEmpty
                     padding="8px"
-                    borderRadius="8px"
                     width="fit-content"
                     style={{ color: '#006400' }}
                     onClick={() => setShowClaimRewardModal(true)}
