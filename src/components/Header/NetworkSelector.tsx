@@ -79,10 +79,10 @@ const FlyoutMenu = styled.div`
   }
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
-    top: -14.5rem;
+    top: -9rem;
   `};
 `
-// top: -9.5rem;
+// top: -14.5rem;
 const FlyoutRow = styled.div<{ active: boolean }>`
   align-items: center;
   background-color: ${({ active, theme }) => (active ? theme.bg1 : 'transparent')};
@@ -220,9 +220,9 @@ export default function NetworkSelector() {
       {open && (
         <FlyoutMenu>
           <FlyoutHeader>{t('Select a network')}</FlyoutHeader>
-          <Row onSelectChain={handleChainSwitch} targetChain={ChainId.BSC_MAINNET} />
+          {/* <Row onSelectChain={handleChainSwitch} targetChain={ChainId.BSC_MAINNET} /> */}
           <Row onSelectChain={handleChainSwitch} targetChain={ChainId.BSC_TESTNET} />
-          <Row onSelectChain={handleChainSwitch} targetChain={ChainId.HECO_MAINNET} />
+          {/* <Row onSelectChain={handleChainSwitch} targetChain={ChainId.HECO_MAINNET} /> */}
           <Row onSelectChain={handleChainSwitch} targetChain={ChainId.HECO_TESTNET} />
         </FlyoutMenu>
       )}
