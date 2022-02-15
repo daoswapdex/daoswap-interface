@@ -108,11 +108,12 @@ function Row({ targetChain, onSelectChain }: { targetChain: ChainId; onSelectCha
     return null
   }
   const active = chainId === targetChain
-  const { label } = CHAIN_INFO[targetChain]
+  // const { label } = CHAIN_INFO[targetChain]
 
   const rowContent = (
     <FlyoutRow onClick={() => onSelectChain(targetChain)} active={active}>
-      <NetworkLabel>{label}</NetworkLabel>
+      {/* <NetworkLabel>{label}</NetworkLabel> */}
+      <NetworkLabel>{CHAIN_IDS_TO_NAMES[targetChain]}</NetworkLabel>
       {chainId === targetChain && <FlyoutRowActiveIndicator />}
     </FlyoutRow>
   )
@@ -182,10 +183,26 @@ export default function NetworkSelector() {
             toggle()
           }
 
-          dispatch(addPopup({ content: { failedSwitchNetwork: targetChain }, key: `failed-network-switch` }))
+          dispatch(
+            addPopup({
+              content: {
+                failedSwitchNetwork: {
+                  summary: t('Failed to switch networks') + ',' + t('please add the network manually'),
+                  // summary: t('Failed to switch networks') + ',' + t('Error Network') + ':' + targetChain,
+                  success: false
+                }
+              },
+              key: `failed-network-switch`
+            })
+          )
+          // dispatch(
+          //   addPopup({
+          //     content: { txn: { hash: 'failed-network-switch', summary: 'failed-network-switch', success: true } }
+          //   })
+          // )
         })
     },
-    [dispatch, library, toggle, history, chainId]
+    [t, dispatch, library, toggle, history, chainId]
   )
 
   useEffect(() => {
@@ -214,7 +231,8 @@ export default function NetworkSelector() {
   return (
     <SelectorWrapper ref={node as any}>
       <SelectorControls onClick={toggle} interactive>
-        <SelectorLabel>{info.label}</SelectorLabel>
+        {/* <SelectorLabel>{info.label}</SelectorLabel> */}
+        <SelectorLabel>{CHAIN_IDS_TO_NAMES[chainId]}</SelectorLabel>
         <StyledChevronDown />
       </SelectorControls>
       {open && (

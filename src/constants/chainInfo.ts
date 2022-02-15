@@ -5,10 +5,10 @@ import { SupportedChainId, SupportedL1ChainId, SupportedL2ChainId } from './chai
  * These are the network URLs used by the interface when there is not another available source of chain data
  */
 export const NETWORK_URLS: { [key in SupportedChainId]: string } = {
-  [SupportedChainId.BSC_MAINNET]: `https://bsc-dataseed1.binance.org`,
-  [SupportedChainId.BSC_TESTNET]: `https://data-seed-prebsc-1-s1.binance.org:8545`,
-  [SupportedChainId.HECO_MAINNET]: `https://http-mainnet.hecochain.com`,
-  [SupportedChainId.HECO_TESTNET]: `https://http-testnet.hecochain.com`
+  [SupportedChainId.BSC_MAINNET]: `https://bsc-dataseed1.binance.org/`,
+  [SupportedChainId.BSC_TESTNET]: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
+  [SupportedChainId.HECO_MAINNET]: `https://http-mainnet.hecochain.com/`,
+  [SupportedChainId.HECO_TESTNET]: `https://http-testnet.hecochain.com/`
 }
 
 /**
@@ -63,7 +63,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://bscscan.com/',
     infoLink: '',
-    label: 'BSC',
+    label: 'Binance Smart Chain Mainnet',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {
       nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
@@ -75,7 +75,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://testnet.bscscan.com/',
     infoLink: 'https://info.chapel.daoswap.cc',
-    label: 'BscTest',
+    label: 'Binance Smart Chain Testnet',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {
       nativeCurrency: { name: 'tBNB', symbol: 'tBNB', decimals: 18 },
@@ -87,7 +87,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://hecoinfo.com/',
     infoLink: 'https://info.heco.daoswap.cc',
-    label: 'HECO',
+    label: 'Heco Chain Mainnet',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {
       nativeCurrency: { name: 'HT', symbol: 'HT', decimals: 18 },
@@ -99,7 +99,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://testnet.hecoinfo.com/',
     infoLink: '',
-    label: 'HecoTest',
+    label: 'Heco Chain Testnet',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {
       nativeCurrency: { name: 'htt', symbol: 'htt', decimals: 18 },

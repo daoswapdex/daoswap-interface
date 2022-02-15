@@ -1,8 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 import { TokenList } from '@uniswap/token-lists'
 
-import { SupportedChainId } from '../../constants/chains'
-
 export type PopupContent =
   | {
       txn: {
@@ -20,7 +18,10 @@ export type PopupContent =
       }
     }
   | {
-      failedSwitchNetwork: SupportedChainId
+      failedSwitchNetwork: {
+        success: boolean
+        summary?: string
+      }
     }
 
 export enum ApplicationModal {

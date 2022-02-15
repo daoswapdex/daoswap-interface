@@ -89,6 +89,9 @@
   "toleranceExplanation": "Lowering this limit decreases your risk of frontrunning. However, this makes more likely that your transaction will fail due to normal price movements.",
   "tokenSearchPlaceholder": "Search name or paste address",
 
+  "Failed to switch networks": "Failed to switch networks",
+  "Error Network": "Error Network",
+  "please add the network manually": "please add the network manually",
   "Connect Wallet": "Connect Wallet",
   "Connect to a wallet": "Connect to a wallet",
   "Charts": "Charts",
