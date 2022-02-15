@@ -73,6 +73,9 @@
   "decimals": "小数位数",
   "enterTokenCont": "输入通证地址并继续",
 
+  "Failed to switch networks": "切换网络失败",
+  "Error Network": "错误网络",
+  "please add the network manually": "请手动添加网络",
   "Connect Wallet": "连接钱包",
   "Connect to a wallet": "连接钱包",
   "Charts": "报表",
