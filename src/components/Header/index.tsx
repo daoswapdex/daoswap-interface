@@ -22,6 +22,7 @@ import Web3Status from '../Web3Status'
 // import Modal from '../Modal'
 // import UniBalanceContent from './UniBalanceContent'
 import NetworkSelector from './NetworkSelector'
+import { CHAIN_INFO } from '../../constants/chainInfo'
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -211,6 +212,8 @@ export default function Header() {
 
   const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
 
+  const { infoLink } = chainId ? CHAIN_INFO[chainId] : CHAIN_INFO[ChainId.HECO_MAINNET]
+
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
   const [isDark] = useDarkModeManager()
 
@@ -258,11 +261,7 @@ export default function Header() {
           {/* <StyledNavLink id={`governace-nav-link`} to={'/governace'}>
             {t('Governace')}
           </StyledNavLink> */}
-          <StyledHrefLink
-            href="https://info.heco.daoswap.cc"
-            target="_self"
-            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
-          >
+          <StyledHrefLink href={`${infoLink}`} target="_self" style={{ display: infoLink ? 'flex' : 'none' }}>
             {t('Charts')}
           </StyledHrefLink>
           <StyledHrefLink

@@ -21,6 +21,8 @@ import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks
 import { Dots } from '../../components/swap/styleds'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
 import { useTranslation } from 'react-i18next'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
+import { CHAIN_INFO } from '../../constants/chainInfo'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -77,7 +79,9 @@ const EmptyProposals = styled.div`
 export default function Pool() {
   const { t } = useTranslation()
   const theme = useContext(ThemeContext)
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
+
+  const { infoLink } = chainId ? CHAIN_INFO[chainId] : CHAIN_INFO[ChainId.HECO_MAINNET]
 
   // TODO: is display staking rewards info list for specical address
   // const whiteList = [
@@ -187,9 +191,9 @@ export default function Pool() {
               </EmptyProposals>
             ) : allV2PairsWithLiquidity?.length > 0 ? (
               <>
-                <ButtonSecondary>
+                <ButtonSecondary style={{ display: infoLink ? 'flex' : 'none' }}>
                   <RowBetween>
-                    <ExternalLink href={'https://info.heco.daoswap.cc/account/' + account}>
+                    <ExternalLink href={`${infoLink}/account/` + account}>
                       {t('Account analytics and accrued fees')}
                     </ExternalLink>
                     <span> ↗</span>

@@ -13,6 +13,8 @@ import { SectionBreak } from './styleds'
 import SwapRoute from './SwapRoute'
 import { useTranslation } from 'react-i18next'
 import { useActiveWeb3React } from '../../hooks'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
+import { CHAIN_INFO } from '../../constants/chainInfo'
 
 const InfoLink = styled(ExternalLink)`
   width: 100%;
@@ -97,6 +99,9 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
   const { t } = useTranslation()
   const theme = useContext(ThemeContext)
 
+  const { chainId } = useActiveWeb3React()
+  const { infoLink } = chainId ? CHAIN_INFO[chainId] : CHAIN_INFO[ChainId.HECO_MAINNET]
+
   const [allowedSlippage] = useUserSlippageTolerance()
 
   const showRoute = Boolean(trade && trade.route.path.length > 2)
@@ -120,11 +125,8 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
               </AutoColumn>
             </>
           )}
-          <AutoColumn style={{ padding: '0 24px' }}>
-            <InfoLink
-              href={'https://info.heco.daoswap.cc/pair/' + trade.route.pairs[0].liquidityToken.address}
-              target="_blank"
-            >
+          <AutoColumn style={{ padding: '0 24px', display: infoLink ? 'flex' : 'none' }}>
+            <InfoLink href={`${infoLink}/pair/` + trade.route.pairs[0].liquidityToken.address} target="_blank">
               {t('View pair analytics')} ↗
             </InfoLink>
           </AutoColumn>

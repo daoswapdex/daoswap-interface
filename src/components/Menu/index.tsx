@@ -7,6 +7,7 @@ import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleModal } from '../../state/application/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
+import { CHAIN_INFO } from '../../constants/chainInfo'
 
 import { ExternalLink } from '../../theme'
 import { useTranslation } from 'react-i18next'
@@ -108,6 +109,8 @@ export default function Menu() {
 
   const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
 
+  const { infoLink } = chainId ? CHAIN_INFO[chainId] : CHAIN_INFO[ChainId.HECO_MAINNET]
+
   const node = useRef<HTMLDivElement>()
   const open = useModalOpen(ApplicationModal.MENU)
   const toggle = useToggleModal(ApplicationModal.MENU)
@@ -135,12 +138,7 @@ export default function Menu() {
             <MessageCircle size={14} />
             Twitter
           </MenuItem>
-          <MenuItemHref
-            id="link"
-            href="https://info.heco.daoswap.cc"
-            target="_self"
-            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
-          >
+          <MenuItemHref id="link" href={`${infoLink}`} target="_self" style={{ display: infoLink ? 'flex' : 'none' }}>
             <PieChart size={14} />
             {t('Charts')}
           </MenuItemHref>

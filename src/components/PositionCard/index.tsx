@@ -25,6 +25,8 @@ import DoubleCurrencyLogo from '../DoubleLogo'
 import { RowBetween, RowFixed } from '../Row'
 import { Dots } from '../swap/styleds'
 import { useTranslation } from 'react-i18next'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
+import { CHAIN_INFO } from '../../constants/chainInfo'
 
 export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
@@ -168,6 +170,8 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
   const { t } = useTranslation()
   const { account, chainId } = useActiveWeb3React()
 
+  const { infoLink } = chainId ? CHAIN_INFO[chainId] : CHAIN_INFO[ChainId.HECO_MAINNET]
+
   const currency0 = unwrappedToken(pair.token0)
   const currency1 = unwrappedToken(pair.token1)
 
@@ -288,11 +292,8 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
               </Text>
             </FixedHeightRow>
 
-            <ButtonSecondary padding="8px" borderRadius="8px" style={{ display: 'none' }}>
-              <ExternalLink
-                style={{ width: '100%', textAlign: 'center' }}
-                href={`https://info.heco.daoswap.cc/account/${account}`}
-              >
+            <ButtonSecondary padding="8px" borderRadius="8px" style={{ display: infoLink ? 'flex' : 'none' }}>
+              <ExternalLink style={{ width: '100%', textAlign: 'center' }} href={`${infoLink}/account/${account}`}>
                 {t('View accrued fees and analytics')}
                 <span style={{ fontSize: '11px' }}>↗</span>
               </ExternalLink>

@@ -74,7 +74,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     networkType: NetworkType.L1,
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://testnet.bscscan.com/',
-    infoLink: '',
+    infoLink: 'https://info.chapel.daoswap.cc',
     label: 'BscTest',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {
@@ -86,7 +86,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     networkType: NetworkType.L1,
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://hecoinfo.com/',
-    infoLink: '',
+    infoLink: 'https://info.heco.daoswap.cc',
     label: 'HECO',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {
