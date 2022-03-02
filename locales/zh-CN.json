@@ -348,6 +348,8 @@
   "StakingLPPeriod2": "二期：质押365天",
   "StakingLPPeriod3": "三期：质押365天",
   "StakingLPPeriod4": "四期：质押365天",
+  "StakingLPPeriod5": "五期：质押365天",
+  "StakingLPPeriod6": "六期：质押365天",
   "StakingDAOPeriod1": "一期：质押365天",
   "StakingDAOPeriod2": "二期：质押365天",
   "StakingDAOPeriod3": "三期：质押365天",
@@ -377,6 +379,8 @@
   "NodeType Stellar": "恒星",
   "NodeType Planet": "行星",
   "About Node": "关于节点说明",
+  "Nodes are temporarily subject to USDT/DAO liquidity on the HECO chain, and subsequent DAO synchronization after cross-chain.": "节点暂以HECO链上USDT/DAO流动性为准，后续DAO跨链后同步。",
+  
   "1, Planet and Stellar node status will be determined by the number of DAO/USDT pool liquidity provider certificates (LP) held.": "1，行星与恒星节点身份将由所持有DAO/USDT池流动性证明（LP）数量判定。",
   "2, Planet nodes need >=1000 LP and Stellar need >=10000 LP.": "2，行星节点需要>=1000 LP，恒星需要>=10000 LP。",
   "3, The above criteria are valid within DAO price <= 30USDT, after >= 30USDT it will be decided by community vote (whether to consider lowering LP value criteria).": "3，上述标准在DAO价格<=30U以内有效，当>=30U后由社区投票决定（是否考虑降低LP值标准）。",
@@ -457,6 +461,6 @@
   "2, Phase 5 Node Pledge and Phase 3 Single Coin Pledge.": "2，第五期节点质押与第三期单币质押：",
   "The fifth node pledge with a cap of 300,000 and an annualized rate of 114% (30% DAO, 70% DST)": "第五期节点质押，上限30万，年化率114%（30%DAO，70%DST）",
 
-  "Phase 6 of Hask & Competition Mining has ended on February 4, 2022 at 11#58;00.": "第6期算力与竞争挖矿已于2022年2月4号 11:00结束。",
-  "The 7th period of Arithmetic and Competition Mining has started on February 4, 2022 at 11#58;00 and will end on February 18, 2022 at 11#58;00.": "第7期算力与竞争挖矿已于2022年2月4 11:00开始，将于2022年2月18 11:00结束。"
+  "Phase 7 of Hask & Competition Mining has ended on February 18, 2022 at 11#58;00.": "第7期算力与竞争挖矿已于2022年2月18日 11:00结束。",
+  "The 8th period of Arithmetic and Competition Mining has started on February 18, 2022 at 11#58;00 and will end on March 4, 2022 at 11#58;00.": "第8期算力与竞争挖矿已于2022年2月18日 11:00开始，将于2022年3月4日 11:00结束。"
 }
