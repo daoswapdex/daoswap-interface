@@ -7,6 +7,7 @@ import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import { useActiveWeb3React } from '../../hooks'
 import { useTranslation } from 'react-i18next'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 
 import {
   USDT_DAO_PAIR_ADDRESS,
@@ -35,8 +36,10 @@ const EmptyProposals = styled.div`
 export function NodeType({ pairs }: { pairs: Pair[] }) {
   const { t } = useTranslation()
   const theme = useContext(ThemeContext)
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   // const account = '0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2'
+
+  const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
 
   // Node Info Get
   // get usdt-dao pair balance in pool
@@ -121,8 +124,12 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
     <AutoColumn gap="lg" style={{ width: '100%', marginTop: '1rem' }}>
       <EmptyProposals>
         <RowBetween>
-          <TYPE.body color={theme.text3} textAlign="center">
-            {t('Node Type')}: {t(`NodeType ${NodeTypeName}`)}
+          <TYPE.body color={theme.text3} textAlign="left">
+            {isHecoNetwork
+              ? t('Node Type') + ':' + t(`NodeType ${NodeTypeName}`)
+              : t(
+                  'Nodes are temporarily subject to USDT/DAO liquidity on the HECO chain, and subsequent DAO synchronization after cross-chain.'
+                )}
           </TYPE.body>
           <QuestionHelper
             text={

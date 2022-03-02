@@ -62,7 +62,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     networkType: NetworkType.L1,
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://bscscan.com/',
-    infoLink: '',
+    infoLink: 'https://info.bsc.daoswap.cc',
     label: 'Binance Smart Chain Mainnet',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {

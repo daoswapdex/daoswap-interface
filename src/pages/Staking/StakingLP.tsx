@@ -7,8 +7,7 @@ import { CardSection, DataCard, CardNoise, CardBGImage } from './styled'
 import { useTranslation } from 'react-i18next'
 import PoolCard from '../../components/staking/PoolCardForLP'
 import { NodeTabs } from '../../components/NavigationTabs/node'
-import { useActiveWeb3React } from '../../hooks'
-import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
+// import { useActiveWeb3React } from '../../hooks'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -31,8 +30,7 @@ const PoolSection = styled.div`
 
 export default function StakingLP() {
   const { t } = useTranslation()
-  const { chainId } = useActiveWeb3React()
-  const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
+  // const { account } = useActiveWeb3React()
 
   // // TODO: is display staking rewards info list for specical address
   // const whiteList = [
@@ -44,15 +42,35 @@ export default function StakingLP() {
 
   const stakingList: any[] = [
     {
+      period: 6,
+      name: 'StakingLPPeriod6',
+      capAmount: 300000,
+      apr: 112,
+      aprDAO: 0,
+      aprDST: 112,
+      openStatus: true,
+      display: 'normal'
+      // display: inWhiteList.length > 0 ? 'normal' : 'none'
+    },
+    {
+      period: 5,
+      name: 'StakingLPPeriod5',
+      capAmount: 300000,
+      apr: 114,
+      aprDAO: 34.2,
+      aprDST: 79.8,
+      openStatus: false,
+      display: 'normal'
+    },
+    {
       period: 4,
       name: 'StakingLPPeriod4',
       capAmount: 300000,
       apr: 116,
       aprDAO: 34.8,
       aprDST: 81.2,
-      openStatus: true,
+      openStatus: false,
       display: 'normal'
-      // display: inWhiteList.length > 0 ? 'normal' : 'none'
     },
     {
       period: 3,
@@ -111,27 +129,17 @@ export default function StakingLP() {
         </DataCard>
       </TopSection>
 
-      {isHecoNetwork ? (
-        <>
-          <NodeTabs active={'staking-lp'} />
-          <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
-            <PoolSection>
-              {stakingList?.length === 0
-                ? t('No active staking')
-                : stakingList?.map(stakingInfo => {
-                    return <PoolCard key={stakingInfo.period} stakingInfo={stakingInfo} />
-                  })}
-            </PoolSection>
-          </AutoColumn>
-        </>
-      ) : (
-        <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
-          <PoolSection>{t('Please connect to HECO Network')}</PoolSection>
-          <PoolSection>
-            {t('Node is only available on HECO. Switch your network to HECO Mainnet to view Staking LP and DAO.')}
-          </PoolSection>
-        </AutoColumn>
-      )}
+      <NodeTabs active={'staking-lp'} />
+
+      <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
+        <PoolSection>
+          {stakingList?.length === 0
+            ? t('No active staking')
+            : stakingList?.map(stakingInfo => {
+                return <PoolCard key={stakingInfo.period} stakingInfo={stakingInfo} />
+              })}
+        </PoolSection>
+      </AutoColumn>
     </PageWrapper>
   )
 }

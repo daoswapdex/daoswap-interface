@@ -264,11 +264,7 @@ export default function Header() {
           <StyledHrefLink href={`${infoLink}`} target="_self" style={{ display: infoLink ? 'flex' : 'none' }}>
             {t('Charts')}
           </StyledHrefLink>
-          <StyledHrefLink
-            href="https://bridge.heco.daoswap.cc/token/DAO"
-            target="_self"
-            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
-          >
+          <StyledHrefLink href="https://poly.bridge.daoswap.cc/token/DAO" target="_self">
             {t('Bridge')}
           </StyledHrefLink>
         </HeaderLinks>
