@@ -195,11 +195,6 @@ export default function NetworkSelector() {
               key: `failed-network-switch`
             })
           )
-          // dispatch(
-          //   addPopup({
-          //     content: { txn: { hash: 'failed-network-switch', summary: 'failed-network-switch', success: true } }
-          //   })
-          // )
         })
     },
     [t, dispatch, library, toggle, history, chainId]
