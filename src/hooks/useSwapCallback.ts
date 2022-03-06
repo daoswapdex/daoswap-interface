@@ -1,6 +1,15 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
-import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from '@daoswapdex/daoswap-dex-sdk'
+import {
+  JSBI,
+  Percent,
+  Router,
+  SwapParameters,
+  Trade,
+  TradeType,
+  ETHER,
+  CURRENCY_SYMBOL
+} from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 import { BIPS_BASE, INITIAL_ALLOWED_SLIPPAGE } from '../constants'
 import { getTradeVersion, useV1TradeExchangeAddress } from '../data/V1'
@@ -208,8 +217,14 @@ export function useSwapCallback(
           ...(value && !isZero(value) ? { value, from: account } : { from: account })
         })
           .then((response: any) => {
-            const inputSymbol = trade.inputAmount.currency.symbol
-            const outputSymbol = trade.outputAmount.currency.symbol
+            const inputSymbol =
+              trade.inputAmount.currency === ETHER && chainId
+                ? CURRENCY_SYMBOL[chainId]
+                : trade.inputAmount.currency?.symbol
+            const outputSymbol =
+              trade.outputAmount.currency === ETHER && chainId
+                ? CURRENCY_SYMBOL[chainId]
+                : trade.outputAmount.currency?.symbol
             const inputAmount = trade.inputAmount.toSignificant(3)
             const outputAmount = trade.outputAmount.toSignificant(3)
 
