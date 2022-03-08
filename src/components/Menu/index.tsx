@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { BookOpen, Info, MessageCircle, PieChart, Link, Gift, Layers, DollarSign } from 'react-feather'
+import { BookOpen, Info, MessageCircle, PieChart, Gift, Layers, DollarSign } from 'react-feather'
 import styled from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
@@ -69,7 +69,7 @@ const MenuFlyout = styled.span<{ isHecoNetwork: boolean }>`
   z-index: 100;
 
   ${({ theme }) => theme.mediaWidth.upToMedium<{ isHecoNetwork: boolean }>`
-    top: ${({ isHecoNetwork }) => (isHecoNetwork ? '-21.25rem' : '-14rem')};
+    top: ${({ isHecoNetwork }) => (isHecoNetwork ? '-19rem' : '-11.75rem')};
   `};
 `
 
@@ -142,10 +142,10 @@ export default function Menu() {
             <PieChart size={14} />
             {t('Charts')}
           </MenuItemHref>
-          <MenuItemHref id="link" href="https://poly.bridge.daoswap.cc/token/DAO" target="_self">
+          {/* <MenuItemHref id="link" href="https://poly.bridge.daoswap.cc/token/DAO" target="_self">
             <Link size={14} />
             {t('Bridge')}
-          </MenuItemHref>
+          </MenuItemHref> */}
           <MenuItemHref
             id="link"
             href="https://www.daoswap.cc/hash-mining"

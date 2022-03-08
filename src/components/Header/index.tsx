@@ -21,7 +21,7 @@ import Web3Status from '../Web3Status'
 // import ClaimModal from '../claim/ClaimModal'
 // import Modal from '../Modal'
 // import UniBalanceContent from './UniBalanceContent'
-import NetworkSelector from './NetworkSelector'
+// import NetworkSelector from './NetworkSelector'
 import { CHAIN_INFO } from '../../constants/chainInfo'
 
 const HeaderFrame = styled.div`
@@ -264,16 +264,16 @@ export default function Header() {
           <StyledHrefLink href={`${infoLink}`} target="_self" style={{ display: infoLink ? 'flex' : 'none' }}>
             {t('Charts')}
           </StyledHrefLink>
-          <StyledHrefLink href="https://poly.bridge.daoswap.cc/token/DAO" target="_self">
+          {/* <StyledHrefLink href="https://poly.bridge.daoswap.cc/token/DAO" target="_self">
             {t('Bridge')}
-          </StyledHrefLink>
+          </StyledHrefLink> */}
         </HeaderLinks>
       </HeaderRow>
       <HeaderControls>
         <HeaderElement>
-          <HeaderElement>
+          {/* <HeaderElement>
             <NetworkSelector />
-          </HeaderElement>
+          </HeaderElement> */}
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
