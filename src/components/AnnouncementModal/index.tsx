@@ -72,12 +72,12 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
             </Text>
           </Text>
           <Text fontWeight={500} fontSize={14} margin={10}>
-            {t('2, Phase 5 Node Pledge and Phase 3 Single Coin Pledge.')}
+            {t('2, Phase 6 Node Pledge and Phase 3 Single Coin Pledge.')}
             <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('It will be opened on January 23rd, 2022 at 11#58;00 am.')}
+              {t('It will be opened on February 26rd, 2022 at 11#58;00 am.')}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('The fifth node pledge with a cap of 300,000 and an annualized rate of 114% (30% DAO, 70% DST)')}
+              {t('The sixth node pledge with a cap of 300,000 and an annualized rate of 112% (100% DST)')}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t('Phase 3 single coin pledge, cap 100,000, 58% annualized rate (30% DAO, 70% DST)')}
@@ -103,11 +103,11 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
           <Text fontWeight={500} fontSize={14} margin={10}>
             {t('4, Hask and Competitive Mining#58;')}
             <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('Phase 8 of Hask & Competition Mining has ended on March 4, 2022 at 11#58;00.')}
+              {t('Phase 9 of Hask & Competition Mining has ended on March 18, 2022 at 11#58;00.')}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t(
-                'The 9th period of Arithmetic and Competition Mining has started on March 4, 2022 at 11#58;00 and will end on March 18, 2022 at 11#58;00.'
+                'The 10th period of Arithmetic and Competition Mining has started on March 18, 2022 at 11#58;00 and will end on April 1, 2022 at 11#58;00.'
               )}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
