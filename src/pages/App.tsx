@@ -22,12 +22,14 @@ import EarnHistory1 from './EarnHistory1'
 import EarnHistory2 from './EarnHistory2'
 import EarnHistory3 from './EarnHistory3'
 import EarnHistory4 from './EarnHistory4'
+import EarnHistory5 from './EarnHistory5'
 import Manage from './Earn/Manage'
 import EarnInnovationManage from './EarnInnovation/Manage'
 import ManageHistory1 from './EarnHistory1/Manage'
 import ManageHistory2 from './EarnHistory2/Manage'
 import ManageHistory3 from './EarnHistory3/Manage'
 import ManageHistory4 from './EarnHistory4/Manage'
+import ManageHistory5 from './EarnHistory5/Manage'
 import MigrateV1 from './MigrateV1'
 import MigrateV1Exchange from './MigrateV1/MigrateV1Exchange'
 import RemoveV1Exchange from './MigrateV1/RemoveV1Exchange'
@@ -105,6 +107,7 @@ export default function App() {
               <Route exact strict path="/dao-history-2" component={EarnHistory2} />
               <Route exact strict path="/dao-history-3" component={EarnHistory3} />
               <Route exact strict path="/dao-history-4" component={EarnHistory4} />
+              <Route exact strict path="/dao-history-5" component={EarnHistory5} />
               <Route exact strict path="/create" component={RedirectToAddLiquidity} />
               <Route exact path="/add" component={AddLiquidity} />
               <Route exact path="/add/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
@@ -123,6 +126,7 @@ export default function App() {
               <Route exact strict path="/dao-history-2/:currencyIdA/:currencyIdB" component={ManageHistory2} />
               <Route exact strict path="/dao-history-3/:currencyIdA/:currencyIdB" component={ManageHistory3} />
               <Route exact strict path="/dao-history-4/:currencyIdA/:currencyIdB" component={ManageHistory4} />
+              <Route exact strict path="/dao-history-5/:currencyIdA/:currencyIdB" component={ManageHistory5} />
               <Route exact strict path="/governace" component={Governace} />
               <Route exact strict path="/staking-lp" component={StakingLP} />
               <Route exact strict path="/staking-single" component={StakingSingle} />
