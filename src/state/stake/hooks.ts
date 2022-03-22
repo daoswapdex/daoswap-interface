@@ -5,17 +5,17 @@ import {
   DAO,
   DAT,
   DST,
-  // USDT,
-  // ETH,
-  // HFIL,
-  // HT,
-  // UNI,
-  // MDX,
-  // HBCH,
-  // HLTC,
-  // MANA,
-  // HDOT,
-  // LINK,
+  USDT,
+  ETH,
+  HFIL,
+  HT,
+  UNI,
+  MDX,
+  HBCH,
+  HLTC,
+  MANA,
+  HDOT,
+  LINK,
   DTC1,
   DTC2
 } from '../../constants/tokensInfo'
@@ -26,7 +26,7 @@ import { tryParseAmount } from '../swap/hooks'
 import { useTranslation } from 'react-i18next'
 
 // TODO:Daoswap Start Time
-export const STAKING_GENESIS = 1645066800
+export const STAKING_GENESIS = 1648004400
 
 // TODO:Daoswap Rewards Duration : unit - day
 export const REWARDS_DURATION_DAYS = 28
@@ -38,52 +38,52 @@ export const STAKING_REWARDS_INFO: {
     stakingRewardAddress: string
   }[]
 } = {
-  // [ChainId.HECO_MAINNET]: [
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0xcA691423C64fa6B24CD54e45353A236521D2C7f5'
-  //   },
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], ETH[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0x925D975fD145a99829ea2b734492Ec6B8017e27C'
-  //   },
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], HFIL[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0x6a7b10753D853b6e44aE793406584C55669Ed505'
-  //   },
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], HT[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0xC7D59edFE2CBbb21fFE84c9739d997cd6b139D08'
-  //   },
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], UNI[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0x47301CEC97925F91CbeD5457300f4462A45ACB33'
-  //   },
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], MDX[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0x4FD95D89Efb537FA72b87671541a835AdcdE3568'
-  //   },
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], HBCH[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0xef827c4067C823E829C1053aecb7C04B3b043Bd5'
-  //   },
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], HLTC[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0xd8505972ac221736c134De156347D6E98017e015'
-  //   },
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], MANA[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0x525576c19E81Bd6370aF036D03E07FbbE1e84FaE'
-  //   },
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], HDOT[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0xA2a18f3abf965ae839eD192fad58d3Fd7e1Eefbb'
-  //   },
-  //   {
-  //     tokens: [USDT[ChainId.HECO_MAINNET], LINK[ChainId.HECO_MAINNET]],
-  //     stakingRewardAddress: '0xd5cc1a949F7f70689742FE790F9A13292b5CfC35'
-  //   }
-  // ],
+  [ChainId.HECO_MAINNET]: [
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x8A041E9C28250A542642c65206Fa90E369Fe4409'
+    },
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], ETH[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0xE7d03c5E30B0037B05e713B0977C683D9fff1052'
+    },
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], HFIL[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0xccA7501d3750ea0aeb55097D04392D480AF46295'
+    },
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], HT[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x846EC507DacFa021cCC1d49686b5d424083ADb5B'
+    },
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], UNI[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x095Ffdcfebc3450f64CA68485621FccC7aa732ed'
+    },
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], MDX[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x9aF7Cc8B63b1FD52C4e72913B56E9017f77Ad16F'
+    },
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], HBCH[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x03AF0F32bDA5d6cBDDfD81c80D6A4df72B930E17'
+    },
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], HLTC[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x52b939FCE7A72107DE432490c7c09cA27a2AD319'
+    },
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], MANA[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0xd3F6A5ba3D4Fae23b23927C507d556B7422b1a77'
+    },
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], HDOT[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x14d442E8F0db21135187F12F57aA586d2649A09a'
+    },
+    {
+      tokens: [USDT[ChainId.HECO_MAINNET], LINK[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0xE466da31406E485b4250717E1368472228c01282'
+    }
+  ],
   [ChainId.BSC_TESTNET]: [
     {
       tokens: [DAT[ChainId.BSC_TESTNET], DST[ChainId.BSC_TESTNET]],
