@@ -1,7 +1,7 @@
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { DAO, USDT, FSS, DTC1, DTC2, DTC3, DTC4 } from '../../constants/tokensInfo'
+import { DAO, USDT, FSS } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 // TODO add staking rewards addresses here
 export const STAKING_REWARDS_INFO: {
   [chainId in ChainId]?: {
+    period: number
     stakingGenesis: number
     rewardsDurationDays: number
     rewardsTokenSymbol: string
@@ -20,32 +21,26 @@ export const STAKING_REWARDS_INFO: {
 } = {
   [ChainId.HECO_MAINNET]: [
     {
+      period: 2,
+      stakingGenesis: 1648263600,
+      rewardsDurationDays: 28,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.HECO_MAINNET], FSS[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x89c2CcA1eb630A1F12ecCbCd995da2095786E0A2'
+    },
+    {
+      period: 1,
       stakingGenesis: 1644375600,
       rewardsDurationDays: 28,
       rewardsTokenSymbol: 'DAO',
       tokens: [USDT[ChainId.HECO_MAINNET], FSS[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0xADc55813F4D9aAA7676ad70a6c756eB40955bF68'
     }
-  ],
-  [ChainId.HECO_TESTNET]: [
-    {
-      stakingGenesis: 1644214200,
-      rewardsDurationDays: 3,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [DTC1[ChainId.HECO_TESTNET], DTC2[ChainId.HECO_TESTNET]],
-      stakingRewardAddress: '0x2f0d2Df6E790529B599035AFF217DF15e697e668'
-    },
-    {
-      stakingGenesis: 1644214800,
-      rewardsDurationDays: 3,
-      rewardsTokenSymbol: 'DAT',
-      tokens: [DTC3[ChainId.HECO_TESTNET], DTC4[ChainId.HECO_TESTNET]],
-      stakingRewardAddress: '0xdd92C3E837126C18de8A76440CB50AF93AF5e4D6'
-    }
   ]
 }
 
 export interface StakingInfo {
+  period: number
   stakingGenesis: number
   rewardsDurationDays: number
   rewardsTokenSymbol: string
@@ -184,6 +179,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
         const periodFinishMs = periodFinishState.result?.[0]?.mul(1000)?.toNumber()
 
         memo.push({
+          period: info[index].period,
           stakingGenesis: info[index].stakingGenesis,
           rewardsDurationDays: info[index].rewardsDurationDays,
           rewardsTokenSymbol: info[index].rewardsTokenSymbol,
