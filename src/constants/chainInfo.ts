@@ -35,6 +35,7 @@ interface BaseChainInfo {
   readonly bridge?: string
   readonly explorer: string
   readonly infoLink: string
+  readonly officialLink: string
   readonly logoUrl: string
   readonly label: string
   readonly helpCenterUrl?: string
@@ -63,6 +64,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://bscscan.com/',
     infoLink: 'https://info.bsc.daoswap.cc',
+    officialLink: 'https://bsc.www.daoswap.cc',
     label: 'Binance Smart Chain Mainnet',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {
@@ -75,6 +77,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://testnet.bscscan.com/',
     infoLink: 'https://info.chapel.daoswap.cc',
+    officialLink: 'https://bsc.www.daoswap.cc',
     label: 'Binance Smart Chain Testnet',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {
@@ -87,6 +90,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://hecoinfo.com/',
     infoLink: 'https://info.heco.daoswap.cc',
+    officialLink: 'https://www.daoswap.cc',
     label: 'Heco Chain Mainnet',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {
@@ -99,6 +103,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     docs: 'https://docs.daoswap.cc/',
     explorer: 'https://testnet.hecoinfo.com/',
     infoLink: '',
+    officialLink: 'https://www.daoswap.cc',
     label: 'Heco Chain Testnet',
     logoUrl: ethereumLogoUrl,
     addNetworkInfo: {

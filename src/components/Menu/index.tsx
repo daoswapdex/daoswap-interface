@@ -109,7 +109,7 @@ export default function Menu() {
 
   const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
 
-  const { infoLink } = chainId ? CHAIN_INFO[chainId] : CHAIN_INFO[ChainId.HECO_MAINNET]
+  const { infoLink, officialLink } = chainId ? CHAIN_INFO[chainId] : CHAIN_INFO[ChainId.HECO_MAINNET]
 
   const node = useRef<HTMLDivElement>()
   const open = useModalOpen(ApplicationModal.MENU)
@@ -126,7 +126,7 @@ export default function Menu() {
 
       {open && (
         <MenuFlyout isHecoNetwork={isHecoNetwork}>
-          <MenuItem id="link" href="https://www.daoswap.cc/">
+          <MenuItem id="link" href={`${officialLink}`}>
             <Info size={14} />
             {t('Daoswap')}
           </MenuItem>
