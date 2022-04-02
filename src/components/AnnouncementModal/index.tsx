@@ -103,11 +103,11 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
           <Text fontWeight={500} fontSize={14} margin={10}>
             {t('4, Hask and Competitive Mining#58;')}
             <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('Phase 9 of Hask & Competition Mining has ended on March 18, 2022 at 11#58;00.')}
+              {t('The 10th period of Hash and Competition Mining has ended on April 1, 2022 at 11#58;00.')}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t(
-                'The 10th period of Arithmetic and Competition Mining has started on March 18, 2022 at 11#58;00 and will end on April 1, 2022 at 11#58;00.'
+                'DAOSWAP will suspend the Hash & Competition Mining during the BSC cross-chain from April 1, please pay attention to the opening time in the BSC chain.'
               )}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
