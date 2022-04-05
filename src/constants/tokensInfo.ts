@@ -428,6 +428,37 @@ export const LINK: TokenMap = {
   )
 }
 
+export const BTCB: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+    18,
+    'BTCB',
+    'Binance-Peg BTCB Token'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+    18,
+    'BTCB',
+    'Binance-Peg BTCB Token'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+    18,
+    'BTCB',
+    'Binance-Peg BTCB Token'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+    18,
+    'BTCB',
+    'Binance-Peg BTCB Token'
+  )
+}
+
 export const FSS: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(ChainId.BSC_MAINNET, '0x8d106c0F502D1C15E706A6d5e1d9913072e26ED4', 18, 'FSS', 'FSS'),
   [ChainId.BSC_TESTNET]: new Token(ChainId.BSC_TESTNET, '0x8d106c0F502D1C15E706A6d5e1d9913072e26ED4', 18, 'FSS', 'FSS'),

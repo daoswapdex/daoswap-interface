@@ -16,6 +16,7 @@ import {
   MANA,
   HDOT,
   LINK,
+  BTCB,
   DTC1,
   DTC2
 } from '../../constants/tokensInfo'
@@ -26,10 +27,10 @@ import { tryParseAmount } from '../swap/hooks'
 import { useTranslation } from 'react-i18next'
 
 // TODO:Daoswap Start Time
-export const STAKING_GENESIS = 1648004400
+export const STAKING_GENESIS = 1649131200
 
 // TODO:Daoswap Rewards Duration : unit - day
-export const REWARDS_DURATION_DAYS = 28
+export const REWARDS_DURATION_DAYS = 10 / 24
 
 // TODO add staking rewards addresses here
 export const STAKING_REWARDS_INFO: {
@@ -38,6 +39,12 @@ export const STAKING_REWARDS_INFO: {
     stakingRewardAddress: string
   }[]
 } = {
+  [ChainId.BSC_MAINNET]: [
+    {
+      tokens: [USDT[ChainId.BSC_MAINNET], BTCB[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0xFc2B9cd970d0696BD88910D2D057A43e2B7B7452'
+    }
+  ],
   [ChainId.HECO_MAINNET]: [
     {
       tokens: [USDT[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
@@ -127,6 +134,13 @@ export interface StakingInfo {
 // gets the staking info from the network for the active chain id
 export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const { chainId, account } = useActiveWeb3React()
+
+  // TODO: is display staking rewards info list for specical address
+  const whiteList = ['0x1a178E91FEB5444953e246FA94a2d4404E0b3713', '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de']
+  const inWhiteList = whiteList.filter(item => item === account)
+  if (inWhiteList.length <= 0) {
+    STAKING_REWARDS_INFO[56] = []
+  }
 
   const info = useMemo(
     () =>
