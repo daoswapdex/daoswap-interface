@@ -2,19 +2,25 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { STAKING_GENESIS, REWARDS_DURATION_DAYS } from '../../state/stake/hooks'
 import { TYPE } from '../../theme'
 import { useTranslation } from 'react-i18next'
+import { useActiveWeb3React } from '../../hooks'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 
 const MINUTE = 60
 const HOUR = MINUTE * 60
 const DAY = HOUR * 24
-const REWARDS_DURATION = DAY * REWARDS_DURATION_DAYS
 
 export function Countdown({ exactEnd }: { exactEnd?: Date }) {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
+  const currentChainId = chainId ? chainId : ChainId.BSC_MAINNET
+
+  const REWARDS_DURATION = DAY * REWARDS_DURATION_DAYS[currentChainId]
   // get end/beginning times
-  const end = useMemo(() => (exactEnd ? Math.floor(exactEnd.getTime() / 1000) : STAKING_GENESIS + REWARDS_DURATION), [
-    exactEnd
-  ])
-  const begin = useMemo(() => end - REWARDS_DURATION, [end])
+  const end = useMemo(
+    () => (exactEnd ? Math.floor(exactEnd.getTime() / 1000) : STAKING_GENESIS[currentChainId] + REWARDS_DURATION),
+    [exactEnd, currentChainId, REWARDS_DURATION]
+  )
+  const begin = useMemo(() => end - REWARDS_DURATION, [end, REWARDS_DURATION])
 
   // get current time
   const [time, setTime] = useState(() => Math.floor(Date.now() / 1000))

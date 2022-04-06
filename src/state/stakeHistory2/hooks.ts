@@ -1,7 +1,7 @@
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { DAO, USDT, ETH, HFIL, HT, UNI, MDX, HBCH, HLTC } from '../../constants/tokensInfo'
+import { DAO, USDT, ETH, FIL, HT, UNI, MDX, HBCH, LTC } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -31,7 +31,7 @@ export const STAKING_REWARDS_INFO: {
       stakingRewardAddress: '0xE296D57c683fB9A91C40C717F8426F5816C1C0D3'
     },
     {
-      tokens: [USDT[ChainId.HECO_MAINNET], HFIL[ChainId.HECO_MAINNET]],
+      tokens: [USDT[ChainId.HECO_MAINNET], FIL[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0x605786bA93535E0Be6fb669e882569c27E6e2eE3'
     },
     {
@@ -51,7 +51,7 @@ export const STAKING_REWARDS_INFO: {
       stakingRewardAddress: '0xb235E65357bEF0E51dF2028E6e5dc82C1Ef059a0'
     },
     {
-      tokens: [USDT[ChainId.HECO_MAINNET], HLTC[ChainId.HECO_MAINNET]],
+      tokens: [USDT[ChainId.HECO_MAINNET], LTC[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0xbbeb7F75A7C514f95f4215C17795dE017F891a2c'
     }
   ]

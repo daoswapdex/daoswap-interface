@@ -1,7 +1,7 @@
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { DAO, USDT, ETH, HFIL, HT } from '../../constants/tokensInfo'
+import { DAO, USDT, ETH, FIL, HT } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -31,7 +31,7 @@ export const STAKING_REWARDS_INFO: {
       stakingRewardAddress: '0x5E03E4b9402f4b8Dd4C983b87bA06A86e6aB4551'
     },
     {
-      tokens: [USDT[ChainId.HECO_MAINNET], HFIL[ChainId.HECO_MAINNET]],
+      tokens: [USDT[ChainId.HECO_MAINNET], FIL[ChainId.HECO_MAINNET]],
       stakingRewardAddress: '0xAA4d98498DDb57eDb5C631ad96af95206751603d'
     },
     {

@@ -1,8 +1,8 @@
 import { JSBI, Token, TokenAmount } from '@daoswapdex/daoswap-dex-sdk'
 import { BigNumber } from 'ethers'
 import { STAKING_GENESIS } from '../state/stake/hooks'
-
-const STAKING_END = STAKING_GENESIS + 60 * 60 * 24 * 60
+import { useActiveWeb3React } from '../hooks'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 
 const TREASURY_VESTING_GENESIS = 1600387200
 
@@ -60,8 +60,19 @@ export function computeUniCirculation(
 ): TokenAmount {
   let wholeAmount = JSBI.BigInt(USERS_AMOUNT)
 
+  const { chainId } = useActiveWeb3React()
+  const currentChainId = chainId ? chainId : ChainId.BSC_MAINNET
+
+  const STAKING_END = STAKING_GENESIS[currentChainId] + 60 * 60 * 24 * 60
+
   // staking rewards
-  wholeAmount = withVesting(wholeAmount, blockTimestamp, STAKING_REWARDS_AMOUNT, STAKING_GENESIS, STAKING_END)
+  wholeAmount = withVesting(
+    wholeAmount,
+    blockTimestamp,
+    STAKING_REWARDS_AMOUNT,
+    STAKING_GENESIS[currentChainId],
+    STAKING_END
+  )
 
   // treasury vesting
   wholeAmount = withVesting(

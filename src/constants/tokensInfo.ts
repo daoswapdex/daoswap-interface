@@ -121,17 +121,17 @@ export const DAI: TokenMap = {
 export const ETH: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(
     ChainId.BSC_MAINNET,
-    '0x64FF637fB478863B7468bc97D30a5bF3A428a1fD',
+    '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
     18,
     'ETH',
-    'Heco-Peg ETH Token'
+    'Binance-Peg Ethereum Token'
   ),
   [ChainId.BSC_TESTNET]: new Token(
     ChainId.BSC_TESTNET,
-    '0x64FF637fB478863B7468bc97D30a5bF3A428a1fD',
+    '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
     18,
     'ETH',
-    'Heco-Peg ETH Token'
+    'Binance-Peg Ethereum Token'
   ),
   [ChainId.HECO_MAINNET]: new Token(
     ChainId.HECO_MAINNET,
@@ -149,20 +149,20 @@ export const ETH: TokenMap = {
   )
 }
 
-export const HFIL: TokenMap = {
+export const FIL: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(
     ChainId.BSC_MAINNET,
-    '0xae3a768f9aB104c69A7CD6041fE16fFa235d1810',
+    '0x0D8Ce2A99Bb6e3B7Db580eD848240e4a0F9aE153',
     18,
-    'HFIL',
-    'Heco-Peg HFIL Token'
+    'FIL',
+    'Binance-Peg Filecoin'
   ),
   [ChainId.BSC_TESTNET]: new Token(
     ChainId.BSC_TESTNET,
-    '0xae3a768f9aB104c69A7CD6041fE16fFa235d1810',
+    '0x0D8Ce2A99Bb6e3B7Db580eD848240e4a0F9aE153',
     18,
-    'HFIL',
-    'Heco-Peg HFIL Token'
+    'FIL',
+    'Binance-Peg Filecoin'
   ),
   [ChainId.HECO_MAINNET]: new Token(
     ChainId.HECO_MAINNET,
@@ -214,17 +214,17 @@ export const HT: TokenMap = {
 export const UNI: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(
     ChainId.BSC_MAINNET,
-    '0x22C54cE8321A4015740eE1109D9cBc25815C46E6',
+    '0xBf5140A22578168FD562DCcF235E5D43A02ce9B1',
     18,
     'UNI',
-    'Heco-Peg UNI Token'
+    'Binance-Peg Uniswap'
   ),
   [ChainId.BSC_TESTNET]: new Token(
     ChainId.BSC_TESTNET,
-    '0x22C54cE8321A4015740eE1109D9cBc25815C46E6',
+    '0xBf5140A22578168FD562DCcF235E5D43A02ce9B1',
     18,
     'UNI',
-    'Heco-Peg UNI Token'
+    'Binance-Peg Uniswap'
   ),
   [ChainId.HECO_MAINNET]: new Token(
     ChainId.HECO_MAINNET,
@@ -304,20 +304,20 @@ export const HBCH: TokenMap = {
   )
 }
 
-export const HLTC: TokenMap = {
+export const LTC: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(
     ChainId.BSC_MAINNET,
-    '0xecb56cf772B5c9A6907FB7d32387Da2fCbfB63b4',
+    '0x4338665CBB7B2485A8855A139b75D5e34AB0DB94',
     18,
-    'HLTC',
-    'Heco-Peg HLTC Token'
+    'LTC',
+    'Binance-Peg Litecoin Token'
   ),
   [ChainId.BSC_TESTNET]: new Token(
     ChainId.BSC_TESTNET,
-    '0xecb56cf772B5c9A6907FB7d32387Da2fCbfB63b4',
+    '0x4338665CBB7B2485A8855A139b75D5e34AB0DB94',
     18,
-    'HLTC',
-    'Heco-Peg HLTC Token'
+    'LTC',
+    'Binance-Peg Litecoin Token'
   ),
   [ChainId.HECO_MAINNET]: new Token(
     ChainId.HECO_MAINNET,
@@ -366,20 +366,20 @@ export const MANA: TokenMap = {
   )
 }
 
-export const HDOT: TokenMap = {
+export const DOT: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(
     ChainId.BSC_MAINNET,
-    '0xA2c49cEe16a5E5bDEFDe931107dc1fae9f7773E3',
+    '0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402',
     18,
-    'HDOT',
-    'Heco-Peg HDOT Token'
+    'DOT',
+    'Binance-Peg Polkadot Token'
   ),
   [ChainId.BSC_TESTNET]: new Token(
     ChainId.BSC_TESTNET,
-    '0xA2c49cEe16a5E5bDEFDe931107dc1fae9f7773E3',
+    '0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402',
     18,
-    'HDOT',
-    'Heco-Peg HDOT Token'
+    'DOT',
+    'Binance-Peg Polkadot Token'
   ),
   [ChainId.HECO_MAINNET]: new Token(
     ChainId.HECO_MAINNET,
@@ -400,17 +400,17 @@ export const HDOT: TokenMap = {
 export const LINK: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(
     ChainId.BSC_MAINNET,
-    '0x9e004545c59D359F6B7BFB06a26390b087717b42',
+    '0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD',
     18,
     'LINK',
-    'Heco-Peg LINK Token'
+    'Binance-Peg ChainLink Token'
   ),
   [ChainId.BSC_TESTNET]: new Token(
     ChainId.BSC_TESTNET,
-    '0x9e004545c59D359F6B7BFB06a26390b087717b42',
+    '0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD',
     18,
     'LINK',
-    'Heco-Peg LINK Token'
+    'Binance-Peg ChainLink Token'
   ),
   [ChainId.HECO_MAINNET]: new Token(
     ChainId.HECO_MAINNET,
@@ -456,6 +456,99 @@ export const BTCB: TokenMap = {
     18,
     'BTCB',
     'Binance-Peg BTCB Token'
+  )
+}
+
+export const BNB: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+    18,
+    'WBNB',
+    'Wrapped BNB'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+    18,
+    'WBNB',
+    'Wrapped BNB'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+    18,
+    'WBNB',
+    'Wrapped BNB'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+    18,
+    'WBNB',
+    'Wrapped BNB'
+  )
+}
+
+export const XRP: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0x1D2F0da169ceB9fC7B3144628dB156f3F6c60dBE',
+    18,
+    'XRP',
+    'Binance-Peg XRP Token'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0x1D2F0da169ceB9fC7B3144628dB156f3F6c60dBE',
+    18,
+    'XRP',
+    'Binance-Peg XRP Token'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0x1D2F0da169ceB9fC7B3144628dB156f3F6c60dBE',
+    18,
+    'XRP',
+    'Heco-Peg XRP Token'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0x1D2F0da169ceB9fC7B3144628dB156f3F6c60dBE',
+    18,
+    'XRP',
+    'Heco-Peg XRP Token'
+  )
+}
+
+export const ETC: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0x3d6545b08693daE087E957cb1180ee38B9e3c25E',
+    18,
+    'ETC',
+    'Binance-Peg Ethereum Classic'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0x3d6545b08693daE087E957cb1180ee38B9e3c25E',
+    18,
+    'ETC',
+    'Binance-Peg Ethereum Classic'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0x3d6545b08693daE087E957cb1180ee38B9e3c25E',
+    18,
+    'ETC',
+    'Heco-Peg XRP Token'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0x3d6545b08693daE087E957cb1180ee38B9e3c25E',
+    18,
+    'ETC',
+    'Heco-Peg XRP Token'
   )
 }
 

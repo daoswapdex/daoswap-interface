@@ -100,6 +100,8 @@ export default function Manage({
   const [currencyA, currencyB] = [useCurrency(currencyIdA), useCurrency(currencyIdB)]
   const tokenA = wrappedCurrency(currencyA ?? undefined, chainId)
   const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
+  const currencySymbolA = currencyA === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currencyA?.symbol
+  const currencySymbolB = currencyB === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currencyB?.symbol
 
   const [, stakingTokenPair] = usePair(tokenA, tokenB)
   const stakingInfo = useStakingInfo(stakingTokenPair)?.[0]
@@ -159,7 +161,7 @@ export default function Manage({
     <PageWrapper gap="lg" justify="center">
       <RowBetween style={{ gap: '24px' }}>
         <TYPE.mediumHeader style={{ margin: 0 }}>
-          {currencyA?.symbol}-{currencyB?.symbol} {t('Liquidity Mining')}
+          {currencySymbolA}-{currencySymbolB} {t('Liquidity Mining')}
         </TYPE.mediumHeader>
         <DoubleCurrencyLogo currency0={currencyA ?? undefined} currency1={currencyB ?? undefined} size={24} />
       </RowBetween>
@@ -201,9 +203,11 @@ export default function Manage({
               </RowBetween>
               <RowBetween style={{ marginBottom: '1rem' }}>
                 <TYPE.white fontSize={14}>
-                  {`${t("DLT LP tokens are required. Once you've added liquidity to the")} ${currencyA?.symbol}-${
-                    currencyB?.symbol
-                  } ${t('pool you can stake your liquidity tokens on this page.')}`}
+                  {`${t(
+                    "DLT LP tokens are required. Once you've added liquidity to the"
+                  )} ${currencySymbolA}-${currencySymbolB} ${t(
+                    'pool you can stake your liquidity tokens on this page.'
+                  )}`}
                 </TYPE.white>
               </RowBetween>
               <ButtonPrimary
@@ -213,7 +217,7 @@ export default function Manage({
                 to={`/add/${currencyA && currencyId(chainId, currencyA)}/${currencyB &&
                   currencyId(chainId, currencyB)}`}
               >
-                {`${t('Add')} ${currencyA?.symbol}-${currencyB?.symbol} ${t('liquidity')}`}
+                {`${t('Add')} ${currencySymbolA}-${currencySymbolB} ${t('liquidity')}`}
               </ButtonPrimary>
             </AutoColumn>
           </CardSection>
@@ -261,7 +265,7 @@ export default function Manage({
                 </RowBetween>
                 <RowBetween style={{ alignItems: 'baseline' }}>
                   <TYPE.white>
-                    {currencyA?.symbol}-{currencyB?.symbol}
+                    {currencySymbolA}-{currencySymbolB}
                   </TYPE.white>
                 </RowBetween>
               </AutoColumn>
