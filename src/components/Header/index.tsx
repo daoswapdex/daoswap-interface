@@ -210,8 +210,6 @@ export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
 
-  const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
-
   const { infoLink } = chainId ? CHAIN_INFO[chainId] : CHAIN_INFO[ChainId.HECO_MAINNET]
 
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
@@ -251,11 +249,7 @@ export default function Header() {
           <StyledNavLink id={`stake-nav-link`} to={'/dao'}>
             DAO
           </StyledNavLink>
-          <StyledNavLink
-            id={`staking-lp-nav-link`}
-            to={'/staking-lp'}
-            style={{ display: isHecoNetwork ? 'flex' : 'none' }}
-          >
+          <StyledNavLink id={`staking-lp-nav-link`} to={'/staking-lp'}>
             {t('Node')}
           </StyledNavLink>
           {/* <StyledNavLink id={`governace-nav-link`} to={'/governace'}>

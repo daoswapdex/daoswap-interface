@@ -32,7 +32,6 @@ const PoolSection = styled.div`
 export default function StakingSingle() {
   const { t } = useTranslation()
   const { chainId } = useActiveWeb3React()
-  const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
 
   // // TODO: is display staking rewards info list for specical address
   // const whiteList = [
@@ -42,39 +41,51 @@ export default function StakingSingle() {
   // ]
   // const inWhiteList = whiteList.filter(item => item.toLowerCase() === account?.toLowerCase())
 
-  const stakingList: any[] = [
-    {
-      period: 3,
-      name: 'StakingDAOPeriod3',
-      capAmount: 100000,
-      apr: 58,
-      aprDAO: 17.4,
-      aprDST: 40.6,
-      openStatus: true,
-      display: 'normal'
-      // display: inWhiteList.length > 0 ? 'normal' : 'none'
-    },
-    {
-      period: 2,
-      name: 'StakingDAOPeriod2',
-      capAmount: 100000,
-      apr: 58,
-      aprDAO: 29,
-      aprDST: 29,
-      openStatus: false,
-      display: 'normal'
-    },
-    {
-      period: 1,
-      name: 'StakingDAOPeriod1',
-      capAmount: 100000,
-      apr: 60,
-      aprDAO: 30,
-      aprDST: 30,
-      openStatus: false,
-      display: 'normal'
-    }
-  ]
+  const stakingList: {
+    [chainId in ChainId]?: any[]
+  } = {
+    [ChainId.BSC_MAINNET]: [],
+    [ChainId.BSC_TESTNET]: [],
+    [ChainId.HECO_MAINNET]: [
+      {
+        period: 3,
+        domain: 'staking.heco.daoswap.cc',
+        name: 'StakingDAOPeriod3',
+        capAmount: 100000,
+        apr: 58,
+        aprDAO: 17.4,
+        aprDST: 40.6,
+        openStatus: true,
+        display: 'normal'
+        // display: inWhiteList.length > 0 ? 'normal' : 'none'
+      },
+      {
+        period: 2,
+        domain: 'staking.heco.daoswap.cc',
+        name: 'StakingDAOPeriod2',
+        capAmount: 100000,
+        apr: 58,
+        aprDAO: 29,
+        aprDST: 29,
+        openStatus: false,
+        display: 'normal'
+      },
+      {
+        period: 1,
+        domain: 'staking.heco.daoswap.cc',
+        name: 'StakingDAOPeriod1',
+        capAmount: 100000,
+        apr: 60,
+        aprDAO: 30,
+        aprDST: 30,
+        openStatus: false,
+        display: 'normal'
+      }
+    ],
+    [ChainId.HECO_TESTNET]: []
+  }
+
+  const currentChainId = chainId ? chainId : ChainId.BSC_MAINNET
 
   return (
     <PageWrapper gap="lg" justify="center">
@@ -97,27 +108,17 @@ export default function StakingSingle() {
         </DataCard>
       </TopSection>
 
-      {isHecoNetwork ? (
-        <>
-          <NodeTabs active={'staking-single'} />
-          <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
-            <PoolSection>
-              {stakingList?.length === 0
-                ? t('No active staking')
-                : stakingList?.map(stakingInfo => {
-                    return <PoolCard key={stakingInfo.period} stakingInfo={stakingInfo} />
-                  })}
-            </PoolSection>
-          </AutoColumn>
-        </>
-      ) : (
-        <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
-          <PoolSection>{t('Please connect to HECO Network')}</PoolSection>
-          <PoolSection>
-            {t('Node is only available on HECO. Switch your network to HECO Mainnet to view Staking LP and DAO.')}
-          </PoolSection>
-        </AutoColumn>
-      )}
+      <NodeTabs active={'staking-single'} />
+
+      <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
+        <PoolSection>
+          {stakingList[currentChainId]?.length === 0
+            ? t('No active staking')
+            : stakingList[currentChainId]?.map(stakingInfo => {
+                return <PoolCard key={stakingInfo.period} stakingInfo={stakingInfo} />
+              })}
+        </PoolSection>
+      </AutoColumn>
     </PageWrapper>
   )
 }

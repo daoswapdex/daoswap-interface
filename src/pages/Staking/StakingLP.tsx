@@ -7,7 +7,8 @@ import { CardSection, DataCard, CardNoise, CardBGImage } from './styled'
 import { useTranslation } from 'react-i18next'
 import PoolCard from '../../components/staking/PoolCardForLP'
 import { NodeTabs } from '../../components/NavigationTabs/node'
-// import { useActiveWeb3React } from '../../hooks'
+import { useActiveWeb3React } from '../../hooks'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -30,79 +31,108 @@ const PoolSection = styled.div`
 
 export default function StakingLP() {
   const { t } = useTranslation()
-  // const { account } = useActiveWeb3React()
+  const { chainId, account } = useActiveWeb3React()
 
   // // TODO: is display staking rewards info list for specical address
-  // const whiteList = [
-  //   '0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B',
-  //   '0xBdB9BD48CDCF075D66f81f083b9Ab618a0530c31',
-  //   '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de'
-  // ]
-  // const inWhiteList = whiteList.filter(item => item.toLowerCase() === account?.toLowerCase())
-
-  const stakingList: any[] = [
-    {
-      period: 6,
-      name: 'StakingLPPeriod6',
-      capAmount: 300000,
-      apr: 112,
-      aprDAO: 0,
-      aprDST: 112,
-      openStatus: true,
-      display: 'normal'
-      // display: inWhiteList.length > 0 ? 'normal' : 'none'
-    },
-    {
-      period: 5,
-      name: 'StakingLPPeriod5',
-      capAmount: 300000,
-      apr: 114,
-      aprDAO: 34.2,
-      aprDST: 79.8,
-      openStatus: false,
-      display: 'normal'
-    },
-    {
-      period: 4,
-      name: 'StakingLPPeriod4',
-      capAmount: 300000,
-      apr: 116,
-      aprDAO: 34.8,
-      aprDST: 81.2,
-      openStatus: false,
-      display: 'normal'
-    },
-    {
-      period: 3,
-      name: 'StakingLPPeriod3',
-      capAmount: 400000,
-      apr: 116,
-      aprDAO: 58,
-      aprDST: 58,
-      openStatus: false,
-      display: 'normal'
-    },
-    {
-      period: 2,
-      name: 'StakingLPPeriod2',
-      capAmount: 400000,
-      apr: 118,
-      aprDAO: 59,
-      aprDST: 59,
-      openStatus: false,
-      display: 'normal'
-    },
-    {
-      period: 1,
-      name: 'StakingLPPeriod1',
-      capAmount: 500000,
-      apr: 120,
-      aprDAO: 60,
-      aprDST: 60,
-      openStatus: false,
-      display: 'normal'
-    }
+  const whiteList = [
+    '0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B',
+    '0xBdB9BD48CDCF075D66f81f083b9Ab618a0530c31',
+    '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de',
+    '0x9b1d0c9c1aE96011776e6786b4Efe884665918D2'
   ]
+  const inWhiteList = whiteList.filter(item => item.toLowerCase() === account?.toLowerCase())
+
+  const stakingList: {
+    [chainId in ChainId]?: any[]
+  } = {
+    [ChainId.BSC_MAINNET]: [
+      {
+        period: 1,
+        domain: 'staking.bsc.daoswap.cc',
+        name: 'StakingLPPeriod1',
+        capAmount: 100000,
+        apr: 102,
+        aprDAO: 0,
+        aprDST: 102,
+        openStatus: true,
+        // display: 'normal'
+        display: inWhiteList.length > 0 ? 'normal' : 'none'
+      }
+    ],
+    [ChainId.BSC_TESTNET]: [],
+    [ChainId.HECO_MAINNET]: [
+      {
+        period: 6,
+        domain: 'staking.heco.daoswap.cc',
+        name: 'StakingLPPeriod6',
+        capAmount: 300000,
+        apr: 112,
+        aprDAO: 0,
+        aprDST: 112,
+        openStatus: false,
+        display: 'normal'
+        // display: inWhiteList.length > 0 ? 'normal' : 'none'
+      },
+      {
+        period: 5,
+        domain: 'staking.heco.daoswap.cc',
+        name: 'StakingLPPeriod5',
+        capAmount: 300000,
+        apr: 114,
+        aprDAO: 34.2,
+        aprDST: 79.8,
+        openStatus: false,
+        display: 'normal'
+      },
+      {
+        period: 4,
+        domain: 'staking.heco.daoswap.cc',
+        name: 'StakingLPPeriod4',
+        capAmount: 300000,
+        apr: 116,
+        aprDAO: 34.8,
+        aprDST: 81.2,
+        openStatus: false,
+        display: 'normal'
+      },
+      {
+        period: 3,
+        domain: 'staking.heco.daoswap.cc',
+        name: 'StakingLPPeriod3',
+        capAmount: 400000,
+        apr: 116,
+        aprDAO: 58,
+        aprDST: 58,
+        openStatus: false,
+        display: 'normal'
+      },
+      {
+        period: 2,
+        domain: 'staking.heco.daoswap.cc',
+        name: 'StakingLPPeriod2',
+        capAmount: 400000,
+        apr: 118,
+        aprDAO: 59,
+        aprDST: 59,
+        openStatus: false,
+        display: 'normal'
+      },
+      {
+        period: 1,
+        domain: 'staking.heco.daoswap.cc',
+        name: 'StakingLPPeriod1',
+        capAmount: 500000,
+        apr: 120,
+        aprDAO: 60,
+        aprDST: 60,
+        openStatus: false,
+        display: 'normal'
+      }
+    ],
+    [ChainId.HECO_TESTNET]: []
+  }
+
+  const currentChainId = chainId ? chainId : ChainId.BSC_MAINNET
 
   return (
     <PageWrapper gap="lg" justify="center">
@@ -133,9 +163,9 @@ export default function StakingLP() {
 
       <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
         <PoolSection>
-          {stakingList?.length === 0
+          {stakingList[currentChainId]?.length === 0
             ? t('No active staking')
-            : stakingList?.map(stakingInfo => {
+            : stakingList[currentChainId]?.map(stakingInfo => {
                 return <PoolCard key={stakingInfo.period} stakingInfo={stakingInfo} />
               })}
         </PoolSection>

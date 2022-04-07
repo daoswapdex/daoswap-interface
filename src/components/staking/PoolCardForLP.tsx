@@ -114,7 +114,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: any }) {
       <>
         <BottomSection showBackground={true}>
           <StyledLink
-            href={stakingInfo.openStatus ? `https://staking.heco.daoswap.cc/staking/lp/${stakingInfo.period}` : ''}
+            href={stakingInfo.openStatus ? `https://${stakingInfo.domain}/staking/lp/${stakingInfo.period}` : ''}
             style={{ width: '100%' }}
           >
             <ButtonPrimary padding="8px" borderRadius="8px" disabled={!stakingInfo.openStatus}>
@@ -124,7 +124,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: any }) {
         </BottomSection>
         <BottomSection showBackground={true} style={{ textAlign: 'center', paddingTop: 0 }}>
           <StyledLink
-            href={`https://staking.heco.daoswap.cc/staking/lp/${stakingInfo.period}/history`}
+            href={`https://${stakingInfo.domain}/staking/lp/${stakingInfo.period}/history`}
             style={{ width: '100%' }}
           >
             {t('Stake History')}
