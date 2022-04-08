@@ -16,6 +16,7 @@ import ERC20_ABI from '../constants/abis/erc20.json'
 import { MIGRATOR_ABI, MIGRATOR_ADDRESS } from '../constants/abis/migrator'
 import UNISOCKS_ABI from '../constants/abis/unisocks.json'
 import WETH_ABI from '../constants/abis/weth.json'
+import STAKING_RECORD_ABI from '../constants/abis/staking-record.json'
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall'
 import { V1_EXCHANGE_ABI, V1_FACTORY_ABI, V1_FACTORY_ADDRESSES } from '../constants/v1'
 import { getContract } from '../utils'
@@ -102,6 +103,13 @@ export function useMulticallContract(): Contract | null {
 
 export function useStakingContract(stakingAddress?: string, withSignerIfPossible?: boolean): Contract | null {
   return useContract(stakingAddress, STAKING_REWARDS_ABI, withSignerIfPossible)
+}
+
+export function useHecoStakingRecordContract(
+  stakingRecordAddress?: string,
+  withSignerIfPossible?: boolean
+): Contract | null {
+  return useContract(stakingRecordAddress, STAKING_RECORD_ABI, withSignerIfPossible)
 }
 
 export function useSocksController(): Contract | null {

@@ -14,14 +14,19 @@ import {
   USDT_DAO_STAKING_REWARDS_ADDRESS,
   NODE_TYPE_STELLAR_MIN_USD_VALUE,
   NODE_TYPE_PLANETARY_MIN_USD_VALUE,
-  STAKING_LIMIT_FOR_LP_CONTRACT_ADDRESS
+  STAKING_LIMIT_FOR_LP_CONTRACT_ADDRESS,
+  HECO_STAKING_RECORD_CONTRACT_ADDRESS
 } from '../../constants/nodeInfo'
 import { useTokenBalance } from '../../state/wallet/hooks'
-import { useMultipleContractSingleData, useSingleContractMultipleData } from '../../state/multicall/hooks'
+import {
+  useMultipleContractSingleData,
+  useSingleContractMultipleData,
+  useSingleCallResult
+} from '../../state/multicall/hooks'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { STAKING_LP_INTERFACE } from '../../constants/abis/staking-lp'
 import QuestionHelper from '../QuestionHelper'
-import { useTokenContract } from '../../hooks/useContract'
+import { useTokenContract, useHecoStakingRecordContract } from '../../hooks/useContract'
 
 const EmptyProposals = styled.div`
   border: 1px solid ${({ theme }) => theme.text4};
@@ -39,15 +44,50 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
   const { account, chainId } = useActiveWeb3React()
   // const account = '0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2'
 
-  const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
+  const isMainNetwork = chainId === ChainId.BSC_MAINNET || chainId === ChainId.HECO_MAINNET
+  const isHecoNetwork = chainId === ChainId.HECO_MAINNET
+  const currentChainId = chainId ? chainId : ChainId.BSC_MAINNET
 
   // Node Info Get
+  const accountArg = useMemo(() => [account ?? undefined], [account])
+  // get heco staking record contract
+  let userHecoStakingRecordStakingAmount = JSBI.BigInt(0)
+  const HECO_STAKING_RECORD_CONTRACT = useHecoStakingRecordContract(HECO_STAKING_RECORD_CONTRACT_ADDRESS, true)
+  let hecoStakingRecordVestingTokenArray: string[] = []
+  const hecoStakingRecordVestingTokenList = useSingleCallResult(
+    HECO_STAKING_RECORD_CONTRACT,
+    'getVestingTokenList',
+    accountArg
+  )?.result?.[0]
+  if (hecoStakingRecordVestingTokenList && hecoStakingRecordVestingTokenList.length > 0) {
+    hecoStakingRecordVestingTokenList.map((item: string) => {
+      hecoStakingRecordVestingTokenArray = hecoStakingRecordVestingTokenArray.concat(item)
+      return item
+    })
+  }
+  const stakingRecordVestingInfoList = useSingleContractMultipleData(
+    HECO_STAKING_RECORD_CONTRACT,
+    'getVestingTokenInfo',
+    hecoStakingRecordVestingTokenArray.map(address => [address])
+  )
+  if (stakingRecordVestingInfoList.length > 0) {
+    stakingRecordVestingInfoList.map(vestingInfo => {
+      userHecoStakingRecordStakingAmount = JSBI.add(
+        userHecoStakingRecordStakingAmount,
+        JSBI.BigInt(vestingInfo?.result?.[0]?.stakingAmount ?? 0)
+      )
+      return vestingInfo
+    })
+  }
   // get usdt-dao pair balance in pool
   let nodeTypePairLiquidityToken = undefined
   useMemo(
     () =>
       pairs.map(pair => {
-        if (USDT_DAO_PAIR_ADDRESS.toLowerCase().trim() === pair.liquidityToken.address.toLowerCase().trim()) {
+        if (
+          USDT_DAO_PAIR_ADDRESS[currentChainId].toLowerCase().trim() ===
+          pair.liquidityToken.address.toLowerCase().trim()
+        ) {
           // eslint-disable-next-line react-hooks/exhaustive-deps
           nodeTypePairLiquidityToken = pair.liquidityToken
           return pair
@@ -58,9 +98,7 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
     [pairs, nodeTypePairLiquidityToken]
   )
   const userPoolBalance = useTokenBalance(account ?? undefined, nodeTypePairLiquidityToken)
-  const userPoolBalanceNumber = JSBI.BigInt(userPoolBalance ? userPoolBalance.raw.toString() : 0)
-  // get usdt-dao balance in DAO Liquidity pool
-  const accountArg = useMemo(() => [account ?? undefined], [account])
+  const userPoolBalanceNumber = JSBI.BigInt(userPoolBalance && isHecoNetwork ? userPoolBalance.raw.toString() : 0)
   // get all the info from the staking rewards contracts
   const balances = useMultipleContractSingleData(
     USDT_DAO_STAKING_REWARDS_ADDRESS,
@@ -78,7 +116,7 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
   // get all the info from the staking lp contracts
   let tokenVestingAddressListArray: string[] = []
   const tokenVestingAddressList = useMultipleContractSingleData(
-    STAKING_LIMIT_FOR_LP_CONTRACT_ADDRESS,
+    STAKING_LIMIT_FOR_LP_CONTRACT_ADDRESS[currentChainId],
     STAKING_LP_INTERFACE,
     'getTokenVestingAddressByAccount',
     accountArg
@@ -92,7 +130,7 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
     })
   }
   let userLiquidityPoolOfStakingLP = JSBI.BigInt(0)
-  const USDT_DAO_TOKEN_CONTRACT = useTokenContract(USDT_DAO_PAIR_ADDRESS, true)
+  const USDT_DAO_TOKEN_CONTRACT = useTokenContract(USDT_DAO_PAIR_ADDRESS[currentChainId], true)
   const tokenVestingBalances = useSingleContractMultipleData(
     USDT_DAO_TOKEN_CONTRACT,
     'balanceOf',
@@ -107,8 +145,8 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
   }
   // judge node type
   const userLiquidityPoolBalance = JSBI.add(
-    JSBI.add(userPoolBalanceNumber, userLiquidityPoolBalanceNumber),
-    userLiquidityPoolOfStakingLP
+    JSBI.add(JSBI.add(userPoolBalanceNumber, userLiquidityPoolBalanceNumber), userLiquidityPoolOfStakingLP),
+    userHecoStakingRecordStakingAmount
   )
   let NodeTypeName = 'None'
   if (JSBI.greaterThanOrEqual(userLiquidityPoolBalance, NODE_TYPE_STELLAR_MIN_USD_VALUE)) {
@@ -125,7 +163,7 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
       <EmptyProposals>
         <RowBetween>
           <TYPE.body color={theme.text3} textAlign="left">
-            {isHecoNetwork
+            {isMainNetwork
               ? t('Node Type') + ':' + t(`NodeType ${NodeTypeName}`)
               : t(
                   'Nodes are temporarily subject to USDT/DAO liquidity on the HECO chain, and subsequent DAO synchronization after cross-chain.'

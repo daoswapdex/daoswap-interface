@@ -37,6 +37,8 @@ export default function StakingLP() {
   const whiteList = [
     '0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B',
     '0xBdB9BD48CDCF075D66f81f083b9Ab618a0530c31',
+    '0x415854D1459755Fa8ef1Bb1c723434C2DBcB8798',
+    '0x821F15fbe2A24c0645e5d2767F2F2e707951F46a',
     '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de',
     '0x9b1d0c9c1aE96011776e6786b4Efe884665918D2'
   ]
@@ -71,7 +73,6 @@ export default function StakingLP() {
         aprDST: 112,
         openStatus: false,
         display: 'normal'
-        // display: inWhiteList.length > 0 ? 'normal' : 'none'
       },
       {
         period: 5,
