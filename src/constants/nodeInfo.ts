@@ -2,7 +2,7 @@ import { ChainId, JSBI } from '@daoswapdex/daoswap-dex-sdk'
 
 // Node Type
 export const USDT_DAO_PAIR_ADDRESS = {
-  [ChainId.BSC_MAINNET]: '0x1dbCac9E084A25d542893B14128a5910dF43a6b7',
+  [ChainId.BSC_MAINNET]: '0x69217cF12bD760D6eA850A128646b21F7A61EE07',
   [ChainId.BSC_TESTNET]: '',
   [ChainId.HECO_MAINNET]: '0x1dbCac9E084A25d542893B14128a5910dF43a6b7',
   [ChainId.HECO_TESTNET]: ''
