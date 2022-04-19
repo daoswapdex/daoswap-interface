@@ -22,6 +22,7 @@ const WETH_ONLY: ChainTokenList = {
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   ...WETH_ONLY,
+  [ChainId.BSC_MAINNET]: [...WETH_ONLY[ChainId.BSC_MAINNET], USDC[ChainId.BSC_MAINNET], USDT[ChainId.BSC_MAINNET]],
   [ChainId.HECO_MAINNET]: [...WETH_ONLY[ChainId.HECO_MAINNET], USDC[ChainId.HECO_MAINNET], USDT[ChainId.HECO_MAINNET]]
 }
 
@@ -30,22 +31,26 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
  * tokens.
  */
 export const CUSTOM_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: Token[] } } = {
+  [ChainId.BSC_MAINNET]: {},
   [ChainId.HECO_MAINNET]: {}
 }
 
 // used for display in the default list when adding liquidity
 export const SUGGESTED_BASES: ChainTokenList = {
   ...WETH_ONLY,
+  [ChainId.BSC_MAINNET]: [...WETH_ONLY[ChainId.BSC_MAINNET], USDC[ChainId.BSC_MAINNET], USDT[ChainId.BSC_MAINNET]],
   [ChainId.HECO_MAINNET]: [...WETH_ONLY[ChainId.HECO_MAINNET], USDC[ChainId.HECO_MAINNET], USDT[ChainId.HECO_MAINNET]]
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   ...WETH_ONLY,
+  [ChainId.BSC_MAINNET]: [...WETH_ONLY[ChainId.BSC_MAINNET], USDC[ChainId.BSC_MAINNET], USDT[ChainId.BSC_MAINNET]],
   [ChainId.HECO_MAINNET]: [...WETH_ONLY[ChainId.HECO_MAINNET], USDC[ChainId.HECO_MAINNET], USDT[ChainId.HECO_MAINNET]]
 }
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
+  [ChainId.BSC_MAINNET]: [[USDC[ChainId.BSC_MAINNET], USDT[ChainId.BSC_MAINNET]]],
   [ChainId.HECO_MAINNET]: [[USDC[ChainId.HECO_MAINNET], USDT[ChainId.HECO_MAINNET]]],
   [ChainId.HECO_TESTNET]: [[USDC[ChainId.HECO_TESTNET], USDT[ChainId.HECO_TESTNET]]]
 }
