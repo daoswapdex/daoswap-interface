@@ -70,6 +70,7 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
     'getVestingTokenInfo',
     hecoStakingRecordVestingTokenArray.map(address => [address])
   )
+  // TODO: 这里需要判断是否到了结束日期，用end与当前时间戳比较
   if (stakingRecordVestingInfoList.length > 0) {
     stakingRecordVestingInfoList.map(vestingInfo => {
       userHecoStakingRecordStakingAmount = JSBI.add(
