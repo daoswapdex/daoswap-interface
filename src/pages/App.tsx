@@ -23,6 +23,8 @@ import EarnHistory2 from './EarnHistory2'
 import EarnHistory3 from './EarnHistory3'
 import EarnHistory4 from './EarnHistory4'
 import EarnHistory5 from './EarnHistory5'
+import EarnHistory6 from './EarnHistory6'
+import EarnHistoryBsc1 from './EarnHistoryBsc1'
 import Manage from './Earn/Manage'
 import EarnInnovationManage1 from './EarnInnovation/Manage1'
 import EarnInnovationManage2 from './EarnInnovation/Manage2'
@@ -31,6 +33,8 @@ import ManageHistory2 from './EarnHistory2/Manage'
 import ManageHistory3 from './EarnHistory3/Manage'
 import ManageHistory4 from './EarnHistory4/Manage'
 import ManageHistory5 from './EarnHistory5/Manage'
+import ManageHistory6 from './EarnHistory6/Manage'
+import ManageHistoryBsc1 from './EarnHistoryBsc1/Manage'
 import MigrateV1 from './MigrateV1'
 import MigrateV1Exchange from './MigrateV1/MigrateV1Exchange'
 import RemoveV1Exchange from './MigrateV1/RemoveV1Exchange'
@@ -109,6 +113,8 @@ export default function App() {
               <Route exact strict path="/dao-history-3" component={EarnHistory3} />
               <Route exact strict path="/dao-history-4" component={EarnHistory4} />
               <Route exact strict path="/dao-history-5" component={EarnHistory5} />
+              <Route exact strict path="/dao-history-6" component={EarnHistory6} />
+              <Route exact strict path="/dao-history-bsc-1" component={EarnHistoryBsc1} />
               <Route exact strict path="/create" component={RedirectToAddLiquidity} />
               <Route exact path="/add" component={AddLiquidity} />
               <Route exact path="/add/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
@@ -139,6 +145,8 @@ export default function App() {
               <Route exact strict path="/dao-history-3/:currencyIdA/:currencyIdB" component={ManageHistory3} />
               <Route exact strict path="/dao-history-4/:currencyIdA/:currencyIdB" component={ManageHistory4} />
               <Route exact strict path="/dao-history-5/:currencyIdA/:currencyIdB" component={ManageHistory5} />
+              <Route exact strict path="/dao-history-6/:currencyIdA/:currencyIdB" component={ManageHistory6} />
+              <Route exact strict path="/dao-history-bsc-1/:currencyIdA/:currencyIdB" component={ManageHistoryBsc1} />
               <Route exact strict path="/governace" component={Governace} />
               <Route exact strict path="/staking-lp" component={StakingLP} />
               <Route exact strict path="/staking-single" component={StakingSingle} />

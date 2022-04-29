@@ -55,7 +55,7 @@ export default function StakingSingle() {
         apr: 58,
         aprDAO: 17.4,
         aprDST: 40.6,
-        openStatus: true,
+        openStatus: false,
         display: 'normal'
         // display: inWhiteList.length > 0 ? 'normal' : 'none'
       },

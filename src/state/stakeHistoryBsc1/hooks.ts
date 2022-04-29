@@ -1,7 +1,7 @@
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { DAO, DAT, DST, USDT, ETH, FIL, BTCB, DTC1, DTC2 } from '../../constants/tokensInfo'
+import { DAO, USDT, ETH, FIL, UNI, LTC, DOT, LINK, BTCB, BNB, XRP, ETC } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -9,22 +9,10 @@ import { tryParseAmount } from '../swap/hooks'
 import { useTranslation } from 'react-i18next'
 
 // TODO:Daoswap Start Time
-// export const STAKING_GENESIS = 1649221200
-export const STAKING_GENESIS = {
-  [ChainId.BSC_MAINNET]: 1651201200,
-  [ChainId.BSC_TESTNET]: 1649221200,
-  [ChainId.HECO_MAINNET]: 1648004400,
-  [ChainId.HECO_TESTNET]: 1648004400
-}
+export const STAKING_GENESIS = 1649221200 // 1635351300
 
 // TODO:Daoswap Rewards Duration : unit - day
-// export const REWARDS_DURATION_DAYS = 14
-export const REWARDS_DURATION_DAYS = {
-  [ChainId.BSC_MAINNET]: 14,
-  [ChainId.BSC_TESTNET]: 14,
-  [ChainId.HECO_MAINNET]: 28,
-  [ChainId.HECO_TESTNET]: 28
-}
+export const REWARDS_DURATION_DAYS = 14
 
 // TODO add staking rewards addresses here
 export const STAKING_REWARDS_INFO: {
@@ -36,40 +24,47 @@ export const STAKING_REWARDS_INFO: {
   [ChainId.BSC_MAINNET]: [
     {
       tokens: [USDT[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xed537020CC5E69c5B14560b4E0988B0152851828'
+      stakingRewardAddress: '0x0A09Da13B9845808DE4C32a57d6E082Bb3450f96'
     },
     {
       tokens: [USDT[ChainId.BSC_MAINNET], ETH[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x1A91530DCc9bb88d75F47699a148Fc9f3D495Ae9'
+      stakingRewardAddress: '0x5b9cBc2C963f623428a80506BE16d044D50a2C30'
     },
     {
       tokens: [USDT[ChainId.BSC_MAINNET], FIL[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x6Ae1AE59e5E2C45cFBd89D40154e19D858a0Fd66'
+      stakingRewardAddress: '0x4431e21632016De87125F6858CADbb432f3b071e'
+    },
+    {
+      tokens: [USDT[ChainId.BSC_MAINNET], UNI[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0x5d457B55d14F773501813296B714FA4982293B6A'
     },
     {
       tokens: [USDT[ChainId.BSC_MAINNET], BTCB[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x8aFBeACbA978fEaD9dB7b5465806354144B63e71'
+      stakingRewardAddress: '0xE79Da290Bd685AEEAFF8019EB6216304065428b4'
     },
     {
-      tokens: [ETH[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xbF35a06AC18bC3412b3456E9b387402E0a0AF39B'
+      tokens: [USDT[ChainId.BSC_MAINNET], BNB[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0x7eDBA3947997DF1ec041264B03C51DF479b2A535'
     },
     {
-      tokens: [FIL[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x70b2857A24E9727Fac4c1EF0aa42405F4bB776d7'
-    }
-  ],
-  [ChainId.HECO_MAINNET]: [],
-  [ChainId.BSC_TESTNET]: [
+      tokens: [USDT[ChainId.BSC_MAINNET], LINK[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0xA9dD703B51449B6c6DF6a115d35B5932C971675f'
+    },
     {
-      tokens: [DAT[ChainId.BSC_TESTNET], DST[ChainId.BSC_TESTNET]],
-      stakingRewardAddress: '0x064919FdFA8522B6d0F539ab5132541fcc234854'
-    }
-  ],
-  [ChainId.HECO_TESTNET]: [
+      tokens: [USDT[ChainId.BSC_MAINNET], DOT[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0xD627c333B45cCAE1aFBb71bC8c9eaF00b237ef8E'
+    },
     {
-      tokens: [DTC1[ChainId.HECO_TESTNET], DTC2[ChainId.HECO_TESTNET]],
-      stakingRewardAddress: '0x749652688D86904233e10ab2c1190257E5e45819'
+      tokens: [USDT[ChainId.BSC_MAINNET], LTC[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0x159be5f7f07720C669ED26dEFD93Cbb5c767D992'
+    },
+    {
+      tokens: [USDT[ChainId.BSC_MAINNET], XRP[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0x58Ba184Cdb2CFbf933253EFDBeB281bd100DCD6c'
+    },
+    {
+      tokens: [USDT[ChainId.BSC_MAINNET], ETC[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0x7df8ca7f57815Bd6c488b8Dd452610D5a33B23ba'
     }
   ]
 }
@@ -105,10 +100,18 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const { chainId, account } = useActiveWeb3React()
 
   // TODO: is display staking rewards info list for specical address
-  // const whiteList = ['0x1a178E91FEB5444953e246FA94a2d4404E0b3713', '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de']
+  // const whiteList = [
+  //   '0x70FBf5E00a67aAaD3146cE4B017CbbaB4202a7CC',
+  //   '0x415854D1459755Fa8ef1Bb1c723434C2DBcB8798',
+  //   '0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2',
+  //   '0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B',
+  //   '0x87363b840fDfbd53dA62692214d8B9255d737652',
+  //   '0xE603dF2377bf9cF35Fb4bB5d0cD8D48f5b041F49',
+  //   '0x9b1d0c9c1aE96011776e6786b4Efe884665918D2'
+  // ]
   // const inWhiteList = whiteList.filter(item => item === account)
   // if (inWhiteList.length <= 0) {
-  //   STAKING_REWARDS_INFO[56] = []
+  //   STAKING_REWARDS_INFO[chainId ? chainId : 128] = []
   // }
 
   const info = useMemo(
