@@ -166,7 +166,7 @@ const ListRow = memo(function ListRow({ listUrl, onBack }: { listUrl: string; on
             fontSize={16}
             style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
           >
-            {list.name}
+            {t(list.name)}
           </Text>
         </Row>
         <Row

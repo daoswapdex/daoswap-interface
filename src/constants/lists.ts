@@ -1,8 +1,4 @@
 // the Uniswap Default token list lives here
-// export const DEFAULT_TOKEN_LIST_URL = 'tokens.uniswap.eth'
-export const DEFAULT_TOKEN_LIST_URL = 'https://tokenlists.daoswap.cc/daoswap.tokenlist-all.json'
+export const DEFAULT_TOKEN_LIST_URL = 'https://tokenlists.daoswap.cc/daoswap.json'
 
-export const DEFAULT_LIST_OF_LISTS: string[] = [
-  DEFAULT_TOKEN_LIST_URL,
-  'https://tokenlists.daoswap.cc/daoswap.tokenlist-all.json'
-]
+export const DEFAULT_LIST_OF_LISTS: string[] = [DEFAULT_TOKEN_LIST_URL, 'https://tokenlists.daoswap.cc/innovation.json']
