@@ -38,6 +38,10 @@ const STAKING_REWARDS_HISTORY: {
   [ChainId.BSC_MAINNET]: [
     {
       type: 'dao-history-bsc',
+      period: 2
+    },
+    {
+      type: 'dao-history-bsc',
       period: 1
     }
   ],

@@ -96,24 +96,18 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
               )}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('Collection address.')}{' '}
+              {t('Collection address 1.')}{' '}
               <StyledLink href={'https://www.daoswap.cc/task-6'}>https://www.daoswap.cc/task-6</StyledLink>
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('Collection address 2.')}{' '}
+              <StyledLink href={'https://bsc.www.daoswap.cc/task-6'}>https://bsc.www.daoswap.cc/task-6</StyledLink>
             </Text>
           </Text>
           <Text fontWeight={500} fontSize={14} margin={10}>
-            {t('4, Hask and Competitive Mining#58;')}
+            {t('4, Hask Mining#58;')}
             <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('The 10th period of Hash and Competition Mining has ended on April 1, 2022 at 11#58;00.')}
-            </Text>
-            <Text fontWeight={500} fontSize={14} margin={10}>
-              {t(
-                'DAOSWAP will suspend the Hash & Competition Mining during the BSC cross-chain from April 1, please pay attention to the opening time in the BSC chain.'
-              )}
-            </Text>
-            <Text fontWeight={500} fontSize={14} margin={10}>
-              {t(
-                'The number of single coin pledges will also continue to count towards the count. The new part of the arithmetic value is calculated at 200%, and the unincreased or reduced arithmetic remains unchanged at 100% statistics.'
-              )}
+              {t('The hash mining has been started on the BSC chain, please continue to pay attention.')}
             </Text>
           </Text>
         </AutoColumn>
