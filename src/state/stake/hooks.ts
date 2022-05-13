@@ -1,7 +1,7 @@
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { DAO, DAT, DST, USDT, ETH, FIL, BTCB, DTC1, DTC2 } from '../../constants/tokensInfo'
+import { DAO, DST, USDT, ETH, FIL, BTCB, DTC1, DTC2 } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 // export const STAKING_GENESIS = 1649221200
 export const STAKING_GENESIS = {
   [ChainId.BSC_MAINNET]: 1651201200,
-  [ChainId.BSC_TESTNET]: 1649221200,
+  [ChainId.BSC_TESTNET]: 1652082000,
   [ChainId.HECO_MAINNET]: 1648004400,
   [ChainId.HECO_TESTNET]: 1648004400
 }
@@ -62,8 +62,8 @@ export const STAKING_REWARDS_INFO: {
   [ChainId.HECO_MAINNET]: [],
   [ChainId.BSC_TESTNET]: [
     {
-      tokens: [DAT[ChainId.BSC_TESTNET], DST[ChainId.BSC_TESTNET]],
-      stakingRewardAddress: '0x064919FdFA8522B6d0F539ab5132541fcc234854'
+      tokens: [DAO[ChainId.BSC_TESTNET], DST[ChainId.BSC_TESTNET]],
+      stakingRewardAddress: '0x03db99dd5016AAf6cfd3FBC277664FB20eE027C2'
     }
   ],
   [ChainId.HECO_TESTNET]: [
