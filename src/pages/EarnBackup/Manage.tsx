@@ -11,12 +11,12 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import { TYPE } from '../../theme'
 
 import { RowBetween } from '../../components/Row'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
+import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earnBackup/styled'
 import { ButtonPrimary, ButtonEmpty } from '../../components/Button'
-import StakingModal from '../../components/earn/StakingModal'
-import { useStakingInfo } from '../../state/stake/hooks'
-import UnstakingModal from '../../components/earn/UnstakingModal'
-import ClaimRewardModal from '../../components/earn/ClaimRewardModal'
+import StakingModal from '../../components/earnBackup/StakingModal'
+import { useStakingInfo } from '../../state/stakeBackup/hooks'
+import UnstakingModal from '../../components/earnBackup/UnstakingModal'
+import ClaimRewardModal from '../../components/earnBackup/ClaimRewardModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { useColor } from '../../hooks/useColor'
@@ -100,6 +100,8 @@ export default function Manage({
   const [currencyA, currencyB] = [useCurrency(currencyIdA), useCurrency(currencyIdB)]
   const tokenA = wrappedCurrency(currencyA ?? undefined, chainId)
   const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
+  const currencySymbolA = currencyA === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currencyA?.symbol
+  const currencySymbolB = currencyB === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currencyB?.symbol
 
   const [, stakingTokenPair] = usePair(tokenA, tokenB)
   const stakingInfo = useStakingInfo(stakingTokenPair)?.[0]
@@ -159,7 +161,7 @@ export default function Manage({
     <PageWrapper gap="lg" justify="center">
       <RowBetween style={{ gap: '24px' }}>
         <TYPE.mediumHeader style={{ margin: 0 }}>
-          {currencyA?.symbol}-{currencyB?.symbol} {t('Liquidity Mining')}
+          {currencySymbolA}-{currencySymbolB} {t('Liquidity Mining')}
         </TYPE.mediumHeader>
         <DoubleCurrencyLogo currency0={currencyA ?? undefined} currency1={currencyB ?? undefined} size={24} />
       </RowBetween>
@@ -201,9 +203,11 @@ export default function Manage({
               </RowBetween>
               <RowBetween style={{ marginBottom: '1rem' }}>
                 <TYPE.white fontSize={14}>
-                  {`${t("DLT LP tokens are required. Once you've added liquidity to the")} ${currencyA?.symbol}-${
-                    currencyB?.symbol
-                  } ${t('pool you can stake your liquidity tokens on this page.')}`}
+                  {`${t(
+                    "DLT LP tokens are required. Once you've added liquidity to the"
+                  )} ${currencySymbolA}-${currencySymbolB} ${t(
+                    'pool you can stake your liquidity tokens on this page.'
+                  )}`}
                 </TYPE.white>
               </RowBetween>
               <ButtonPrimary
@@ -213,7 +217,7 @@ export default function Manage({
                 to={`/add/${currencyA && currencyId(chainId, currencyA)}/${currencyB &&
                   currencyId(chainId, currencyB)}`}
               >
-                {`${t('Add')} ${currencyA?.symbol}-${currencyB?.symbol} ${t('liquidity')}`}
+                {`${t('Add')} ${currencySymbolA}-${currencySymbolB} ${t('liquidity')}`}
               </ButtonPrimary>
             </AutoColumn>
           </CardSection>
@@ -261,7 +265,7 @@ export default function Manage({
                 </RowBetween>
                 <RowBetween style={{ alignItems: 'baseline' }}>
                   <TYPE.white>
-                    {currencyA?.symbol}-{currencyB?.symbol}
+                    {currencySymbolA}-{currencySymbolB}
                   </TYPE.white>
                 </RowBetween>
               </AutoColumn>
@@ -273,9 +277,8 @@ export default function Manage({
             <AutoColumn gap="sm">
               <RowBetween>
                 <div>
-                  <TYPE.black>
-                    {t('Your unclaimed')} {stakingInfo?.rewardsTokenSymbol}
-                  </TYPE.black>
+                  {/* // TODO:Daoswap UNI -> DAO */}
+                  <TYPE.black>{t('Your unclaimed DAO')}</TYPE.black>
                 </div>
                 {stakingInfo?.earnedAmount && JSBI.notEqual(BIG_INT_ZERO, stakingInfo?.earnedAmount?.raw) && (
                   <ButtonEmpty
@@ -316,12 +319,13 @@ export default function Manage({
             </AutoColumn>
           </StyledBottomCard>
         </BottomSection>
-        {/* <TYPE.main style={{ textAlign: 'center' }} fontSize={14}>
+        <TYPE.main style={{ textAlign: 'center' }} fontSize={14}>
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
+          {/* // TODO:Daoswap UNI -> DAO */}
           {t('When you withdraw, the contract will automagically claim DAO on your behalf!')}
-        </TYPE.main> */}
+        </TYPE.main>
 
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem' }}>

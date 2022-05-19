@@ -571,6 +571,37 @@ export const FSS: TokenMap = {
   )
 }
 
+export const ADA: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47',
+    18,
+    'ADA',
+    'Binance-Peg Cardano Token'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47',
+    18,
+    'ADA',
+    'Binance-Peg Cardano Token'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47',
+    18,
+    'ADA',
+    'Binance-Peg Cardano Token'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47',
+    18,
+    'ADA',
+    'Binance-Peg Cardano Token'
+  )
+}
+
 // 测试
 export const DTC1: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(

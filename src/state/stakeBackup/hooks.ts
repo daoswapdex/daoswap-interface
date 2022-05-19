@@ -1,89 +1,56 @@
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { DAO, USDT, ETH, FIL, BTCB, ADA } from '../../constants/tokensInfo'
+import { DAO, DST, DTC1, DTC2 } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
 import { tryParseAmount } from '../swap/hooks'
 import { useTranslation } from 'react-i18next'
 
+// TODO:Daoswap Start Time
+// export const STAKING_GENESIS = 1649221200
+export const STAKING_GENESIS = {
+  [ChainId.BSC_MAINNET]: 1651201200,
+  [ChainId.BSC_TESTNET]: 1652620800,
+  [ChainId.HECO_MAINNET]: 1648004400,
+  [ChainId.HECO_TESTNET]: 1648004400
+}
+
+// TODO:Daoswap Rewards Duration : unit - day
+// export const REWARDS_DURATION_DAYS = 14
+export const REWARDS_DURATION_DAYS = {
+  [ChainId.BSC_MAINNET]: 14,
+  [ChainId.BSC_TESTNET]: 14,
+  [ChainId.HECO_MAINNET]: 28,
+  [ChainId.HECO_TESTNET]: 28
+}
+
 // TODO add staking rewards addresses here
 export const STAKING_REWARDS_INFO: {
   [chainId in ChainId]?: {
-    period: number
-    stakingGenesis: number
-    rewardsDurationDays: number
-    rewardsTokenSymbol: string
     tokens: [Token, Token]
     stakingRewardAddress: string
   }[]
 } = {
-  [ChainId.BSC_MAINNET]: [
+  [ChainId.BSC_MAINNET]: [],
+  [ChainId.HECO_MAINNET]: [],
+  [ChainId.BSC_TESTNET]: [
     {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x98a4768E36DD0c7286fA9462fcb827B399D77F9D'
-    },
+      tokens: [DAO[ChainId.BSC_TESTNET], DST[ChainId.BSC_TESTNET]],
+      // stakingRewardAddress: '0x03db99dd5016AAf6cfd3FBC277664FB20eE027C2'
+      stakingRewardAddress: '0xb23EcD274B77C2d063BA19eff3fC05547761F129'
+    }
+  ],
+  [ChainId.HECO_TESTNET]: [
     {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], ETH[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xdC07CE87c82Be7C81665c440CfE784857F0f7746'
-    },
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], FIL[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x768e3481aB8674aE32499154ac31E3b5B81BbF09'
-    },
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], BTCB[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x2E337A8F567307f19718eCaD025Ace2083A96C00'
-    },
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [ETH[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xD5044c3B12D08C2F4ac61AC117aa0fD7c76a391d'
-    },
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [FIL[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xC7dB39d58c3369c7A367116aA3312f36505Fd251'
-    },
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 28,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], ADA[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x07Dd3a5650Adf1b0B64Dba299CAd9F7B2c1ACCFc'
+      tokens: [DTC1[ChainId.HECO_TESTNET], DTC2[ChainId.HECO_TESTNET]],
+      stakingRewardAddress: '0x749652688D86904233e10ab2c1190257E5e45819'
     }
   ]
 }
 
 export interface StakingInfo {
-  period: number
-  stakingGenesis: number
-  rewardsDurationDays: number
-  rewardsTokenSymbol: string
   // the address of the reward contract
   stakingRewardAddress: string
   // the tokens involved in this pair
@@ -114,7 +81,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const { chainId, account } = useActiveWeb3React()
 
   // TODO: is display staking rewards info list for specical address
-  // const whiteList = ['0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B', '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de']
+  // const whiteList = ['0x1a178E91FEB5444953e246FA94a2d4404E0b3713', '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de']
   // const inWhiteList = whiteList.filter(item => item === account)
   // if (inWhiteList.length <= 0) {
   //   STAKING_REWARDS_INFO[56] = []
@@ -226,10 +193,6 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
         const periodFinishMs = periodFinishState.result?.[0]?.mul(1000)?.toNumber()
 
         memo.push({
-          period: info[index].period,
-          stakingGenesis: info[index].stakingGenesis,
-          rewardsDurationDays: info[index].rewardsDurationDays,
-          rewardsTokenSymbol: info[index].rewardsTokenSymbol,
           stakingRewardAddress: rewardsAddress,
           tokens: info[index].tokens,
           periodFinish: periodFinishMs > 0 ? new Date(periodFinishMs) : undefined,

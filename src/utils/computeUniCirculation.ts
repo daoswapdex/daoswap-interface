@@ -1,6 +1,6 @@
 import { JSBI, Token, TokenAmount } from '@daoswapdex/daoswap-dex-sdk'
 import { BigNumber } from 'ethers'
-import { STAKING_GENESIS } from '../state/stake/hooks'
+import { STAKING_GENESIS } from '../state/stakeBackup/hooks'
 import { useActiveWeb3React } from '../hooks'
 import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 
@@ -60,6 +60,7 @@ export function computeUniCirculation(
 ): TokenAmount {
   let wholeAmount = JSBI.BigInt(USERS_AMOUNT)
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { chainId } = useActiveWeb3React()
   const currentChainId = chainId ? chainId : ChainId.BSC_MAINNET
 
