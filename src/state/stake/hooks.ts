@@ -75,6 +75,14 @@ export const STAKING_REWARDS_INFO: {
       rewardsTokenSymbol: 'DAO',
       tokens: [USDT[ChainId.BSC_MAINNET], ADA[ChainId.BSC_MAINNET]],
       stakingRewardAddress: '0x07Dd3a5650Adf1b0B64Dba299CAd9F7B2c1ACCFc'
+    },
+    {
+      period: 3,
+      stakingGenesis: 1653102000,
+      rewardsDurationDays: 28,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [BTCB[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0xE18753F0741B3d658Ee32744D7a77ed43E43AE18'
     }
   ]
 }
@@ -114,10 +122,16 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const { chainId, account } = useActiveWeb3React()
 
   // TODO: is display staking rewards info list for specical address
-  // const whiteList = ['0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B', '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de']
+  // const whiteList = [
+  //   '0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B',
+  //   '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de',
+  //   '0xCD4BBF4FB76d400Eab42B9e530BB98BC72fFC20E'
+  // ]
   // const inWhiteList = whiteList.filter(item => item === account)
   // if (inWhiteList.length <= 0) {
-  //   STAKING_REWARDS_INFO[56] = []
+  //   STAKING_REWARDS_INFO[56] = STAKING_REWARDS_INFO[56]?.filter(
+  //     stakingInfo => stakingInfo.stakingRewardAddress !== '0xE18753F0741B3d658Ee32744D7a77ed43E43AE18'
+  //   )
   // }
 
   const info = useMemo(

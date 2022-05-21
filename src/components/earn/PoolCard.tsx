@@ -15,6 +15,7 @@ import { useTotalSupply } from '../../data/TotalSupply'
 import { usePair } from '../../data/Reserves'
 import useUSDTPrice from '../../utils/useUSDTPrice'
 import { useTranslation } from 'react-i18next'
+import { useActiveWeb3React } from '../../hooks'
 
 import { Countdown } from '../../pages/Earn/Countdown'
 
@@ -78,11 +79,15 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
 // TODO:Daoswap UNI -> DAO
 export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
+
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
 
   const currency0 = unwrappedToken(token0)
   const currency1 = unwrappedToken(token1)
+  const currencySymbolA = currency0 === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currency0.symbol
+  const currencySymbolB = currency1 === ETHER && chainId ? CURRENCY_SYMBOL[chainId] : currency1.symbol
 
   const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
 
@@ -140,7 +145,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
       <TopSection>
         <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={24} />
         <TYPE.white fontWeight={600} fontSize={24} style={{ marginLeft: '8px' }}>
-          {currency0.symbol}-{currency1.symbol}
+          {currencySymbolA}-{currencySymbolB}
         </TYPE.white>
 
         <StyledInternalLink
