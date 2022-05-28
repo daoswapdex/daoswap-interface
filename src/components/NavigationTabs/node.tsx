@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { darken } from 'polished'
 import { useTranslation } from 'react-i18next'
+import { useActiveWeb3React } from '../../hooks'
+import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 import { NavLink } from 'react-router-dom'
 
 const Tabs = styled.div`
@@ -44,10 +46,14 @@ const StyledNavLink = styled(NavLink).attrs({
 
 export function NodeTabs({ active }: { active: 'staking-lp' | 'staking-single' }) {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
+
+  const isHecoNetwork = chainId === ChainId.HECO_MAINNET || chainId === ChainId.HECO_TESTNET
+
   return (
     <Tabs style={{ width: '100%' }}>
       <StyledNavLink id={`staking-lp-nav-link`} to={'/staking-lp'} isActive={() => active === 'staking-lp'}>
-        {t('Node Staking')}
+        {t(isHecoNetwork ? 'Bridge Staking' : 'Node Staking')}
       </StyledNavLink>
       <StyledNavLink id={`staking-single-nav-link`} to={'/staking-single'} isActive={() => active === 'staking-single'}>
         {t('DAO Staking')}

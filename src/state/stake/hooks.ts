@@ -1,7 +1,7 @@
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { DAO, USDT, ETH, FIL, BTCB, ADA } from '../../constants/tokensInfo'
+import { DAO, USDT, ETH, FIL, BTCB, ADA, DTC1, DTC2 } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -83,6 +83,16 @@ export const STAKING_REWARDS_INFO: {
       rewardsTokenSymbol: 'DAO',
       tokens: [BTCB[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
       stakingRewardAddress: '0xE18753F0741B3d658Ee32744D7a77ed43E43AE18'
+    }
+  ],
+  [ChainId.HECO_TESTNET]: [
+    {
+      period: 1,
+      stakingGenesis: 1653733200,
+      rewardsDurationDays: 28,
+      rewardsTokenSymbol: 'DST',
+      tokens: [DTC1[ChainId.HECO_TESTNET], DTC2[ChainId.HECO_TESTNET]],
+      stakingRewardAddress: '0xd193928D6D972b44feeE7D8992516aeA5391Dc9c'
     }
   ]
 }

@@ -142,7 +142,19 @@ export default function StakingLP() {
         display: 'normal'
       }
     ],
-    [ChainId.HECO_TESTNET]: []
+    [ChainId.HECO_TESTNET]: [
+      {
+        period: 1,
+        domain: 'test.staking.heco.daoswap.cc',
+        name: 'StakingLPPeriod1',
+        capAmount: 100000,
+        apr: 102,
+        aprDAO: 0,
+        aprDST: 102,
+        openStatus: true,
+        display: 'normal'
+      }
+    ]
   }
 
   const currentChainId = chainId ? chainId : ChainId.BSC_MAINNET
