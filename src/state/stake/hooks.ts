@@ -85,6 +85,48 @@ export const STAKING_REWARDS_INFO: {
       stakingRewardAddress: '0xE18753F0741B3d658Ee32744D7a77ed43E43AE18'
     }
   ],
+  [ChainId.HECO_MAINNET]: [
+    {
+      period: 7,
+      stakingGenesis: 1653793200,
+      rewardsDurationDays: 28,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x502ef7b6004719730Cbfc4962A3f068245483434'
+    },
+    {
+      period: 7,
+      stakingGenesis: 1653793200,
+      rewardsDurationDays: 28,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.HECO_MAINNET], ETH[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x0922f73BB5fCd272E0A17115917267A2827E4a63'
+    },
+    {
+      period: 7,
+      stakingGenesis: 1653793200,
+      rewardsDurationDays: 28,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.HECO_MAINNET], FIL[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0x29f0347C98b123afC2681be65e58a8E67795FE71'
+    },
+    {
+      period: 7,
+      stakingGenesis: 1653793200,
+      rewardsDurationDays: 28,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [ETH[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0xb989a7c3Caa066A13CA77B58bcF89829603E1520'
+    },
+    {
+      period: 7,
+      stakingGenesis: 1653793200,
+      rewardsDurationDays: 28,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [FIL[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
+      stakingRewardAddress: '0xf213bB9394Ac015229ce9E861EE5FBEE424753fd'
+    }
+  ],
   [ChainId.HECO_TESTNET]: [
     {
       period: 1,
@@ -132,17 +174,19 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const { chainId, account } = useActiveWeb3React()
 
   // TODO: is display staking rewards info list for specical address
-  // const whiteList = [
-  //   '0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B',
-  //   '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de',
-  //   '0xCD4BBF4FB76d400Eab42B9e530BB98BC72fFC20E'
-  // ]
-  // const inWhiteList = whiteList.filter(item => item === account)
-  // if (inWhiteList.length <= 0) {
-  //   STAKING_REWARDS_INFO[56] = STAKING_REWARDS_INFO[56]?.filter(
-  //     stakingInfo => stakingInfo.stakingRewardAddress !== '0xE18753F0741B3d658Ee32744D7a77ed43E43AE18'
-  //   )
-  // }
+  const whiteList = [
+    '0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B',
+    '0x70FBf5E00a67aAaD3146cE4B017CbbaB4202a7CC',
+    '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de',
+    '0x9b1d0c9c1aE96011776e6786b4Efe884665918D2'
+  ]
+  const inWhiteList = whiteList.filter(item => item === account)
+  if (inWhiteList.length <= 0) {
+    // STAKING_REWARDS_INFO[56] = STAKING_REWARDS_INFO[56]?.filter(
+    //   stakingInfo => stakingInfo.stakingRewardAddress !== '0xE18753F0741B3d658Ee32744D7a77ed43E43AE18'
+    // )
+    STAKING_REWARDS_INFO[ChainId.HECO_MAINNET] = []
+  }
 
   const info = useMemo(
     () =>
