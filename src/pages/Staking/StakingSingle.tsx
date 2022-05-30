@@ -45,7 +45,20 @@ export default function StakingSingle() {
     [chainId in ChainId]?: any[]
   } = {
     [ChainId.BSC_MAINNET]: [],
-    [ChainId.BSC_TESTNET]: [],
+    [ChainId.BSC_TESTNET]: [
+      {
+        period: 1,
+        domain: 'test.staking.bsc.daoswap.cc',
+        name: 'StakingDAOPeriod1',
+        capAmount: 500,
+        apr: 48,
+        aprDAO: 24,
+        aprDST: 24,
+        openStatus: true,
+        display: 'normal'
+        // display: inWhiteList.length > 0 ? 'normal' : 'none'
+      }
+    ],
     [ChainId.HECO_MAINNET]: [
       {
         period: 3,
