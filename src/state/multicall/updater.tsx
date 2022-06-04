@@ -30,7 +30,7 @@ async function fetchChunk(
   chunk: Call[],
   minBlockNumber: number
 ): Promise<{ results: string[]; blockNumber: number }> {
-  console.debug('Fetching chunk', multicallContract, chunk, minBlockNumber)
+  // console.debug('Fetching chunk', multicallContract, chunk, minBlockNumber)
   let resultsBlockNumber, returnData
   try {
     ;[resultsBlockNumber, returnData] = await multicallContract.aggregate(chunk.map(obj => [obj.address, obj.callData]))
@@ -39,7 +39,7 @@ async function fetchChunk(
     throw error
   }
   if (resultsBlockNumber.toNumber() < minBlockNumber) {
-    console.debug(`Fetched results for old block number: ${resultsBlockNumber.toString()} vs. ${minBlockNumber}`)
+    // console.debug(`Fetched results for old block number: ${resultsBlockNumber.toString()} vs. ${minBlockNumber}`)
     throw new RetryableError('Fetched for old block number')
   }
   return { results: returnData, blockNumber: resultsBlockNumber.toNumber() }
@@ -184,10 +184,10 @@ export default function Updater(): null {
           })
           .catch((error: any) => {
             if (error instanceof CancelledError) {
-              console.debug('Cancelled fetch for blockNumber', latestBlockNumber)
+              // console.debug('Cancelled fetch for blockNumber', latestBlockNumber)
               return
             }
-            console.error('Failed to fetch multicall chunk', chunk, chainId, error)
+            // console.error('Failed to fetch multicall chunk', chunk, chainId, error)
             dispatch(
               errorFetchingMulticallResults({
                 calls: chunk,

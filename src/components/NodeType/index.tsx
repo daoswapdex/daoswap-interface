@@ -11,7 +11,7 @@ import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
 
 import {
   USDT_DAO_PAIR_ADDRESS,
-  USDT_DAO_STAKING_REWARDS_ADDRESS,
+  // USDT_DAO_STAKING_REWARDS_ADDRESS,
   NODE_TYPE_STELLAR_MIN_USD_VALUE,
   NODE_TYPE_PLANETARY_MIN_USD_VALUE,
   STAKING_LIMIT_FOR_LP_CONTRACT_ADDRESS,
@@ -23,7 +23,7 @@ import {
   useSingleContractMultipleData,
   useSingleCallResult
 } from '../../state/multicall/hooks'
-import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
+// import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { STAKING_LP_INTERFACE } from '../../constants/abis/staking-lp'
 import QuestionHelper from '../QuestionHelper'
 import { useTokenContract, useHecoStakingRecordContract } from '../../hooks/useContract'
@@ -42,6 +42,7 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
   const { t } = useTranslation()
   const theme = useContext(ThemeContext)
   const { account, chainId } = useActiveWeb3React()
+  // const { chainId } = useActiveWeb3React()
   // const account = '0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2'
 
   const isMainNetwork = chainId === ChainId.BSC_MAINNET || chainId === ChainId.HECO_MAINNET
@@ -73,10 +74,14 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
   // TODO: 这里需要判断是否到了结束日期，用end与当前时间戳比较
   if (stakingRecordVestingInfoList.length > 0) {
     stakingRecordVestingInfoList.map(vestingInfo => {
-      userHecoStakingRecordStakingAmount = JSBI.add(
-        userHecoStakingRecordStakingAmount,
-        JSBI.BigInt(vestingInfo?.result?.[0]?.stakingAmount ?? 0)
-      )
+      const nowDate = parseInt((new Date().getTime() / 1000).toString()) //当前时间
+      const endDate = vestingInfo?.result?.[0]?.end?.toString()
+      if (endDate > nowDate) {
+        userHecoStakingRecordStakingAmount = JSBI.add(
+          userHecoStakingRecordStakingAmount,
+          JSBI.BigInt(vestingInfo?.result?.[0]?.stakingAmount ?? 0)
+        )
+      }
       return vestingInfo
     })
   }
@@ -101,19 +106,19 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
   const userPoolBalance = useTokenBalance(account ?? undefined, nodeTypePairLiquidityToken)
   const userPoolBalanceNumber = JSBI.BigInt(userPoolBalance && isHecoNetwork ? userPoolBalance.raw.toString() : 0)
   // get all the info from the staking rewards contracts
-  const balances = useMultipleContractSingleData(
-    USDT_DAO_STAKING_REWARDS_ADDRESS,
-    STAKING_REWARDS_INTERFACE,
-    'balanceOf',
-    accountArg
-  )
-  let userLiquidityPoolBalanceNumber = JSBI.BigInt(0)
-  if (balances.length > 0) {
-    balances.map(balance => {
-      userLiquidityPoolBalanceNumber = JSBI.add(userLiquidityPoolBalanceNumber, JSBI.BigInt(balance?.result?.[0] ?? 0))
-      return balance
-    })
-  }
+  // const balances = useMultipleContractSingleData(
+  //   USDT_DAO_STAKING_REWARDS_ADDRESS,
+  //   STAKING_REWARDS_INTERFACE,
+  //   'balanceOf',
+  //   accountArg
+  // )
+  // let userLiquidityPoolBalanceNumber = JSBI.BigInt(0)
+  // if (balances.length > 0) {
+  //   balances.map(balance => {
+  //     userLiquidityPoolBalanceNumber = JSBI.add(userLiquidityPoolBalanceNumber, JSBI.BigInt(balance?.result?.[0] ?? 0))
+  //     return balance
+  //   })
+  // }
   // get all the info from the staking lp contracts
   let tokenVestingAddressListArray: string[] = []
   const tokenVestingAddressList = useMultipleContractSingleData(
@@ -146,7 +151,7 @@ export function NodeType({ pairs }: { pairs: Pair[] }) {
   }
   // judge node type
   const userLiquidityPoolBalance = JSBI.add(
-    JSBI.add(JSBI.add(userPoolBalanceNumber, userLiquidityPoolBalanceNumber), userLiquidityPoolOfStakingLP),
+    JSBI.add(userPoolBalanceNumber, userLiquidityPoolOfStakingLP),
     userHecoStakingRecordStakingAmount
   )
   let NodeTypeName = 'None'
