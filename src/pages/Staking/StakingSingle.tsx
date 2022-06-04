@@ -33,18 +33,33 @@ export default function StakingSingle() {
   const { t } = useTranslation()
   const { chainId } = useActiveWeb3React()
 
-  // // TODO: is display staking rewards info list for specical address
+  // TODO: is display staking rewards info list for specical address
   // const whiteList = [
   //   '0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B',
   //   '0xBdB9BD48CDCF075D66f81f083b9Ab618a0530c31',
-  //   '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de'
+  //   '0x70FBf5E00a67aAaD3146cE4B017CbbaB4202a7CC',
+  //   '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de',
+  //   '0x9b1d0c9c1aE96011776e6786b4Efe884665918D2'
   // ]
   // const inWhiteList = whiteList.filter(item => item.toLowerCase() === account?.toLowerCase())
 
   const stakingList: {
     [chainId in ChainId]?: any[]
   } = {
-    [ChainId.BSC_MAINNET]: [],
+    [ChainId.BSC_MAINNET]: [
+      {
+        period: 1,
+        domain: 'staking.bsc.daoswap.cc',
+        name: 'StakingDAOPeriod1',
+        capAmount: 100000,
+        apr: 38,
+        aprDAO: 19,
+        aprDST: 19,
+        openStatus: true,
+        display: 'normal'
+        // display: inWhiteList.length > 0 ? 'normal' : 'none'
+      }
+    ],
     [ChainId.BSC_TESTNET]: [
       {
         period: 1,
