@@ -145,7 +145,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
       <TopSection>
         <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={24} />
         <TYPE.white fontWeight={600} fontSize={24} style={{ marginLeft: '8px' }}>
-          {currencySymbolA}-{currencySymbolB}
+          {currencySymbolA}-{currencySymbolB}-{stakingInfo.period}
         </TYPE.white>
 
         <StyledInternalLink
