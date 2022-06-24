@@ -29,6 +29,7 @@ import EarnHistoryBsc2 from './EarnHistoryBsc2'
 import Manage from './Earn/Manage'
 import EarnInnovationManage1 from './EarnInnovation/Manage1'
 import EarnInnovationManage2 from './EarnInnovation/Manage2'
+import ManageHistory from './EarnHistory/Manage'
 import ManageHistory1 from './EarnHistory1/Manage'
 import ManageHistory2 from './EarnHistory2/Manage'
 import ManageHistory3 from './EarnHistory3/Manage'
@@ -143,6 +144,7 @@ export default function App() {
                 path="/dao-innovation-2/:currencyIdA/:currencyIdB"
                 component={EarnInnovationManage2}
               />
+              <Route exact strict path="/dao-history/:period/:currencyIdA/:currencyIdB" component={ManageHistory} />
               <Route exact strict path="/dao-history-1/:currencyIdA/:currencyIdB" component={ManageHistory1} />
               <Route exact strict path="/dao-history-2/:currencyIdA/:currencyIdB" component={ManageHistory2} />
               <Route exact strict path="/dao-history-3/:currencyIdA/:currencyIdB" component={ManageHistory3} />
