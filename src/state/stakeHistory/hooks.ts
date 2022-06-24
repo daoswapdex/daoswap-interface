@@ -17,7 +17,8 @@ import {
   LINK,
   BNB,
   XRP,
-  ETC
+  ETC,
+  ADA
 } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
@@ -37,6 +38,22 @@ export const STAKING_REWARDS_INFO: {
   }[]
 } = {
   [ChainId.BSC_MAINNET]: [
+    {
+      period: 3,
+      stakingGenesis: 1652929200,
+      rewardsDurationDays: 28,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.BSC_MAINNET], ADA[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0x07Dd3a5650Adf1b0B64Dba299CAd9F7B2c1ACCFc'
+    },
+    {
+      period: 3,
+      stakingGenesis: 1653102000,
+      rewardsDurationDays: 28,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [BTCB[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0xE18753F0741B3d658Ee32744D7a77ed43E43AE18'
+    },
     {
       period: 2,
       stakingGenesis: 1651201200,
