@@ -1,7 +1,7 @@
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { DAO, USDT, ETH, FIL, BTCB, DTC1, DTC2 } from '../../constants/tokensInfo'
+import { DAO, USDT, ETH, FIL, BTCB, ETC, LTC, XRP, DOT, LINK, ADA, DTC1, DTC2 } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
@@ -20,6 +20,72 @@ export const STAKING_REWARDS_INFO: {
   }[]
 } = {
   [ChainId.BSC_MAINNET]: [
+    // period 4
+    {
+      period: 4,
+      stakingGenesis: 1656212400,
+      rewardsDurationDays: 58,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.BSC_MAINNET], ETC[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0xbDe3C93c53a9Ac0d23fa2EAF67cAce3ed8A2b701'
+    },
+    {
+      period: 4,
+      stakingGenesis: 1656212400,
+      rewardsDurationDays: 58,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.BSC_MAINNET], LTC[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0x583732c283d9375F284a4410e8e19EEfc58D900D'
+    },
+    {
+      period: 4,
+      stakingGenesis: 1656212400,
+      rewardsDurationDays: 58,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.BSC_MAINNET], XRP[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0xB0e6d0dab0dCe89d6869dFF9De9648947d72960C'
+    },
+    {
+      period: 4,
+      stakingGenesis: 1656212400,
+      rewardsDurationDays: 58,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.BSC_MAINNET], DOT[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0x8ec8DDdB47B334d0fDaeDa6cfC54FEA4142c086D'
+    },
+    {
+      period: 4,
+      stakingGenesis: 1656212400,
+      rewardsDurationDays: 58,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.BSC_MAINNET], LINK[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0xe4A5629A73ec4387826962d407c146AfB3A644D9'
+    },
+    {
+      period: 4,
+      stakingGenesis: 1656212400,
+      rewardsDurationDays: 58,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [USDT[ChainId.BSC_MAINNET], ADA[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0xEbE9417b6e2d8FcA3b7c51611a86330B93e44a19'
+    },
+    {
+      period: 4,
+      stakingGenesis: 1656212400,
+      rewardsDurationDays: 58,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [DAO[ChainId.BSC_MAINNET], ADA[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0x8933a6530C68BeD3677e7BdF39B0BF03519bcD4e'
+    },
+    {
+      period: 4,
+      stakingGenesis: 1656212400,
+      rewardsDurationDays: 58,
+      rewardsTokenSymbol: 'DAO',
+      tokens: [DAO[ChainId.BSC_MAINNET], BTCB[ChainId.BSC_MAINNET]],
+      stakingRewardAddress: '0x9C82AbfcB8cd5F79Aa5aAa8B9a22f0366119dbaA'
+    },
+    // period 3
     {
       period: 3,
       stakingGenesis: 1652929200,
@@ -166,10 +232,18 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   // ]
   // const inWhiteList = whiteList.filter(item => item === account)
   // if (inWhiteList.length <= 0) {
-  //   // STAKING_REWARDS_INFO[56] = STAKING_REWARDS_INFO[56]?.filter(
-  //   //   stakingInfo => stakingInfo.stakingRewardAddress !== '0xE18753F0741B3d658Ee32744D7a77ed43E43AE18'
-  //   // )
-  //   STAKING_REWARDS_INFO[ChainId.HECO_MAINNET] = []
+  //   STAKING_REWARDS_INFO[ChainId.BSC_MAINNET] = STAKING_REWARDS_INFO[ChainId.BSC_MAINNET]?.filter(
+  //     stakingInfo => stakingInfo.period !== 4
+  //     // stakingInfo.stakingRewardAddress !== '0x000000000000001' &&
+  //     // stakingInfo.stakingRewardAddress !== '0x000000000000002' &&
+  //     // stakingInfo.stakingRewardAddress !== '0x000000000000003' &&
+  //     // stakingInfo.stakingRewardAddress !== '0x000000000000004' &&
+  //     // stakingInfo.stakingRewardAddress !== '0x000000000000005' &&
+  //     // stakingInfo.stakingRewardAddress !== '0x000000000000006' &&
+  //     // stakingInfo.stakingRewardAddress !== '0x000000000000007' &&
+  //     // stakingInfo.stakingRewardAddress !== '0x000000000000008'
+  //   )
+  //   // STAKING_REWARDS_INFO[ChainId.HECO_MAINNET] = []
   // }
 
   const info = useMemo(
