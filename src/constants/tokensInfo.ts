@@ -59,7 +59,7 @@ export const DAT: TokenMap = {
 export const DST: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(
     ChainId.BSC_MAINNET,
-    '0xd04808F83419776Cc85b7a1cf516a6dEeaA66F0D',
+    '0xC2ed68A614760BFE65e932329199d2F703219B8C',
     18,
     'DST',
     'DST : DAO staking Credential'
