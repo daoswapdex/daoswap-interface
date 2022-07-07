@@ -1,12 +1,15 @@
 import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@daoswapdex/daoswap-dex-sdk'
 import { useMemo } from 'react'
 // TODO:Daoswap ERC20
-import { DAO, USDT, ETH, FIL, BTCB, ETC, LTC, XRP, DOT, LINK, ADA, DTC1, DTC2 } from '../../constants/tokensInfo'
+import { DAO } from '../../constants/tokensInfo'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
 import { useActiveWeb3React } from '../../hooks'
 import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
 import { tryParseAmount } from '../swap/hooks'
 import { useTranslation } from 'react-i18next'
+
+import { stakingRewardsInfo as stakingRewardsInfoBSCMainnet } from './bsc-mainnet'
+import { stakingRewardsInfo as stakingRewardsInfoHecoMainnet } from './heco-mainnet'
 
 // TODO add staking rewards addresses here
 export const STAKING_REWARDS_INFO: {
@@ -19,174 +22,18 @@ export const STAKING_REWARDS_INFO: {
     stakingRewardAddress: string
   }[]
 } = {
-  [ChainId.BSC_MAINNET]: [
-    // period 4
-    {
-      period: 4,
-      stakingGenesis: 1656212400,
-      rewardsDurationDays: 58,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], ETC[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xbDe3C93c53a9Ac0d23fa2EAF67cAce3ed8A2b701'
-    },
-    {
-      period: 4,
-      stakingGenesis: 1656212400,
-      rewardsDurationDays: 58,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], LTC[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x583732c283d9375F284a4410e8e19EEfc58D900D'
-    },
-    {
-      period: 4,
-      stakingGenesis: 1656212400,
-      rewardsDurationDays: 58,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], XRP[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xB0e6d0dab0dCe89d6869dFF9De9648947d72960C'
-    },
-    {
-      period: 4,
-      stakingGenesis: 1656212400,
-      rewardsDurationDays: 58,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], DOT[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x8ec8DDdB47B334d0fDaeDa6cfC54FEA4142c086D'
-    },
-    {
-      period: 4,
-      stakingGenesis: 1656212400,
-      rewardsDurationDays: 58,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], LINK[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xe4A5629A73ec4387826962d407c146AfB3A644D9'
-    },
-    {
-      period: 4,
-      stakingGenesis: 1656212400,
-      rewardsDurationDays: 58,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], ADA[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xEbE9417b6e2d8FcA3b7c51611a86330B93e44a19'
-    },
-    {
-      period: 4,
-      stakingGenesis: 1656212400,
-      rewardsDurationDays: 58,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [DAO[ChainId.BSC_MAINNET], ADA[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x8933a6530C68BeD3677e7BdF39B0BF03519bcD4e'
-    },
-    {
-      period: 4,
-      stakingGenesis: 1656212400,
-      rewardsDurationDays: 58,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [DAO[ChainId.BSC_MAINNET], BTCB[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x9C82AbfcB8cd5F79Aa5aAa8B9a22f0366119dbaA'
-    },
-    // period 3
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x98a4768E36DD0c7286fA9462fcb827B399D77F9D'
-    },
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], ETH[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xdC07CE87c82Be7C81665c440CfE784857F0f7746'
-    },
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], FIL[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x768e3481aB8674aE32499154ac31E3b5B81BbF09'
-    },
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.BSC_MAINNET], BTCB[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0x2E337A8F567307f19718eCaD025Ace2083A96C00'
-    },
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [ETH[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xD5044c3B12D08C2F4ac61AC117aa0fD7c76a391d'
-    },
-    {
-      period: 3,
-      stakingGenesis: 1652929200,
-      rewardsDurationDays: 56,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [FIL[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-      stakingRewardAddress: '0xC7dB39d58c3369c7A367116aA3312f36505Fd251'
-    }
-  ],
-  [ChainId.HECO_MAINNET]: [
-    {
-      period: 7,
-      stakingGenesis: 1653793200,
-      rewardsDurationDays: 28,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
-      stakingRewardAddress: '0x502ef7b6004719730Cbfc4962A3f068245483434'
-    },
-    {
-      period: 7,
-      stakingGenesis: 1653793200,
-      rewardsDurationDays: 28,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.HECO_MAINNET], ETH[ChainId.HECO_MAINNET]],
-      stakingRewardAddress: '0x0922f73BB5fCd272E0A17115917267A2827E4a63'
-    },
-    {
-      period: 7,
-      stakingGenesis: 1653793200,
-      rewardsDurationDays: 28,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [USDT[ChainId.HECO_MAINNET], FIL[ChainId.HECO_MAINNET]],
-      stakingRewardAddress: '0x29f0347C98b123afC2681be65e58a8E67795FE71'
-    },
-    {
-      period: 7,
-      stakingGenesis: 1653793200,
-      rewardsDurationDays: 28,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [ETH[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
-      stakingRewardAddress: '0xb989a7c3Caa066A13CA77B58bcF89829603E1520'
-    },
-    {
-      period: 7,
-      stakingGenesis: 1653793200,
-      rewardsDurationDays: 28,
-      rewardsTokenSymbol: 'DAO',
-      tokens: [FIL[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
-      stakingRewardAddress: '0xf213bB9394Ac015229ce9E861EE5FBEE424753fd'
-    }
-  ],
-  [ChainId.HECO_TESTNET]: [
-    {
-      period: 1,
-      stakingGenesis: 1653733200,
-      rewardsDurationDays: 28,
-      rewardsTokenSymbol: 'DST',
-      tokens: [DTC1[ChainId.HECO_TESTNET], DTC2[ChainId.HECO_TESTNET]],
-      stakingRewardAddress: '0xd193928D6D972b44feeE7D8992516aeA5391Dc9c'
-    }
-  ]
+  [ChainId.BSC_MAINNET]: stakingRewardsInfoBSCMainnet,
+  [ChainId.HECO_MAINNET]: stakingRewardsInfoHecoMainnet
+  // [ChainId.HECO_TESTNET]: [
+  //   {
+  //     period: 1,
+  //     stakingGenesis: 1653733200,
+  //     rewardsDurationDays: 28,
+  //     rewardsTokenSymbol: 'DST',
+  //     tokens: [DTC1[ChainId.HECO_TESTNET], DTC2[ChainId.HECO_TESTNET]],
+  //     stakingRewardAddress: '0xd193928D6D972b44feeE7D8992516aeA5391Dc9c'
+  //   }
+  // ]
 }
 
 export interface StakingInfo {
