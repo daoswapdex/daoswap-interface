@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { BookOpen, Info, MessageCircle, PieChart, Link, Gift, Layers, DollarSign } from 'react-feather'
+import { BookOpen, Info, MessageCircle, PieChart, Link, Gift, Layers, DollarSign, Key } from 'react-feather'
 import styled from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
@@ -69,7 +69,7 @@ const MenuFlyout = styled.span<{ isHecoNetwork: boolean }>`
   z-index: 100;
 
   ${({ theme }) => theme.mediaWidth.upToMedium<{ isHecoNetwork: boolean }>`
-    top: ${({ isHecoNetwork }) => (isHecoNetwork ? '-21.25rem' : '-11.75rem')};
+    top: ${({ isHecoNetwork }) => (isHecoNetwork ? '-21.25rem' : '-14.00rem')};
   `};
 `
 
@@ -177,6 +177,15 @@ export default function Menu() {
           >
             <DollarSign size={14} />
             {t('Fee')}
+          </MenuItemHref>
+          <MenuItemHref
+            id="link"
+            href="https://activities.daoswap.cc"
+            target="_self"
+            style={{ display: isHecoNetwork ? 'none' : 'flex' }}
+          >
+            <Key size={14} />
+            {t('DAO2022')}
           </MenuItemHref>
         </MenuFlyout>
       )}
