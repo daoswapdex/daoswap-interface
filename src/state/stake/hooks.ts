@@ -71,27 +71,27 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const { chainId, account } = useActiveWeb3React()
 
   // TODO: is display staking rewards info list for specical address
-  // const whiteList = [
-  //   '0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B',
-  //   '0x70FBf5E00a67aAaD3146cE4B017CbbaB4202a7CC',
-  //   '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de',
-  //   '0x9b1d0c9c1aE96011776e6786b4Efe884665918D2'
-  // ]
-  // const inWhiteList = whiteList.filter(item => item === account)
-  // if (inWhiteList.length <= 0) {
-  //   STAKING_REWARDS_INFO[ChainId.BSC_MAINNET] = STAKING_REWARDS_INFO[ChainId.BSC_MAINNET]?.filter(
-  //     stakingInfo => stakingInfo.period !== 5
-  //     // stakingInfo.stakingRewardAddress !== '0x000000000000001' &&
-  //     // stakingInfo.stakingRewardAddress !== '0x000000000000002' &&
-  //     // stakingInfo.stakingRewardAddress !== '0x000000000000003' &&
-  //     // stakingInfo.stakingRewardAddress !== '0x000000000000004' &&
-  //     // stakingInfo.stakingRewardAddress !== '0x000000000000005' &&
-  //     // stakingInfo.stakingRewardAddress !== '0x000000000000006' &&
-  //     // stakingInfo.stakingRewardAddress !== '0x000000000000007' &&
-  //     // stakingInfo.stakingRewardAddress !== '0x000000000000008'
-  //   )
-  //   // STAKING_REWARDS_INFO[ChainId.HECO_MAINNET] = []
-  // }
+  const whiteList = [
+    '0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B',
+    '0x70FBf5E00a67aAaD3146cE4B017CbbaB4202a7CC',
+    '0xa9bB710996d6ed61B83a5EAB583bAe683199c2de',
+    '0x9b1d0c9c1aE96011776e6786b4Efe884665918D2'
+  ]
+  const inWhiteList = whiteList.filter(item => item === account)
+  if (inWhiteList.length <= 0) {
+    STAKING_REWARDS_INFO[ChainId.BSC_MAINNET] = STAKING_REWARDS_INFO[ChainId.BSC_MAINNET]?.filter(
+      // stakingInfo => stakingInfo.period !== 5
+      stakingInfo => stakingInfo.stakingRewardAddress !== '0x5Fb9D05027E29B36F46E805d31E34cE84CE055cd'
+      // stakingInfo.stakingRewardAddress !== '0x000000000000002' &&
+      // stakingInfo.stakingRewardAddress !== '0x000000000000003' &&
+      // stakingInfo.stakingRewardAddress !== '0x000000000000004' &&
+      // stakingInfo.stakingRewardAddress !== '0x000000000000005' &&
+      // stakingInfo.stakingRewardAddress !== '0x000000000000006' &&
+      // stakingInfo.stakingRewardAddress !== '0x000000000000007' &&
+      // stakingInfo.stakingRewardAddress !== '0x000000000000008'
+    )
+    // STAKING_REWARDS_INFO[ChainId.HECO_MAINNET] = []
+  }
 
   const info = useMemo(
     () =>
