@@ -80,7 +80,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   // const inWhiteList = whiteList.filter(item => item === account)
   // if (inWhiteList.length <= 0) {
   //   STAKING_REWARDS_INFO[ChainId.BSC_MAINNET] = STAKING_REWARDS_INFO[ChainId.BSC_MAINNET]?.filter(
-  //     stakingInfo => stakingInfo.period !== 4
+  //     stakingInfo => stakingInfo.period !== 5
   //     // stakingInfo.stakingRewardAddress !== '0x000000000000001' &&
   //     // stakingInfo.stakingRewardAddress !== '0x000000000000002' &&
   //     // stakingInfo.stakingRewardAddress !== '0x000000000000003' &&

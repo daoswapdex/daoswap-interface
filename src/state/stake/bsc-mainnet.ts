@@ -1,6 +1,6 @@
 import { ChainId, Token } from '@daoswapdex/daoswap-dex-sdk'
 // TODO:Daoswap ERC20
-import { DAO, USDT, ETH, FIL, BTCB, ETC, LTC, XRP, DOT, LINK, ADA } from '../../constants/tokensInfo'
+import { DAO, USDT, ETH, FIL, BTCB, ETC, UNI, LTC, XRP, DOT, LINK, ADA } from '../../constants/tokensInfo'
 
 interface StakingRewardsInfo {
   period: number
@@ -10,6 +10,82 @@ interface StakingRewardsInfo {
   tokens: [Token, Token]
   stakingRewardAddress: string
 }
+
+const Period5: StakingRewardsInfo[] = [
+  // period 5
+  {
+    period: 5,
+    stakingGenesis: 1658026800,
+    rewardsDurationDays: 56,
+    rewardsTokenSymbol: 'DAO',
+    tokens: [USDT[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
+    stakingRewardAddress: '0xa13dB19b5EFfAF9Fd3E4ea4b34D5Ee31ce627Bfb'
+  },
+  {
+    period: 5,
+    stakingGenesis: 1658026800,
+    rewardsDurationDays: 56,
+    rewardsTokenSymbol: 'DAO',
+    tokens: [USDT[ChainId.BSC_MAINNET], ETH[ChainId.BSC_MAINNET]],
+    stakingRewardAddress: '0xBb5E342f977B2EDDaaa8a7d3a06fD2b26412Df98'
+  },
+  {
+    period: 5,
+    stakingGenesis: 1658026800,
+    rewardsDurationDays: 56,
+    rewardsTokenSymbol: 'DAO',
+    tokens: [USDT[ChainId.BSC_MAINNET], BTCB[ChainId.BSC_MAINNET]],
+    stakingRewardAddress: '0x195Cc45aA44c77e522A02c2AD9D17bC8D2Ca0477'
+  },
+  {
+    period: 5,
+    stakingGenesis: 1658026800,
+    rewardsDurationDays: 56,
+    rewardsTokenSymbol: 'DAO',
+    tokens: [USDT[ChainId.BSC_MAINNET], FIL[ChainId.BSC_MAINNET]],
+    stakingRewardAddress: '0xA10BfAaDa421c002849e9985df8250c105aFBb00'
+  },
+  {
+    period: 5,
+    stakingGenesis: 1658026800,
+    rewardsDurationDays: 56,
+    rewardsTokenSymbol: 'DAO',
+    tokens: [USDT[ChainId.BSC_MAINNET], UNI[ChainId.BSC_MAINNET]],
+    stakingRewardAddress: '0xc508E53C32CBEdd7ae1634F18cb72A0D245c8797'
+  },
+  {
+    period: 5,
+    stakingGenesis: 1658026800,
+    rewardsDurationDays: 56,
+    rewardsTokenSymbol: 'DAO',
+    tokens: [USDT[ChainId.BSC_MAINNET], DOT[ChainId.BSC_MAINNET]],
+    stakingRewardAddress: '0x5Fb9D05027E29B36F46E805d31E34cE84CE055cd'
+  },
+  {
+    period: 5,
+    stakingGenesis: 1658026800,
+    rewardsDurationDays: 56,
+    rewardsTokenSymbol: 'DAO',
+    tokens: [ETH[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
+    stakingRewardAddress: '0x72F46Fa7Fb4BB0c89f9AF3aD8bb5bAbD7Db14146'
+  },
+  {
+    period: 5,
+    stakingGenesis: 1658026800,
+    rewardsDurationDays: 56,
+    rewardsTokenSymbol: 'DAO',
+    tokens: [ETH[ChainId.BSC_MAINNET], BTCB[ChainId.BSC_MAINNET]],
+    stakingRewardAddress: '0x3E0DB512277096f80F4b3941324F12bd40D30629'
+  },
+  {
+    period: 5,
+    stakingGenesis: 1658026800,
+    rewardsDurationDays: 56,
+    rewardsTokenSymbol: 'DAO',
+    tokens: [FIL[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
+    stakingRewardAddress: '0x4E087976bFECC5067AB978C85F9B8d1ea3885be5'
+  }
+]
 
 const Period4: StakingRewardsInfo[] = [
   // period 4
@@ -79,56 +155,4 @@ const Period4: StakingRewardsInfo[] = [
   }
 ]
 
-const Period3: StakingRewardsInfo[] = [
-  // period 3
-  {
-    period: 3,
-    stakingGenesis: 1652929200,
-    rewardsDurationDays: 56,
-    rewardsTokenSymbol: 'DAO',
-    tokens: [USDT[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-    stakingRewardAddress: '0x98a4768E36DD0c7286fA9462fcb827B399D77F9D'
-  },
-  {
-    period: 3,
-    stakingGenesis: 1652929200,
-    rewardsDurationDays: 56,
-    rewardsTokenSymbol: 'DAO',
-    tokens: [USDT[ChainId.BSC_MAINNET], ETH[ChainId.BSC_MAINNET]],
-    stakingRewardAddress: '0xdC07CE87c82Be7C81665c440CfE784857F0f7746'
-  },
-  {
-    period: 3,
-    stakingGenesis: 1652929200,
-    rewardsDurationDays: 56,
-    rewardsTokenSymbol: 'DAO',
-    tokens: [USDT[ChainId.BSC_MAINNET], FIL[ChainId.BSC_MAINNET]],
-    stakingRewardAddress: '0x768e3481aB8674aE32499154ac31E3b5B81BbF09'
-  },
-  {
-    period: 3,
-    stakingGenesis: 1652929200,
-    rewardsDurationDays: 56,
-    rewardsTokenSymbol: 'DAO',
-    tokens: [USDT[ChainId.BSC_MAINNET], BTCB[ChainId.BSC_MAINNET]],
-    stakingRewardAddress: '0x2E337A8F567307f19718eCaD025Ace2083A96C00'
-  },
-  {
-    period: 3,
-    stakingGenesis: 1652929200,
-    rewardsDurationDays: 56,
-    rewardsTokenSymbol: 'DAO',
-    tokens: [ETH[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-    stakingRewardAddress: '0xD5044c3B12D08C2F4ac61AC117aa0fD7c76a391d'
-  },
-  {
-    period: 3,
-    stakingGenesis: 1652929200,
-    rewardsDurationDays: 56,
-    rewardsTokenSymbol: 'DAO',
-    tokens: [FIL[ChainId.BSC_MAINNET], DAO[ChainId.BSC_MAINNET]],
-    stakingRewardAddress: '0xC7dB39d58c3369c7A367116aA3312f36505Fd251'
-  }
-]
-
-export const stakingRewardsInfo: StakingRewardsInfo[] = Period4.concat(Period3)
+export const stakingRewardsInfo: StakingRewardsInfo[] = Period5.concat(Period4)

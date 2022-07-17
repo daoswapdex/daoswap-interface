@@ -149,7 +149,10 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
         </TYPE.white>
 
         <StyledInternalLink
-          to={`/dao/${currencyId(token0.chainId, currency0)}/${currencyId(token0.chainId, currency1)}`}
+          to={`/dao/${stakingInfo.period}/${currencyId(token0.chainId, currency0)}/${currencyId(
+            token0.chainId,
+            currency1
+          )}`}
           style={{ width: '100%' }}
         >
           <ButtonPrimary padding="8px" borderRadius="8px">

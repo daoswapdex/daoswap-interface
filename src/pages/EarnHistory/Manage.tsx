@@ -103,7 +103,14 @@ export default function Manage({
 
   const [, stakingTokenPair] = usePair(tokenA, tokenB)
   const stakingPairList = useStakingInfo(stakingTokenPair)
-  const currentIndex = stakingPairList.length - parseInt(period)
+  const periodList: number[] = []
+  stakingPairList.map(item => {
+    periodList.push(item.period)
+    return item.stakingRewardAddress
+  })
+  const currentIndex = periodList.findIndex(value => {
+    return value === parseInt(period)
+  })
   const stakingInfo = stakingPairList?.[currentIndex > 0 ? currentIndex : 0]
 
   // detect existing unstaked LP position to show add button if none found
