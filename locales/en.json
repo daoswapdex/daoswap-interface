@@ -467,7 +467,7 @@
   "It will be opened on January 23rd, 2022 at 11#58;00 am.": "It will be opened on January 23rd, 2022 at 11:00 am.",
   "The fourth node pledge with a cap of 300,000 and an annualized rate of 116% (30% DAO, 70% DST)": "The fourth node pledge with a cap of 300,000 and an annualized rate of 116% (30% DAO, 70% DST)",
   "Phase 3 single coin pledge, cap 100,000, 58% annualized rate (30% DAO, 70% DST)": "Phase 3 single coin pledge, cap 100,000, 58% annualized rate (30% DAO, 70% DST)",
-  "3, Task 6.": "3, Task 6.",
+  "2, Task 6.": "2, Task 6.",
   "Starting with the 5th period of arithmetic and competitive mining, perform task 6#58; reward the number of new nodes within the team according to the team of node identity wallet address (except for existing Genesis and seed nodes.)": "Starting with the 5th period of arithmetic and competitive mining, perform task 6: reward the number of new nodes within the team according to the team of node identity wallet address (except for existing Genesis and seed nodes.)",
   "Task 6 rewards only pledged 1-year planets and stars, and those still unpledged are automatically counted as rewards in the next period after pledging. If you need to unlock mission 6, please pledge as soon as possible during the node pledge period, missing the pledge period will not count towards the mission 6 reward.": "Task 6 rewards only pledged 1-year planets and stars, and those still unpledged are automatically counted as rewards in the next period after pledging. If you need to unlock mission 6, please pledge as soon as possible during the node pledge period, missing the pledge period will not count towards the mission 6 reward.",
   "Collection address.": "Collection address.",
@@ -501,5 +501,18 @@
   "The hash mining has been started on the BSC chain, please continue to pay attention.": "The hash mining has been started on the BSC chain, please continue to pay attention.",
 
   "Daoswap": "Daoswap",
-  "Innovation": "Innovation (not investment advice, the choice needs to be careful)"
+  "Innovation": "Innovation (not investment advice, the choice needs to be careful)",
+
+  "3, Genesis Node Task 8.": "3，创世节点任务8：",
+  "task8-intro": "当月邀请行星或恒星达到一定数量，额外奖励DST。",
+  "task8-1": "针对任务七已经结束，增加创世节点任务八阶梯式激励计划：",
+  "task8-2": "当月完成3个行星，解锁200DST",
+  "task8-3": "当月完成6个行星，解锁500DST",
+  "task8-4": "当月完成10个行星或者1个恒星，解锁1000DST",
+  "task8-5": "当月完成15个行星或1个恒星＋5个行星，解锁2000DST",
+  "task8-6": "当月完成20个行星或者2个恒星，解锁3000DST",
+  "task8-7": "当月完成30个行星或者3个恒星，解锁6000DST",
+  "task8-8": "每个月1-3号，统计上一个月，空投至节点负责人钱包地址",
+  "task8-9": "当月达成50个以上行星或者5个以上恒星，解锁13900DST",
+  "task8-10": "每个月1-3号，统计上一个月，空投至节点负责人钱包地址"
 }
