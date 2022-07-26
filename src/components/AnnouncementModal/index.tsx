@@ -7,6 +7,7 @@ import { RowBetween } from '../Row'
 import { AutoColumn } from '../Column'
 import { useAnnouncementInfoToggle, useAnnouncementInfoVisible } from '../../state/announcement/hooks'
 import { useTranslation } from 'react-i18next'
+import i18next from 'i18next'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -72,19 +73,7 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
             </Text>
           </Text>
           <Text fontWeight={500} fontSize={14} margin={10}>
-            {t('2, Phase 6 Node Pledge and Phase 3 Single Coin Pledge.')}
-            <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('It will be opened on February 26rd, 2022 at 11#58;00 am.')}
-            </Text>
-            <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('The sixth node pledge with a cap of 300,000 and an annualized rate of 112% (100% DST)')}
-            </Text>
-            <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('Phase 3 single coin pledge, cap 100,000, 58% annualized rate (30% DAO, 70% DST)')}
-            </Text>
-          </Text>
-          <Text fontWeight={500} fontSize={14} margin={10}>
-            {t('3, Task 6.')}
+            {t('2, Task 6.')}
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t(
                 'Starting with the 5th period of arithmetic and competitive mining, perform task 6#58; reward the number of new nodes within the team according to the team of node identity wallet address (except for existing Genesis and seed nodes.)'
@@ -104,10 +93,40 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
               <StyledLink href={'https://bsc.www.daoswap.cc/task-6'}>https://bsc.www.daoswap.cc/task-6</StyledLink>
             </Text>
           </Text>
-          <Text fontWeight={500} fontSize={14} margin={10}>
-            {t('4, Hask Mining#58;')}
+          <Text fontWeight={500} fontSize={14} margin={10} display={i18next.language === 'en' ? 'none' : 'normal'}>
+            {t('3, Genesis Node Task 8.')}
             <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('The hash mining has been started on the BSC chain, please continue to pay attention.')}
+              {t('task8-intro')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('task8-1')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('task8-2')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('task8-3')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('task8-4')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('task8-5')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('task8-6')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('task8-7')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('task8-8')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('task8-9')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('task8-10')}
             </Text>
           </Text>
         </AutoColumn>
