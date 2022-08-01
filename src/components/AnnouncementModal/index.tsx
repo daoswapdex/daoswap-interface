@@ -125,9 +125,6 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t('task8-9')}
             </Text>
-            <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('task8-10')}
-            </Text>
           </Text>
         </AutoColumn>
       </Section>
