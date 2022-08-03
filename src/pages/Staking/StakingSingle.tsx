@@ -48,9 +48,9 @@ export default function StakingSingle() {
   } = {
     [ChainId.BSC_MAINNET]: [
       {
-        period: 1,
+        period: 2,
         domain: 'staking.bsc.daoswap.cc',
-        name: 'StakingDAOPeriod1',
+        name: 'StakingDAOPeriod2',
         capAmount: 100000,
         apr: 38,
         aprDAO: 19,
@@ -58,6 +58,17 @@ export default function StakingSingle() {
         openStatus: true,
         display: 'normal'
         // display: inWhiteList.length > 0 ? 'normal' : 'none'
+      },
+      {
+        period: 1,
+        domain: 'staking.bsc.daoswap.cc',
+        name: 'StakingDAOPeriod1',
+        capAmount: 100000,
+        apr: 38,
+        aprDAO: 19,
+        aprDST: 19,
+        openStatus: false,
+        display: 'normal'
       }
     ],
     [ChainId.BSC_TESTNET]: [
