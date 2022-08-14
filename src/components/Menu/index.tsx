@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { BookOpen, Info, MessageCircle, PieChart, Link, Gift, Layers, DollarSign, Key } from 'react-feather'
+import { BookOpen, Info, MessageCircle, PieChart, Link, Gift, Layers, DollarSign } from 'react-feather'
 import styled from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
@@ -184,9 +184,18 @@ export default function Menu() {
             target="_self"
             style={{ display: isHecoNetwork ? 'none' : 'flex' }}
           >
+            <Gift size={14} />
+            {t('Airdrop')}
+          </MenuItemHref>
+          {/* <MenuItemHref
+            id="link"
+            href="https://activities.daoswap.cc"
+            target="_self"
+            style={{ display: isHecoNetwork ? 'none' : 'flex' }}
+          >
             <Key size={14} />
             {t('DAO2022')}
-          </MenuItemHref>
+          </MenuItemHref> */}
         </MenuFlyout>
       )}
     </StyledMenu>
