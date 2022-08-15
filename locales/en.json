@@ -460,7 +460,6 @@
   "For more information, please check#58;": "For more information, please check:",
 
   "1, Invitation release.": "1, Invitation release.",
-  "Will be implemented on January 23rd, 2022 at 11#58;00 am, after this time.": "Will be implemented on January 23rd, 2022 at 11:00 am, after this time.",
   "Directly invite planetary stellar, the inviting party gets DST according to 20% of the pledged LP value.": "Directly invite planetary stellar, the inviting party gets DST according to 20% of the pledged LP value.",
   "Directly inviting single coin DAO pledges, the pledged volume will be calculated according to 60% of the DAO pledged volume, and the inviting party will receive DST according to 20% of the pledged volume.": "Directly inviting single coin DAO pledges, the pledged volume will be calculated according to 60% of the DAO pledged volume, and the inviting party will receive DST according to 20% of the pledged volume.",
   "The DST reward of the invitation unlock will be transferred directly to the inviter's wallet address when the pledge party pledges.": "The DST reward of the invitation unlock will be transferred directly to the inviter's wallet address when the pledge party pledges.",
@@ -514,5 +513,14 @@
   "task8-6": "当月完成20个行星或者2个恒星，解锁3000DST",
   "task8-7": "当月完成30个行星或者3个恒星，解锁6000DST",
   "task8-8": "当月达成50个以上行星或者5个以上恒星，解锁13900DST",
-  "task8-9": "每个月1-3号，统计上一个月，空投至节点负责人钱包地址"
+  "task8-9": "每个月1-3号，统计上一个月，空投至节点负责人钱包地址",
+
+  "Directly invite planetary stellar, the inviting party gets DST and DAO according to 10% of the pledged LP value.": "Directly invite planetary stellar, the inviting party gets DST according to 10% of the pledged LP value.",
+  "Directly inviting single coin DAO pledges, the inviting party will receive DST according to 8% of the pledged volume.": "Directly inviting single coin DAO pledges, the inviting party will receive DST according to 8% of the pledged volume.",
+
+  "1, Invitation.": "1, Invitation.",
+  "Will be implemented on January 23rd, 2022 at 11#58;00 am, after this time.": "Will be implemented on January 23rd, 2022 at 11:00 am, after this time.",
+  "Directly invite others to pledge one-year USDT-DAO LPs (>= 100 LPs) , will be awarded 20% of the LP value (10% DAO, 10% DST).": "Directly invite others to pledge one-year USDT-DAO LPs (>= 100 LPs) , will be awarded 20% of the LP value (10% DAO, 10% DST).",
+  "Direct invitation to pledge single currency DAO (>=100 LPs), will be rewarded at 8% of the DAO pledge quantity in DST.": "Direct invitation to pledge single currency DAO (>=100 LPs), will be rewarded at 8% of the DAO pledge quantity in DST.",
+  "Rewards for invitations to unlock will be transferred directly to the inviter's wallet address at the time of pledge by the pledging party.": "Rewards for invitations to unlock will be transferred directly to the inviter's wallet address at the time of pledge by the pledging party."
 }
