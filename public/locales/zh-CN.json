@@ -445,7 +445,6 @@
   "For more information, please check#58;": "详情查看：",
 
   "1, Invitation release.": "1，邀请解锁：",
-  "Will be implemented on January 23rd, 2022 at 11#58;00 am, after this time.": "将于2022年1月23号上午11：00开始执行，在此时间后。",
   "Directly invite planetary stellar, the inviting party gets DST according to 20% of the pledged LP value.": "直接邀请行星恒星，邀请方按照质押LP值的20%获得DST。",
   "Directly inviting single coin DAO pledges, the pledged volume will be calculated according to 60% of the DAO pledged volume, and the inviting party will receive DST according to 20% of the pledged volume.": "直接邀请单币DAO质押，按照DAO质押数量的60%计算质押量，邀请方按照质押量的20%获得DST。",
   "The DST reward of the invitation unlock will be transferred directly to the inviter's wallet address when the pledge party pledges.": "邀请解锁的DST奖励将在质押方质押时直接转到邀请人钱包地址。",
@@ -499,5 +498,14 @@
   "task8-6": "当月完成20个行星或者2个恒星，解锁3000DST",
   "task8-7": "当月完成30个行星或者3个恒星，解锁6000DST",
   "task8-8": "当月达成50个以上行星或者5个以上恒星，解锁13900DST",
-  "task8-9": "每个月1-3号，统计上一个月，空投至节点负责人钱包地址"
+  "task8-9": "每个月1-3号，统计上一个月，空投至节点负责人钱包地址",
+
+  "Directly invite planetary stellar, the inviting party gets DST and DAO according to 10% of the pledged LP value.": "直接邀请行星恒星，邀请方按照质押LP值的10%获得DST和DAO。",
+  "Directly inviting single coin DAO pledges, the inviting party will receive DST according to 8% of the pledged volume.": "直接邀请单币DAO质押，邀请方按照质押量的8%获得DST。",
+
+  "1, Invitation.": "1，邀请解锁：",
+  "Will be implemented on January 23rd, 2022 at 11#58;00 am, after this time.": "将于2022年1月23号上午11：00开始执行，在此时间后。",
+  "Directly invite others to pledge one-year USDT-DAO LPs (>= 100 LPs) , will be awarded 20% of the LP value (10% DAO, 10% DST).": "直接邀请对方质押一年期USDT-DAO LP（100LP起），按照质押LP值的20%奖励（10%DAO，10%DST）。",
+  "Direct invitation to pledge single currency DAO (>=100 LPs), will be rewarded at 8% of the DAO pledge quantity in DST.": "直接邀请单币DAO质押（100起），按照DAO质押数量的8%奖励DST。",
+  "Rewards for invitations to unlock will be transferred directly to the inviter's wallet address at the time of pledge by the pledging party.": "邀请解锁的奖励将在质押方质押时直接转到邀请人钱包地址。"
 }

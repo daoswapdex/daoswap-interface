@@ -52,23 +52,23 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
         </RowBetween>
         <AutoColumn gap="auto" justify={'start'}>
           <Text fontWeight={500} fontSize={14} margin={10}>
-            {t('1, Invitation release.')}
+            {t('1, Invitation.')}
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t('Will be implemented on January 23rd, 2022 at 11#58;00 am, after this time.')}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t(
-                'Directly invite planetary stellar, the inviting party gets DST according to 20% of the pledged LP value.'
+                'Directly invite others to pledge one-year USDT-DAO LPs (>= 100 LPs) , will be awarded 20% of the LP value (10% DAO, 10% DST).'
               )}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t(
-                'Directly inviting single coin DAO pledges, the pledged volume will be calculated according to 60% of the DAO pledged volume, and the inviting party will receive DST according to 20% of the pledged volume.'
+                'Direct invitation to pledge single currency DAO (>=100 LPs), will be rewarded at 8% of the DAO pledge quantity in DST.'
               )}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t(
-                "The DST reward of the invitation unlock will be transferred directly to the inviter's wallet address when the pledge party pledges."
+                "Rewards for invitations to unlock will be transferred directly to the inviter's wallet address at the time of pledge by the pledging party."
               )}
             </Text>
           </Text>
