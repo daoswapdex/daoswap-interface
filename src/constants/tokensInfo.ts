@@ -541,14 +541,14 @@ export const ETC: TokenMap = {
     '0x3d6545b08693daE087E957cb1180ee38B9e3c25E',
     18,
     'ETC',
-    'Heco-Peg XRP Token'
+    'Binance-Peg Ethereum Classic'
   ),
   [ChainId.HECO_TESTNET]: new Token(
     ChainId.HECO_TESTNET,
     '0x3d6545b08693daE087E957cb1180ee38B9e3c25E',
     18,
     'ETC',
-    'Heco-Peg XRP Token'
+    'Binance-Peg Ethereum Classic'
   )
 }
 
@@ -599,6 +599,68 @@ export const ADA: TokenMap = {
     18,
     'ADA',
     'Binance-Peg Cardano Token'
+  )
+}
+
+export const BCH: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0x8fF795a6F4D97E7887C79beA79aba5cc76444aDf',
+    18,
+    'BCH',
+    'Binance-Peg Bitcoin Cash Token'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0x8fF795a6F4D97E7887C79beA79aba5cc76444aDf',
+    18,
+    'BCH',
+    'Binance-Peg Bitcoin Cash Token'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0x8fF795a6F4D97E7887C79beA79aba5cc76444aDf',
+    18,
+    'BCH',
+    'Binance-Peg Bitcoin Cash Token'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0x8fF795a6F4D97E7887C79beA79aba5cc76444aDf',
+    18,
+    'BCH',
+    'Binance-Peg Bitcoin Cash Token'
+  )
+}
+
+export const BUSD: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
+    18,
+    'BUSD',
+    'Binance-Peg BUSD Token'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
+    18,
+    'BUSD',
+    'Binance-Peg BUSD Token'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
+    18,
+    'BUSD',
+    'Binance-Peg BUSD Token'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
+    18,
+    'BUSD',
+    'Binance-Peg BUSD Token'
   )
 }
 
