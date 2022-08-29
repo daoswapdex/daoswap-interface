@@ -522,5 +522,9 @@
   "Will be implemented on January 23rd, 2022 at 11#58;00 am, after this time.": "Will be implemented on January 23rd, 2022 at 11:00 am, after this time.",
   "Directly invite others to pledge one-year USDT-DAO LPs (>= 100 LPs) , will be awarded 20% of the LP value (10% DAO, 10% DST).": "Directly invite others to pledge one-year USDT-DAO LPs (>= 100 LPs) , will be awarded 20% of the LP value (10% DAO, 10% DST).",
   "Direct invitation to pledge single currency DAO (>=100 LPs), will be rewarded at 8% of the DAO pledge quantity in DST.": "Direct invitation to pledge single currency DAO (>=100 LPs), will be rewarded at 8% of the DAO pledge quantity in DST.",
-  "Rewards for invitations to unlock will be transferred directly to the inviter's wallet address at the time of pledge by the pledging party.": "Rewards for invitations to unlock will be transferred directly to the inviter's wallet address at the time of pledge by the pledging party."
+  "Rewards for invitations to unlock will be transferred directly to the inviter's wallet address at the time of pledge by the pledging party.": "Rewards for invitations to unlock will be transferred directly to the inviter's wallet address at the time of pledge by the pledging party.",
+
+  "Kind tips": "温馨提示：",
+  "tips-1": "币市有风险，入市需谨慎。加密资产交易存在较高风险，请您遵守所在国家和地区相关规定，谨慎交易。",
+  "tips-2": "警惕各类诈骗套路，授权前看清授权内容，不要把资产转给未知地址。"
 }
