@@ -51,6 +51,23 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
         <AutoColumn gap="auto" justify={'start'}>
+          <Text
+            fontWeight={500}
+            fontSize={14}
+            margin={10}
+            color={'red'}
+            display={i18next.language === 'en' ? 'none' : 'normal'}
+          >
+            {t('Kind tips')}
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('tips-1')}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t('tips-2')}
+            </Text>
+          </Text>
+        </AutoColumn>
+        <AutoColumn gap="auto" justify={'start'}>
           <Text fontWeight={500} fontSize={14} margin={10}>
             {t('1, Invitation.')}
             <Text fontWeight={500} fontSize={14} margin={10}>
