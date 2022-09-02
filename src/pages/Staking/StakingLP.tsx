@@ -48,6 +48,18 @@ export default function StakingLP() {
   } = {
     [ChainId.BSC_MAINNET]: [
       {
+        period: 4,
+        domain: 'staking.bsc.daoswap.cc',
+        name: 'StakingLPPeriod4',
+        capAmount: 100000,
+        apr: 72,
+        aprDAO: 0,
+        aprDST: 72,
+        openStatus: true,
+        display: 'normal'
+        // display: inWhiteList.length > 0 ? 'normal' : 'none'
+      },
+      {
         period: 3,
         domain: 'staking.bsc.daoswap.cc',
         name: 'StakingLPPeriod3',
@@ -55,9 +67,8 @@ export default function StakingLP() {
         apr: 82,
         aprDAO: 0,
         aprDST: 82,
-        openStatus: true,
+        openStatus: false,
         display: 'normal'
-        // display: inWhiteList.length > 0 ? 'normal' : 'none'
       },
       {
         period: 2,
