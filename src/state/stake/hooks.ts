@@ -80,12 +80,12 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   // const inWhiteList = whiteList.filter(item => item === account)
   // if (inWhiteList.length <= 0) {
   //   STAKING_REWARDS_INFO[ChainId.BSC_MAINNET] = STAKING_REWARDS_INFO[ChainId.BSC_MAINNET]?.filter(
-  //     stakingInfo => stakingInfo.period !== 5
+  //     stakingInfo => stakingInfo.period !== 7
   //     // stakingInfo => stakingInfo.stakingRewardAddress !== '0x5Fb9D05027E29B36F46E805d31E34cE84CE055cd'
   //   )
-  //   STAKING_REWARDS_INFO[ChainId.HECO_MAINNET] = STAKING_REWARDS_INFO[ChainId.HECO_MAINNET]?.filter(
-  //     stakingInfo => stakingInfo.period !== 9
-  //   )
+  //   // STAKING_REWARDS_INFO[ChainId.HECO_MAINNET] = STAKING_REWARDS_INFO[ChainId.HECO_MAINNET]?.filter(
+  //   //   stakingInfo => stakingInfo.period !== 9
+  //   // )
   // }
 
   const info = useMemo(
