@@ -118,6 +118,18 @@ export default function StakingLP() {
     [ChainId.BSC_TESTNET]: [],
     [ChainId.HECO_MAINNET]: [
       {
+        period: 'node',
+        domain: 'staking.heco.daoswap.cc',
+        name: 'StakingLPPeriod8HECO',
+        capAmount: 2100000,
+        apr: 62,
+        aprDAO: 0,
+        aprDST: 62,
+        openStatus: true,
+        display: 'normal'
+        // display: inWhiteList.length > 0 ? 'normal' : 'none'
+      },
+      {
         period: 7,
         domain: 'staking.heco.daoswap.cc',
         name: 'StakingLPPeriod7',
@@ -127,7 +139,6 @@ export default function StakingLP() {
         aprDST: 60,
         openStatus: true,
         display: 'normal'
-        // display: inWhiteList.length > 0 ? 'normal' : 'none'
       },
       {
         period: 6,
