@@ -371,6 +371,7 @@
   "StakingDAOPeriod1": "Phase 1: 365 days",
   "StakingDAOPeriod2": "Phase 2: 365 days",
   "StakingDAOPeriod3": "Phase 3: 365 days",
+  "StakingDAOPeriod4": "Phase 4: 365 days",
 
   "Bridge": "Bridge",
   "changeLanguage": "ChangeLanguage",
