@@ -664,6 +664,37 @@ export const BUSD: TokenMap = {
   )
 }
 
+export const MATIC: TokenMap = {
+  [ChainId.BSC_MAINNET]: new Token(
+    ChainId.BSC_MAINNET,
+    '0xCC42724C6683B7E57334c4E856f4c9965ED682bD',
+    18,
+    'MATIC',
+    'Matic Token'
+  ),
+  [ChainId.BSC_TESTNET]: new Token(
+    ChainId.BSC_TESTNET,
+    '0xCC42724C6683B7E57334c4E856f4c9965ED682bD',
+    18,
+    'MATIC',
+    'Matic Token'
+  ),
+  [ChainId.HECO_MAINNET]: new Token(
+    ChainId.HECO_MAINNET,
+    '0xCC42724C6683B7E57334c4E856f4c9965ED682bD',
+    18,
+    'MATIC',
+    'Matic Token'
+  ),
+  [ChainId.HECO_TESTNET]: new Token(
+    ChainId.HECO_TESTNET,
+    '0xCC42724C6683B7E57334c4E856f4c9965ED682bD',
+    18,
+    'MATIC',
+    'Matic Token'
+  )
+}
+
 // 测试
 export const DTC1: TokenMap = {
   [ChainId.BSC_MAINNET]: new Token(
