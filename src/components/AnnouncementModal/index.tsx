@@ -18,25 +18,25 @@ const Section = styled(AutoColumn)`
   padding: 24px;
 `
 
-const StyledLink = styled.a`
-  text-decoration: none;
-  cursor: pointer;
-  color: ${({ theme }) => theme.primary1};
-  font-weight: 500;
+// const StyledLink = styled.a`
+//   text-decoration: none;
+//   cursor: pointer;
+//   color: ${({ theme }) => theme.primary1};
+//   font-weight: 500;
 
-  :hover {
-    text-decoration: underline;
-  }
+//   :hover {
+//     text-decoration: underline;
+//   }
 
-  :focus {
-    outline: none;
-    text-decoration: underline;
-  }
+//   :focus {
+//     outline: none;
+//     text-decoration: underline;
+//   }
 
-  :active {
-    text-decoration: none;
-  }
-`
+//   :active {
+//     text-decoration: none;
+//   }
+// `
 
 function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
   const { t } = useTranslation()
@@ -69,27 +69,34 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
         </AutoColumn>
         <AutoColumn gap="auto" justify={'start'}>
           <Text fontWeight={500} fontSize={14} margin={10}>
-            {t('1, Invitation.')}
-            <Text fontWeight={500} fontSize={14} margin={10}>
-              {t('Will be implemented on January 23rd, 2022 at 11#58;00 am, after this time.')}
-            </Text>
+            {t('Heco node notice')}
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t(
-                'Directly invite others to pledge one-year USDT-DAO LPs (>= 100 LPs) , will be awarded 20% of the LP value (10% DAO, 10% DST).'
+                '1. The planets/stars staked in the first 6 periods can still be staked for an additional year with the original wallet address and LP amount. This will maintain the original node identity. Those who do not stake will not be able to continue holding the node identity. This benefit is not available for those who staked after the first 6 periods.'
               )}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t(
-                'Direct invitation to pledge single currency DAO (>=100 LPs), will be rewarded at 8% of the DAO pledge quantity in DST.'
+                '2. On January 1, 2023, at 11#58;00 AM, the original nodes will expire and the re-staking function will be available for 5 months. The final deadline is May 31, 2023.'
               )}
             </Text>
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t(
-                "Rewards for invitations to unlock will be transferred directly to the inviter's wallet address at the time of pledge by the pledging party."
+                '3. The profit rate is synchronized with BSC, and the staking amount is the total of the first 6 periods. Excessive staking is not allowed.'
+              )}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t(
+                '4. After expiration, LP tokens must be retrieved from the previous staking page and re-staked in the new period. LP tokens that have been released multiple times can be staked multiple times.'
+              )}
+            </Text>
+            <Text fontWeight={500} fontSize={14} margin={10}>
+              {t(
+                '5. After staking is opened, node identities will be synchronized with BSC once a week. Therefore, it will take about a week to see the node identity after staking.'
               )}
             </Text>
           </Text>
-          <Text fontWeight={500} fontSize={14} margin={10}>
+          {/* <Text fontWeight={500} fontSize={14} margin={10}>
             {t('2, Task 6.')}
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t(
@@ -142,7 +149,7 @@ function ConfirmationContent({ onDismiss }: { onDismiss: () => void }) {
             <Text fontWeight={500} fontSize={14} margin={10}>
               {t('task8-9')}
             </Text>
-          </Text>
+          </Text> */}
         </AutoColumn>
       </Section>
     </Wrapper>

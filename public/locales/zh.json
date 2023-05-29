@@ -513,5 +513,12 @@
 
   "Kind tips": "温馨提示：",
   "tips-1": "币市有风险，入市需谨慎。加密资产交易存在较高风险，请您遵守所在国家和地区相关规定，谨慎交易。",
-  "tips-2": "警惕各类诈骗套路，授权前看清授权内容，不要把资产转给未知地址。"
+  "tips-2": "警惕各类诈骗套路，授权前看清授权内容，不要把资产转给未知地址。",
+
+  "Heco node notice": "关于HECO节点质押到期的详细如下：",
+  "1. The planets/stars staked in the first 6 periods can still be staked for an additional year with the original wallet address and LP amount. This will maintain the original node identity. Those who do not stake will not be able to continue holding the node identity. This benefit is not available for those who staked after the first 6 periods.": "1. 前6期质押的行星/恒星，仍可通过原钱包地址按原LP数量质押1年，并可获得原节点身份，如未质押将不能继续获得节点身份，非前6期质押的不享受此待遇；",
+  "2. On January 1, 2023, at 11#58;00 AM, the original nodes will expire and the re-staking function will be available for 5 months. The final deadline is May 31, 2023.": "2. 2023年1月1号上午11点正式开启原节点到期重新质押功能（5个月之内完成质押），最后截至日期为2023年5月31日；",
+  "3. The profit rate is synchronized with BSC, and the staking amount is the total of the first 6 periods. Excessive staking is not allowed.": "3.收益率与BSC同步，可质押数量为前6期累计总额，不可超额质押；",
+  "4. After expiration, LP tokens must be retrieved from the previous staking page and re-staked in the new period. LP tokens that have been released multiple times can be staked multiple times.": "4.到期后需自行从之前质押页面取出LP并重新质押到新周期，多次释放完的可分多次质押；",
+  "5. After staking is opened, node identities will be synchronized with BSC once a week. Therefore, it will take about a week to see the node identity after staking.": "5.开放质押后每星期同步一次节点身份至BSC，所以质押后需要稍等一周后才能看到节点身份。"
 }
