@@ -158,7 +158,7 @@ export default function StakingLP() {
         apr: 62,
         aprDAO: 0,
         aprDST: 62,
-        openStatus: true,
+        openStatus: false,
         display: 'normal'
         // display: inWhiteList.length > 0 ? 'normal' : 'none'
       },
