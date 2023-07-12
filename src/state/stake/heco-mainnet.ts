@@ -11,47 +11,47 @@ interface StakingRewardsInfo {
   stakingRewardAddress: string
 }
 
-const Period11: StakingRewardsInfo[] = [
+const Period12: StakingRewardsInfo[] = [
   {
-    period: 11,
-    stakingGenesis: 1680577200,
+    period: 12,
+    stakingGenesis: 1689130800,
     rewardsDurationDays: 84,
     rewardsTokenSymbol: 'DAO',
     tokens: [USDT[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
-    stakingRewardAddress: '0x4FD4C62B1036c1b6cD447b41f3621559aF774700'
+    stakingRewardAddress: '0x072CF8bcb7Bad105cDc1bB764ECB9d85Ad99b694'
   },
   {
-    period: 11,
-    stakingGenesis: 1680577200,
+    period: 12,
+    stakingGenesis: 1689130800,
     rewardsDurationDays: 84,
     rewardsTokenSymbol: 'DAO',
     tokens: [USDT[ChainId.HECO_MAINNET], ETH[ChainId.HECO_MAINNET]],
-    stakingRewardAddress: '0x6f3e5ca32a373AfE5bb61a28Dd4336F8889F4091'
+    stakingRewardAddress: '0x487729E6bad354C6127C7c989A9BB89aB9523E1c'
   },
   {
-    period: 11,
-    stakingGenesis: 1680577200,
+    period: 12,
+    stakingGenesis: 1689130800,
     rewardsDurationDays: 84,
     rewardsTokenSymbol: 'DAO',
     tokens: [USDT[ChainId.HECO_MAINNET], FIL[ChainId.HECO_MAINNET]],
-    stakingRewardAddress: '0xEE9CfBC1D88d31c67352E431e30aF1769d65D0Bf'
+    stakingRewardAddress: '0x3D5518Ce6C8c4A0415dAf47ce9063F2d56824208'
   },
   {
-    period: 11,
-    stakingGenesis: 1680577200,
+    period: 12,
+    stakingGenesis: 1689130800,
     rewardsDurationDays: 84,
     rewardsTokenSymbol: 'DAO',
     tokens: [ETH[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
-    stakingRewardAddress: '0x0742c84a4dAF58f3F19bf08c41618e0A01d9F040'
+    stakingRewardAddress: '0x6DB04c8Dbc58D0DD158A46Fa05b4f6D490C56D3C'
   },
   {
-    period: 11,
-    stakingGenesis: 1680577200,
+    period: 12,
+    stakingGenesis: 1689130800,
     rewardsDurationDays: 84,
     rewardsTokenSymbol: 'DAO',
     tokens: [FIL[ChainId.HECO_MAINNET], DAO[ChainId.HECO_MAINNET]],
-    stakingRewardAddress: '0x302Ca231318beC95993eA194051580966029D779'
+    stakingRewardAddress: '0x35d5e7dB01138fbc650C1aa3545b12a27Ba7F245'
   }
 ]
 
-export const stakingRewardsInfo: StakingRewardsInfo[] = Period11
+export const stakingRewardsInfo: StakingRewardsInfo[] = Period12

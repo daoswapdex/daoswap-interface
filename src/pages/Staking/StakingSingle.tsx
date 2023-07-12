@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { TYPE } from '../../theme'
@@ -8,7 +8,10 @@ import { useTranslation } from 'react-i18next'
 import PoolCard from '../../components/staking/PoolCardForSingle'
 import { NodeTabs } from '../../components/NavigationTabs/node'
 import { useActiveWeb3React } from '../../hooks'
-import { ChainId } from '@daoswapdex/daoswap-dex-sdk'
+import { ChainId, JSBI } from '@daoswapdex/daoswap-dex-sdk'
+import { DAO } from '../../constants/tokensInfo'
+import { useSingleContractMultipleData, useSingleCallResult } from '../../state/multicall/hooks'
+import { useTokenContract, useStakingLPContract } from '../../hooks/useContract'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -29,6 +32,56 @@ const PoolSection = styled.div`
   justify-self: center;
 `
 
+interface StakingInfo {
+  period: number | string
+  domain: string
+  name: string
+  address: string
+  capAmount: number
+  apr: number
+  aprDAO: number
+  aprDST: number
+  openStatus: boolean
+  display: string
+}
+
+function GetBalanceByVestingToken(contractAddress: string, currentChainId: ChainId): JSBI {
+  const { account } = useActiveWeb3React()
+  // Node Info Get
+  const accountArg = useMemo(() => [account ?? undefined], [account])
+
+  const STAKING_LP_CONTRACT = useStakingLPContract(contractAddress, true)
+  const tokenVestingAddressList = useSingleCallResult(
+    STAKING_LP_CONTRACT,
+    'getTokenVestingAddressByAccount',
+    accountArg
+  )?.result?.[0]
+
+  const tokenVestingAddressListArray: string[] = []
+  if (tokenVestingAddressList && tokenVestingAddressList.length > 0) {
+    tokenVestingAddressList.map((tokenVesting: string) => {
+      if (tokenVesting) {
+        tokenVestingAddressListArray.push(tokenVesting)
+      }
+      return tokenVesting
+    })
+  }
+  let userBalanceOfStakingLP = JSBI.BigInt(0)
+  const DAO_TOKEN_CONTRACT = useTokenContract(DAO[currentChainId].address, true)
+  const tokenVestingBalances = useSingleContractMultipleData(
+    DAO_TOKEN_CONTRACT,
+    'balanceOf',
+    tokenVestingAddressListArray.map(address => [address])
+  )
+  if (tokenVestingBalances.length > 0) {
+    tokenVestingBalances.map(balance => {
+      userBalanceOfStakingLP = JSBI.add(userBalanceOfStakingLP, JSBI.BigInt(balance?.result?.[0] ?? 0))
+      return balance
+    })
+  }
+  return userBalanceOfStakingLP
+}
+
 export default function StakingSingle() {
   const { t } = useTranslation()
   const { chainId } = useActiveWeb3React()
@@ -44,13 +97,14 @@ export default function StakingSingle() {
   // const inWhiteList = whiteList.filter(item => item.toLowerCase() === account?.toLowerCase())
 
   const stakingList: {
-    [chainId in ChainId]?: any[]
+    [chainId in ChainId]?: StakingInfo[]
   } = {
     [ChainId.BSC_MAINNET]: [
       {
         period: 5,
         domain: 'staking.bsc.daoswap.cc',
         name: 'StakingDAOPeriod5',
+        address: '0x4FE37c43Bc334aceE88622179F917CC5B8b70A6a',
         capAmount: 100000,
         apr: 38,
         aprDAO: 19,
@@ -63,6 +117,7 @@ export default function StakingSingle() {
         period: 4,
         domain: 'staking.bsc.daoswap.cc',
         name: 'StakingDAOPeriod4',
+        address: '0xa4B2d2a1aFcbf5aeF36Eed24D1455b3fF0FF0baE',
         capAmount: 100000,
         apr: 38,
         aprDAO: 19,
@@ -74,6 +129,7 @@ export default function StakingSingle() {
         period: 3,
         domain: 'staking.bsc.daoswap.cc',
         name: 'StakingDAOPeriod3',
+        address: '0x5E554D8A076D10305bcB70F542b5B0D9551cB504',
         capAmount: 100000,
         apr: 38,
         aprDAO: 19,
@@ -85,6 +141,7 @@ export default function StakingSingle() {
         period: 2,
         domain: 'staking.bsc.daoswap.cc',
         name: 'StakingDAOPeriod2',
+        address: '0xd3F385210325830E4eb7C7f309FE63680461c539',
         capAmount: 100000,
         apr: 38,
         aprDAO: 19,
@@ -96,6 +153,7 @@ export default function StakingSingle() {
         period: 1,
         domain: 'staking.bsc.daoswap.cc',
         name: 'StakingDAOPeriod1',
+        address: '0x79d0330D83e3283cA50a0fC93377BDFBA031a916',
         capAmount: 100000,
         apr: 38,
         aprDAO: 19,
@@ -109,6 +167,7 @@ export default function StakingSingle() {
         period: 1,
         domain: 'test.staking.bsc.daoswap.cc',
         name: 'StakingDAOPeriod1',
+        address: '0xf246606f83DFd8B221dad80A3304a02e07c500e3',
         capAmount: 500,
         apr: 48,
         aprDAO: 24,
@@ -123,6 +182,7 @@ export default function StakingSingle() {
         period: 3,
         domain: 'staking.heco.daoswap.cc',
         name: 'StakingDAOPeriod3',
+        address: '0xa322bA6c0B8ce79F8EfC3CEc3EB827FD0ED7D84c',
         capAmount: 100000,
         apr: 58,
         aprDAO: 17.4,
@@ -135,6 +195,7 @@ export default function StakingSingle() {
         period: 2,
         domain: 'staking.heco.daoswap.cc',
         name: 'StakingDAOPeriod2',
+        address: '0xE84d6F2b07ECA5BA4274e4370CF03F74cE98f49e',
         capAmount: 100000,
         apr: 58,
         aprDAO: 29,
@@ -146,6 +207,7 @@ export default function StakingSingle() {
         period: 1,
         domain: 'staking.heco.daoswap.cc',
         name: 'StakingDAOPeriod1',
+        address: '0x0FFCa2C64F62bC384C583EEa2f6D11D8DDe5c6Ed',
         capAmount: 100000,
         apr: 60,
         aprDAO: 30,
@@ -158,6 +220,14 @@ export default function StakingSingle() {
   }
 
   const currentChainId = chainId ? chainId : ChainId.BSC_MAINNET
+
+  const stakingInfoList: StakingInfo[] = []
+  stakingList[currentChainId]?.map((item: StakingInfo) => {
+    const balance = GetBalanceByVestingToken(item.address, currentChainId)
+    if (JSBI.greaterThan(balance, JSBI.BigInt(0)) || item.openStatus) {
+      stakingInfoList.push(item)
+    }
+  })
 
   return (
     <PageWrapper gap="lg" justify="center">
@@ -184,9 +254,9 @@ export default function StakingSingle() {
 
       <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
         <PoolSection>
-          {stakingList[currentChainId]?.length === 0
+          {stakingInfoList?.length === 0
             ? t('No active staking')
-            : stakingList[currentChainId]?.map(stakingInfo => {
+            : stakingInfoList?.map(stakingInfo => {
                 return <PoolCard key={stakingInfo.period} stakingInfo={stakingInfo} />
               })}
         </PoolSection>
