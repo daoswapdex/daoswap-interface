@@ -12,6 +12,7 @@ import { ChainId, JSBI } from '@daoswapdex/daoswap-dex-sdk'
 import { USDT_DAO_PAIR_ADDRESS } from '../../constants/nodeInfo'
 import { useSingleContractMultipleData, useSingleCallResult } from '../../state/multicall/hooks'
 import { useTokenContract, useStakingLPContract } from '../../hooks/useContract'
+import { DAO, DST } from 'constants/tokensInfo'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -66,6 +67,7 @@ function GetBalanceByVestingToken(contractAddress: string, currentChainId: Chain
       return tokenVesting
     })
   }
+  // get LP token balance
   let userBalanceOfStakingLP = JSBI.BigInt(0)
   const USDT_DAO_TOKEN_CONTRACT = useTokenContract(USDT_DAO_PAIR_ADDRESS[currentChainId], true)
   const tokenVestingBalances = useSingleContractMultipleData(
@@ -79,7 +81,36 @@ function GetBalanceByVestingToken(contractAddress: string, currentChainId: Chain
       return balance
     })
   }
-  return userBalanceOfStakingLP
+  // get DAO token balance
+  let userBalanceOfDAO = JSBI.BigInt(0)
+  const DAO_TOKEN_CONTRACT = useTokenContract(DAO[currentChainId].address, true)
+  const tokenVestingBalancesOfDAO = useSingleContractMultipleData(
+    DAO_TOKEN_CONTRACT,
+    'balanceOf',
+    tokenVestingAddressListArray.map(address => [address])
+  )
+  if (tokenVestingBalancesOfDAO.length > 0) {
+    tokenVestingBalancesOfDAO.map(balance => {
+      userBalanceOfDAO = JSBI.add(userBalanceOfDAO, JSBI.BigInt(balance?.result?.[0] ?? 0))
+      return balance
+    })
+  }
+  // get DST token balance
+  let userBalanceOfDST = JSBI.BigInt(0)
+  const DST_TOKEN_CONTRACT = useTokenContract(DST[currentChainId].address, true)
+  const tokenVestingBalancesOfDST = useSingleContractMultipleData(
+    DST_TOKEN_CONTRACT,
+    'balanceOf',
+    tokenVestingAddressListArray.map(address => [address])
+  )
+  if (tokenVestingBalancesOfDST.length > 0) {
+    tokenVestingBalancesOfDST.map(balance => {
+      userBalanceOfDST = JSBI.add(userBalanceOfDST, JSBI.BigInt(balance?.result?.[0] ?? 0))
+      return balance
+    })
+  }
+
+  return JSBI.add(JSBI.add(userBalanceOfStakingLP, userBalanceOfDAO), userBalanceOfDST)
 }
 
 export default function StakingLP() {
